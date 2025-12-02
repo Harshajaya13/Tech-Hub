@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <title>Student Adviser</title>
+    <link href="clarity.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Your Journey Starts Here</h1>
+    <p class="subtitle">Let's find the perfect starting point for your coding career.</p>
+
+ 
+
+     <div class="main-container">
+        <h1>Your Journey Starts Here</h1>
+        <p class="subtitle">Answer a few questions to find the coding path that truly fits you.</p>
+
+        <div class="quiz-container">
+
+            <!-- Step 1: Foundational Interest -->
+            <div id="step-1" class="question-block">
+                <h2 class="question-text">Let's start with a metaphor. If a product were a restaurant, where would you want to work?</h2>
+                <div class="options-container">
+                    <label class="option">
+                        <input type="radio" name="interest-base" value="frontend">
+                        <span>In the dining room, designing the menu, arranging the decor, and ensuring every customer has a delightful experience. (The part users see and interact with)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="interest-base" value="backend">
+                        <span>In the kitchen, managing the inventory, creating the recipes, and ensuring the complex operations run smoothly and efficiently. (The 'behind-the-scenes' logic)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="interest-base" value="mobile">
+                        <span>I'm not thinking about a restaurant. I want to build a specialized food truck—a self-contained experience people can access anywhere. (A mobile app)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Frontend Path -->
+            <div id="path-frontend" class="question-block" hidden>
+                <h2 class="question-text">You chose the user's experience. What part of that excites you more?</h2>
+                <div class="options-container">
+                    <label class="option">
+                        <input type="radio" name="interest-frontend" value="uiux">
+                        <span>The 'Aha!' moment when a user finds something intuitive and beautiful. I enjoy crafting the visual look and feel.</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="interest-frontend" value="frontend-dev">
+                        <span>The magic of making that beautiful design come to life. I enjoy writing the code that makes things interactive and responsive.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Backend Path -->
+            <div id="path-backend" class="question-block" hidden>
+                <h2 class="question-text">You chose the core logic. What kind of system do you want to build?</h2>
+                <div class="options-container">
+                    <label class="option">
+                        <input type="radio" name="interest-backend" value="enterprise">
+                        <span>A fortress. I want to build large-scale, secure, and reliable systems for established industries like finance or healthcare.</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="interest-backend" value="modern-backend">
+                        <span>A race car. I want to build fast, flexible, and scalable services for modern startups and web applications.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Mobile Path -->
+            <div id="path-mobile" class="question-block" hidden>
+                <h2 class="question-text">You chose to build an app. Who is your primary audience?</h2>
+                <div class="options-container">
+                    <label class="option">
+                        <input type="radio" name="interest-mobile" value="ios">
+                        <span>Those who appreciate a polished, premium experience within the Apple ecosystem. (iOS)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="interest-mobile" value="android">
+                        <span>The widest possible global audience on a huge variety of devices. (Android)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="interest-mobile" value="cross-platform">
+                        <span>Everyone. I want to write code once and have it serve both audiences efficiently. (Cross-Platform)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- The Final Result Block -->
+            <div id="result-container" class="question-block result-box" hidden>
+                <h2 id="result-title"></h2>
+                <div id="result-description"></div>
+                <div id="result-roadmap"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="clarity.js"></script>
+</body>
+</html>

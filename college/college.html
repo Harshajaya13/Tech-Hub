@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo-Search AI</title>
+    <link rel="stylesheet" href="college.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="search-focus-container">
+            <h1 class="header-title">Find What's Nearby</h1>
+            <p class="header-subtitle">Our AI-powered search engine</p>
+
+            <div class="location-inputs">
+                <input type="text" id="city-input" placeholder="City Name (e.g., Visakhapatnam)">
+                <input type="text" id="street-input" placeholder="Street or Area Name">
+                <input type="text" id="distance-input" placeholder="Surrounding Distance (e.g., 5km)">
+            </div>
+
+            <div class="main-prompt-area">
+                <textarea id="user-prompt" placeholder="What are you looking for? (e.g., 'colleges with MPC courses')..."></textarea>
+                <button id="search-button">Ask CollegeBuddy</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="results-container" style="display:none;">
+            <h2>Locate With CollegeBuddy :</h2>
+            <div class="map-container">
+                <iframe
+                    id="map-iframe"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    loading="lazy"
+                    allowfullscreen
+                    src="https://maps.google.com/maps?q=Visakhapatnam&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                </iframe>
+            </div>
+            
+            <h2>Results</h2>
+            <div id="loading-spinner" class="spinner"></div>
+            <div id="response-area"></div>
+        </div>
+    </div>
+
+    <script src="college.js"></script>
+</body>
+</html>

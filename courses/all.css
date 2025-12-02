@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.image{
+    width:30rem;
+    margin: 0 auto;
+}
+img{
+    width:100%;
+    margin-top: 1rem;
+}
+
+
+h2{
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+.paragraph {
+    margin-top: 2rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+p{
+     display: inline-block;
+    background-color: #ffffff;
+    padding: 25px 40px;
+    text-decoration: none;
+    border-radius: 12px; 
+    border: 2px solid #d2dadf;
+    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.5); 
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-size: 1.2rem; 
+    min-width: 160px; 
+}
+
+p:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(41, 128, 185, 0.7); 
+}   
+
+/* --- Styles for the Top Video Section --- */
+
+/* Main container for the video and title */
+.top-video-container {
+    width: 90%;
+    max-width: 960px;
+    margin: 2rem auto; /* Centers the block and adds space above/below */
+    padding: 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* Title styling */
+.video-title {
+    font-size: 2rem;
+    color: #172B4D;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.video-thumbnail-link {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    max-width: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-decoration: none;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+/* --- Simple Video Icon Overlay --- */
+
+.video-container {
+    width: 350px; /* Or any width you prefer */
+   margin: 0 auto;
+}
+
+/* Makes the link the reference for positioning the icon */
+.video-container a {
+    position: relative;
+    display: block; /* Allows the icon to be positioned correctly */
+    border-radius: 12px;
+    overflow: hidden; /* Ensures the corners of the image are rounded */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Styles your image */
+.video-container img {
+    width: 100%;
+    display: block; /* Removes any extra space below the image */
+}
+
+/* This creates the play icon */
+.video-container a::after {
+    content: '▶'; /* The play symbol */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    pointer-events: none; /* Prevents the icon from interfering with the link */
+    transition: color 0.2s;
+}
+
+/* A small hover effect */
+.video-container a:hover::after {
+    color: #fff;
+}
