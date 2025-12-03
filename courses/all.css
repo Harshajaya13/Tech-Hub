@@ -1,144 +1,154 @@
+/* --- Global Reset & Typography --- */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
     margin: 0;
     padding: 20px;
     color: #333;
+    line-height: 1.6;
 }
 
-.image{
-    width:30rem;
-    margin: 0 auto;
-}
-img{
-    width:100%;
-    margin-top: 1rem;
-}
-
-
-h2{
+/* --- Header Styling --- */
+h2 {
     color: #2c3e50;
     text-align: center;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
-    margin-top: 40px;
-}
-
-.paragraph {
-    margin-top: 2rem;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
+    font-size: 2.5rem;
     margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-p{
-     display: inline-block;
-    background-color: #ffffff;
-    padding: 25px 40px;
-    text-decoration: none;
-    border-radius: 12px; 
-    border: 2px solid #d2dadf;
-    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.5); 
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    font-size: 1.2rem; 
-    min-width: 160px; 
-}
-
-p:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(41, 128, 185, 0.7); 
-}   
-
-/* --- Styles for the Top Video Section --- */
-
-/* Main container for the video and title */
-.top-video-container {
-    width: 90%;
-    max-width: 960px;
-    margin: 2rem auto; /* Centers the block and adds space above/below */
-    padding: 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    text-align: center;
-}
-
-/* Title styling */
-.video-title {
-    font-size: 2rem;
-    color: #172B4D;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-}
-
-.video-thumbnail-link {
-    display: inline-block;
     position: relative;
-    cursor: pointer;
-    max-width: 600px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    text-decoration: none;
+    padding-bottom: 15px;
 }
 
-.video-thumbnail {
-    width: 100%;
-    height: auto;
+h2::after {
+    content: '';
     display: block;
+    width: 60px;
+    height: 4px;
+    background: #3498db;
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
-.play-button-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 5rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-    pointer-events: none;
-}
-
-/* --- Simple Video Icon Overlay --- */
-
+/* --- Video Section --- */
 .video-container {
-    width: 350px; /* Or any width you prefer */
-   margin: 0 auto;
-}
-
-/* Makes the link the reference for positioning the icon */
-.video-container a {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 40px auto; /* Centers the video block */
     position: relative;
-    display: block; /* Allows the icon to be positioned correctly */
     border-radius: 12px;
-    overflow: hidden; /* Ensures the corners of the image are rounded */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    overflow: hidden; /* Clips the image corners */
+    background: #000;
 }
 
-/* Styles your image */
+.video-container a {
+    display: block;
+    position: relative;
+    text-decoration: none;
+}
+
 .video-container img {
     width: 100%;
-    display: block; /* Removes any extra space below the image */
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.3s, transform 0.3s;
 }
 
-/* This creates the play icon */
+/* Play Button Overlay */
 .video-container a::after {
-    content: '▶'; /* The play symbol */
+    content: '▶';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 5rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    pointer-events: none; /* Prevents the icon from interfering with the link */
-    transition: color 0.2s;
+    font-size: 4rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid white;
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s, background 0.2s;
 }
 
-/* A small hover effect */
+/* Hover Effects for Video */
+.video-container a:hover img {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
 .video-container a:hover::after {
-    color: #fff;
+    background: #e74c3c; /* Red play button on hover */
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* --- Content Layout (The Magic Part) --- */
+
+/* Turn the wrapper into a grid container */
+.paragraph {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent; /* Remove the old white box */
+    border: none;
+    box-shadow: none;
+}
+
+/* Style every paragraph as a "Card" */
+.paragraph p {
+    background-color: #ffffff;
+    padding: 25px;
+    margin: 0; /* Flex gap handles spacing */
+    border-radius: 12px;
+    border-top: 4px solid #3498db; /* Adds a nice color accent */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    
+    /* Layout logic: */
+    flex: 1 1 300px; /* Cards will be at least 300px wide, but grow to fill space */
+    max-width: 600px; /* Prevents cards from getting too wide on huge screens */
+    
+    /* Text styling */
+    font-size: 1.05rem;
+    color: #555;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for the cards */
+.paragraph p:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(44, 62, 80, 0.15);
+    z-index: 1; /* Brings card to front */
+}
+
+/* --- Specific Targetting (Optional Hack) --- */
+/* Since we can't change HTML, we can make the first two paragraphs (Intro) full width */
+.paragraph p:nth-child(1),
+.paragraph p:nth-child(2) {
+    flex: 1 1 100%; /* Forces them to take full width */
+    max-width: 900px;
+    background-color: #fff;
+    border-top: 4px solid #2ecc71; /* Green accent for intro */
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .paragraph p {
+        flex: 1 1 100%; /* Full width on mobile */
+    }
 }
