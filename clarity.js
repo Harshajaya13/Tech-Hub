@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } 
         // SCENARIO C: We are on Question 1 -> Go back to Hub
         else if (currentStep === 1) {
-            window.location.href = 'clarity.html';
+            window.location.href = 'start.html';
         }
     };
 
