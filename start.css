@@ -1,0 +1,133 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-color: #0a0a0a;
+    --card-bg: #161616;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    
+    /* Identity Colors */
+    --frontend-color: #00f2ff; /* Cyber Cyan */
+    --backend-color: #ff5500;  /* Database Orange */
+    --mobile-color: #bd00ff;   /* App Purple */
+    --zero-color: #ffffff;     /* Blank Slate White */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Main Container --- */
+.clarity-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.clarity-container h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #fff, #666);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.clarity-container p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- The Grid --- */
+.card-grid {
+    display: grid;
+    /* This creates a responsive grid: 
+       It fits as many 280px cards as possible, then wraps to next line */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+/* --- The Card Base --- */
+.path-card {
+    background: var(--card-bg);
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    text-decoration: none; /* Removes link underline */
+    color: var(--text-main);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.path-card h2 {
+    font-size: 1.8rem;
+    margin: 0 0 1rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.path-card p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Hover Effects & Interactions --- */
+
+/* General Hover Movement */
+.path-card:hover {
+    transform: translateY(-8px); /* Lifts the card up */
+}
+
+/* 1. FRONTEND STYLES */
+.path-card.front:hover {
+    border-color: var(--frontend-color);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+}
+.path-card.front h2 { color: var(--frontend-color); }
+
+/* 2. BACKEND STYLES */
+.path-card.back:hover {
+    border-color: var(--backend-color);
+    box-shadow: 0 0 30px rgba(255, 85, 0, 0.15);
+}
+.path-card.back h2 { color: var(--backend-color); }
+
+/* 3. MOBILE STYLES */
+.path-card.mobile:hover {
+    border-color: var(--mobile-color);
+    box-shadow: 0 0 30px rgba(189, 0, 255, 0.15);
+}
+.path-card.mobile h2 { color: var(--mobile-color); }
+
+/* 4. "NO CLUE" STYLES */
+.path-card.zero {
+    border-style: dashed;
+    opacity: 0.8;
+}
+.path-card.zero:hover {
+    border-color: var(--zero-color);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 600px) {
+    .clarity-container h1 { font-size: 2rem; }
+    .card-grid { grid-template-columns: 1fr; } /* Stack cards vertically on phone */
+}

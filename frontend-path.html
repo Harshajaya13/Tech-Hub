@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frontend Reality Check</title>
+    <link rel="stylesheet" href="clarity.css">
+</head>
+<body>
+
+    <div class="gauntlet-wrapper">
+        
+        <div class="progress-container">
+            <span id="step-counter">Phase 1 of 3</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="card-stack">
+
+           <div class="question-card active" data-step="1">
+    <h2>1. The Blank Canvas</h2>
+    <p>You have an idea for a startup. You sit at your computer. What is the <strong>very first thing</strong> you want to do?</p>
+    
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>Draw how it looks</h3>
+                <p>Open Figma. Draw boxes, pick colors, choose fonts.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>Build how it works</h3>
+                <p>Open VS Code. Write HTML structure and CSS layout.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="2">
+    <h2>2. The Responsive Nightmare</h2>
+    <p>You spent 5 hours making the site look perfect on your laptop. You open it on a phone, and everything is overlapping and broken.</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>Panic / Frustration</h3>
+                <p>"Why can't it just shrink automatically? This is annoying."</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>The Puzzle</h3>
+                <p>"Time to write Media Queries and fix the Flexbox wrapping."</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="3">
+    <h2>3. The "Mockup" vs "Reality"</h2>
+    <p>You need to display a list of 100 users on the screen.</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>Copy & Paste</h3>
+                <p>I'll just duplicate the user card 10 times in the editor so it looks full.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>The Loop</h3>
+                <p>I need to write a JavaScript `.map()` function to generate them dynamically.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="4">
+    <h2>4. The Invisible Box</h2>
+    <p>You need to center a `div` exactly in the middle of the screen. It refuses to move.</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>The Hack</h3>
+                <p>I'll just use `margin-left: 500px` until it looks centered.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>The System</h3>
+                <p>I'll debug the `display: flex` and `justify-content` properties.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="5">
+    <h2>5. The Safari Bug</h2>
+    <p>The site works perfectly on Chrome. Your client calls: "It's broken on my iPhone (Safari)."</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>Denial</h3>
+                <p>"Tell them to download Chrome. I'm not fixing that."</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>The Deep Dive</h3>
+                <p>I'll research "WebKit vendor prefixes" and specific Safari CSS bugs.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="6">
+    <h2>6. Learning a New Tool</h2>
+    <p>You need to use a new animation library. The documentation is 50 pages of text.</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>The Shortcut</h3>
+                <p>Search YouTube for "5 minute tutorial" to copy someone else's code.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>The Source</h3>
+                <p>Read the official Docs to understand the API and parameters.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="7">
+    <h2>7. Maintenance</h2>
+    <p>You finished the website. Now the client wants to change the color of *every* button from Blue to Green.</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>The Slog</h3>
+                <p>Go through every page and manually change the color.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>The Architecture</h3>
+                <p>I should have used CSS Variables (`--main-color`). I'll refactor the code so it never happens again.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="8">
+    <h2>8. The 2:00 AM Test</h2>
+    <p>You have been stuck on one error for 4 hours. You are tired. Your eyes hurt.</p>
+
+    <div class="options-stack">
+        <div class="choice-card choice-design" onclick="handleChoice('fail')">
+            <div class="choice-content">
+                <h3>Quit</h3>
+                <p>Turn off the computer. "I'm not smart enough for this."</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+
+        <div class="choice-card choice-code" onclick="handleChoice('next')">
+            <div class="choice-content">
+                <h3>Obsess</h3>
+                <p>I cannot sleep until I find out *why* this isn't working.</p>
+            </div>
+            <div class="arrow-icon">→</div>
+        </div>
+    </div>
+</div>
+
+<div class="question-card" data-step="9">
+    <h2 style="color: var(--accent-green)">Validation Complete.</h2>
+    <p>You survived the Gauntlet. You didn't choose the "Visual" easy path. You chose the "System" path.</p>
+    <p>You have the mindset of a <strong>Frontend Engineer</strong>. Now you need the skills.</p>
+    
+    <div class="options-stack">
+        <button class="choice-card choice-code" style="justify-content: center; border-color: var(--accent-green);" onclick="window.location.href='roadmap-frontend.html'">
+            <h3 style="color: var(--accent-green)">🚀 Initiate Training Protocol</h3>
+        </button>
+    </div>
+</div>
+
+<div class="question-card" id="fail-card">
+    <div class="pivot-content">
+        <h2 style="color: var(--accent-gold)">Wait... A Discovery!</h2>
+        <p>
+            You consistently chose the <strong>Visual/Creative</strong> option over the Logic/System option.
+        </p>
+        <p>
+            <strong>This is good news.</strong> You are likely a <strong style="color:white">UI/UX Designer</strong>, not a Developer.
+            Designers define <em>what</em> to build. Developers figure out <em>how</em> to build it.
+        </p>
+        
+        <div class="options-stack">
+            <div class="choice-card choice-design" onclick="window.location.href='clarity.html'">
+                <div class="choice-content">
+                    <h3 style="color: var(--accent-gold)">🔄 Explore the Designer Path</h3>
+                </div>
+                <div class="arrow-icon">→</div>
+            </div>
+            
+            <div class="choice-card" onclick="prevStep()">
+                <div class="choice-content">
+                    <h3>Let me re-think (Go Back)</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+
+        <div class="nav-controls">
+            <button class="btn-back" id="back-btn" onclick="prevStep()">← Previous</button>
+        </div>
+
+    </div>
+
+    <script src="clarity.js"></script>
+</body>
+</html>

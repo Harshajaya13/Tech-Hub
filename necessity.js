@@ -25,6 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); // Wait for fade out
     });
 
-    // --- YOUR EXISTING QUIZ LOGIC BELOW THIS LINE ---
-    // (Paste the Step History / ShowStep logic here)
+   
 });
