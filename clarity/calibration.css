@@ -1,0 +1,98 @@
+/* Calibration Container */
+.calibration-container {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 15px;
+    padding: 3rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.calibration-header h2 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.input-group {
+    margin-bottom: 2.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    color: #00d2ff;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+/* Styled Select Box */
+select {
+    width: 100%;
+    padding: 1rem;
+    background: #0f172a;
+    border: 2px solid #334155;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+select:focus {
+    border-color: #00d2ff;
+    outline: none;
+}
+
+/* Range Slider */
+input[type=range] {
+    width: 100%;
+    cursor: pointer;
+    accent-color: #00d2ff;
+}
+.range-value {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+/* Hints */
+.input-hint {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Radio Cards (The Cool Selection) */
+.radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.radio-card {
+    cursor: pointer;
+    position: relative;
+}
+.radio-card input {
+    display: none; /* Hide actual radio button */
+}
+.radio-content {
+    display: block;
+    padding: 1rem;
+    background: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 8px;
+    color: #cbd5e1;
+    transition: all 0.3s;
+}
+.radio-card input:checked + .radio-content {
+    border-color: #00d2ff;
+    background: rgba(0, 210, 255, 0.1);
+    color: #fff;
+}
+.radio-content small {
+    display: block;
+    color: #64748b;
+    margin-top: 5px;
+}
