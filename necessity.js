@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     
     // --- MANIFESTO LOGIC ---
     const startBtn = document.getElementById('start-quiz-btn');
@@ -26,4 +26,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
    
-});
+}); */
