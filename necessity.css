@@ -10,7 +10,7 @@
 
 /* Hero Section */
 .hero-section {
-    height: 60vh; /* Full screen height */
+    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,41 +44,133 @@
     60% {transform: translateY(-5px);}
 }
 
-/* Content Blocks */
+/* --- NEW: TL;DR Box Styling --- */
+.tldr-section {
+    margin-bottom: 60px;
+    animation: fadeIn 1.5s ease;
+}
+
+.tldr-box {
+    border: 2px solid #ef4444; /* Urgency Red */
+    background-color: #fef2f2;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.15);
+}
+
+.tldr-box h3 {
+    margin-top: 0;
+    color: #b91c1c;
+    font-size: 1.2rem;
+}
+
+.tldr-box ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tldr-box li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.tldr-note {
+    font-size: 0.85rem;
+    color: #7f1d1d;
+    margin-top: 15px;
+    opacity: 0.8;
+}
+
+/* --- UPDATED: Card & Accordion Styling --- */
 .content-block {
-    margin-bottom: 80px;
+    margin-bottom: 40px; /* Reduced margin because they are smaller now */
 }
 
 .card {
-    padding: 40px;
     border-radius: 16px;
     background: white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     border-left: 5px solid #ccc;
+    /* Removed padding here, moved to details/content */
+    overflow: hidden; 
 }
 
-.card h2 { margin-top: 0; color: #1e293b; }
+/* Accordion Specifics */
+details {
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 
-/* Specific Card Styling */
-.warning-card { border-left-color: #f59e0b; } /* Orange */
-.metaphor-card { border-left-color: #3b82f6; } /* Blue */
-.time-card { border-left-color: #ef4444; } /* Red */
-.ai-card { border-left-color: #10b981; } /* Green */
+details:hover {
+    background-color: #f8fafc;
+}
+
+summary {
+    list-style: none; /* Hides default triangle */
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+summary::-webkit-details-marker {
+    display: none; /* Hides default triangle in Chrome/Safari */
+}
+
+summary h2 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.4rem;
+    display: inline-block;
+}
+
+summary .icon {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate icon when open */
+details[open] summary .icon {
+    transform: rotate(180deg);
+}
+
+.card-content {
+    padding: 0 30px 30px 30px;
+    border-top: 1px solid #f1f5f9;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Specific Card Styling (Colors) */
+.warning-card { border-left-color: #f59e0b; } 
+.metaphor-card { border-left-color: #3b82f6; } 
+.time-card { border-left-color: #ef4444; } 
+.ai-card { border-left-color: #10b981; }
+.construction-card { border-left-color: #8b5cf6; } /* Purple for Golden Rule */
 
 .highlight-text {
     font-size: 1.3rem;
     color: #1e40af;
     margin: 20px 0;
     font-style: italic;
+    border-left: 3px solid #1e40af;
+    padding-left: 15px;
 }
 
 /* Final Truth Section */
 .final-truth {
-    background: #1e293b; /* Dark background for impact */
+    background: #1e293b; 
     color: #f8fafc;
     padding: 60px;
     border-radius: 20px;
     text-align: center;
+    margin-top: 80px;
 }
 
 .final-truth h2 { color: #fff; font-size: 2.5rem; margin-bottom: 40px; }
@@ -93,6 +185,7 @@
 
 @media (max-width: 768px) {
     .truth-grid { grid-template-columns: 1fr; }
+    .hero-section h1 { font-size: 2rem; }
 }
 
 .truth-item h3 { color: #60a5fa; font-size: 1.4rem; }
@@ -120,5 +213,4 @@
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.7);
 }
 
-/* Utility to hide/show */
 .hidden { display: none !important; }
