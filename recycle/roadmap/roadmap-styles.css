@@ -1,0 +1,116 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    line-height: 1.7;
+    margin: 0;
+    padding: 20px;
+}
+
+.roadmap-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+}
+
+header {
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #343a40;
+    font-size: 2.5em;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #6c757d;
+}
+
+h2 {
+    color: #495057;
+    font-size: 1.8em;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #495057;
+    font-size: 1.3em;
+}
+
+.callout-box {
+    background-color: #e7f5ff;
+    border: 1px solid #90cfff;
+    border-left: 5px solid #007bff;
+    padding: 20px;
+    margin: 25px 0;
+    border-radius: 8px;
+}
+
+.callout-box p {
+    margin-top: 0;
+}
+
+.callout-box ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.action-plan {
+    margin-top: 40px;
+}
+
+.step {
+    background-color: #fdfdfe;
+    border: 1px solid #e9ecef;
+    padding: 25px;
+    margin-top: 20px;
+    border-radius: 8px;
+    transition: box-shadow 0.2s;
+}
+
+.step:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.step ul {
+    list-style-type: '✓  ';
+    padding-left: 20px;
+}
+
+.next-step {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #dee2e6;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.next-steps-info {
+    margin-top: 20px;
+    color: #6c757d;
+    font-size: 0.9em;
+}

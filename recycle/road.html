@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Hero's Journey | Roadmap</title>
+    <link rel="stylesheet" href="roadmap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="roadmap-header">
+        <h1>Programming Path</h1>
+        <p>Level 2: Apprentice Developer</p>
+        <div class="progress-bar">
+            <div class="fill" style="width: 35%;"></div>
+        </div>
+    </header>
+
+    <main class="skill-tree-container">
+
+        <div class="tree-node completed" onclick="window.location.href='html2.html'">
+            <div class="node-icon">✅</div>
+            <div class="node-content">
+                <h3>The Pillars</h3>
+                <p>HTML, CSS & JavaScript</p>
+                <div class="mini-tags">
+                    <span>html2.html</span> <span>css2.html</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tree-node active">
+            <div class="node-icon">⚔️</div>
+            <div class="node-content">
+                <h3>Front-End Specialization</h3>
+                <p>Choose your weapon: React, Angular, or Vue.</p>
+                
+                <div class="branch-options">
+                    <a href="react2.html" class="chip">React.js</a>
+                    <a href="tailwind2.html" class="chip">Tailwind</a>
+                    <a href="nextjs2.html" class="chip locked">Next.js 🔒</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tree-node locked">
+            <div class="node-icon">🛡️</div>
+            <div class="node-content">
+                <h3>The Backend Realm</h3>
+                <p>Server-side logic. Unlock Front-End to access.</p>
+                <div class="branch-options blur">
+                    <span class="chip">Node.js</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">Java</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tree-node locked">
+            <div class="node-icon">💾</div>
+            <div class="node-content">
+                <h3>Data Vaults</h3>
+                <p>SQL & NoSQL Storage.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="ai-companion-wrapper"></div>
+    <script src="roadmap.js"></script>
+
+</body>
+</html>

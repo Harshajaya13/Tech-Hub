@@ -1,0 +1,104 @@
+/* --- APPLE SYSTEM VARIABLES --- */
+:root {
+    --bg-color: #F5F5F7;          /* Apple Light Grey */
+    --card-bg: #FFFFFF;           /* Pure White */
+    --text-primary: #1D1D1F;      /* Soft Black */
+    --text-secondary: #86868B;    /* Muted Grey */
+    --accent-blue: #0071E3;       /* Apple Blue */
+    --accent-hover: #0077ED;      
+    --shadow-soft: 0 4px 12px rgba(0,0,0,0.05);
+    --shadow-hover: 0 12px 24px rgba(0, 113, 227, 0.15);
+    --ease: cubic-bezier(0.25, 1, 0.5, 1); /* Smooth 'Spring' animation */
+}
+
+/* --- BASE SETTINGS --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 60px 20px;
+    -webkit-font-smoothing: antialiased; /* Crisp text */
+}
+
+/* --- MAIN CONTAINER --- */
+.mac-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* --- TYPOGRAPHY --- */
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 60px;
+    letter-spacing: -0.02em; /* Tight Apple tracking */
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 40px 0 20px 0;
+    text-align: left; /* Section headers look better left-aligned in lists */
+    padding-left: 10px;
+}
+
+/* --- THE CATEGORY GRID --- */
+.category {
+    /* Removed the white box background. 
+       In Mac design, the content *is* the box. */
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 50px;
+}
+
+.links-container {
+    display: grid;
+    /* Responsive Grid: Cards auto-fit, minimum 160px wide */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+/* --- THE TILES (Links) --- */
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    
+    padding: 30px 20px;
+    text-decoration: none;
+    border-radius: 20px; /* The "Squircle" */
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    
+    /* Subtle Border & Shadow */
+    border: 1px solid rgba(0,0,0,0.02);
+    box-shadow: var(--shadow-soft);
+    
+    transition: all 0.3s var(--ease);
+}
+
+/* --- HOVER EFFECTS --- */
+a:hover {
+    transform: translateY(-5px) scale(1.02);
+    background-color: var(--accent-blue);
+    color: #FFFFFF;
+    box-shadow: var(--shadow-hover);
+    border-color: transparent;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    .links-container { grid-template-columns: repeat(2, 1fr); } /* 2 columns on mobile */
+    a { padding: 25px 15px; font-size: 1rem; }
+}

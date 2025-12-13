@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Sprint (1 Month)</title>
+    <link rel="stylesheet" href="necessity.css">
+    <link rel="stylesheet" href="gatekeeper.css">
+</head>
+<body>
+
+    <div id="disclaimer-modal" class="modal-overlay">
+        <div class="modal-content warning-mode">
+            <button class="close-x" onclick="goBackToTimeline()">✕</button>
+            <h2>⚠️ Reality Check: Sprint Mode</h2>
+            <p>
+                You chose <strong>1 Month</strong>. We will skip "Theory". <br>
+                We focus only on "Survival". <br>
+                <strong>Are you ready to run?</strong>
+            </p>
+            <button class="accept-btn" onclick="closeModal()">I Understand. Let's Sprint.</button>
+        </div>
+    </div>
+
+    <div id="main-content" class="blur-filter">
+        
+        <header class="roadmap-header">
+            <h1>Frontend: The 30-Day Sprint</h1>
+        </header>
+
+        <div class="tech-nav">
+            <button class="tech-btn active" onclick="switchTech('html')">HTML</button>
+            <span class="arrow">→</span>
+            <button class="tech-btn" onclick="switchTech('css')">CSS</button>
+            <span class="arrow">→</span>
+            <button class="tech-btn" onclick="switchTech('js')">Javascript</button>
+            <span class="divider">|</span>
+            <button class="tech-btn framework-btn" onclick="switchTech('react')">React</button>
+        </div>
+
+        <div id="content-container">
+
+            <div id="html-section" class="tech-section active-section">
+                
+                <div class="section-header">
+                    <h2>HTML: The Bedrock</h2>
+                    <p>It's not about memorizing tags. It's about giving meaning to empty space.</p>
+                </div>
+
+                <div class="slider-container">
+                    
+                    <div class="project-slide active-slide" id="html-slide-1">
+                        <div class="slide-badge">Phase 0: The Honest Truth</div>
+                        
+                        <h3>Silence the Noise</h3>
+                        
+                        <p class="intro-text">
+                            Right now, source code looks like cryptic words and angle brackets (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>). 
+                            It feels like an ancient language you have to memorize.
+                        </p>
+
+                        <div class="card-grid-layout">
+                            <div class="grid-box">
+                                <strong>🎯 The Goal</strong>
+                                <p>Stop trying to learn "Programming". Start learning "Structure". Think of HTML as an outline for an essay, not a math problem.</p>
+                            </div>
+                            <div class="grid-box">
+                                <strong>🏆 The Gain</strong>
+                                <p>You realize that by learning just 5 tags, you can build a document readable by billions of people.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-slide" id="html-slide-2">
+                        <div class="slide-badge">Phase 1: The Setup</div>
+                        
+                        <h3>Your First Creative Sandbox</h3>
+                        
+                        <p class="intro-text">
+                            Your journey begins with the simplest tool imaginable: a blank text file named <code>index.html</code>. 
+                            No fancy software. Just you and the file.
+                        </p>
+
+                        <div class="action-box">
+                            <strong>⚔️ The Challenge</strong>
+                            <p>Create a file named <code>index.html</code>. Write <code>Hello World</code> inside. Drag it into your browser.</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <strong>💡 The Gain</strong>
+                            <p>The Feedback Loop. You write, you save, you see. It's the most direct connection between your brain and the screen.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-slide" id="html-slide-3">
+                        <div class="slide-badge">Phase 2: The Core Words</div>
+                        
+                        <h3>Subject, Verb, Object</h3>
+                        
+                        <p class="intro-text">
+                            You don't need 100 words to speak. You need the essentials. 
+                            We are ignoring the obscure tags. We focus on the skeleton.
+                        </p>
+
+                        <div class="card-grid-layout">
+                            <div class="grid-box">
+                                <strong>🎯 The Goal</strong>
+                                <p>Master the Holy Trinity: Headings (<code>h1</code>), Paragraphs (<code>p</code>), and Links (<code>a</code>).</p>
+                            </div>
+                            <div class="grid-box">
+                                <strong>⚔️ The Challenge</strong>
+                                <p>Write a page about "My Favorite Hobby". Use one Main Heading, one sub-heading, and a link to Wikipedia.</p>
+                            </div>
+                        </div>
+
+                        <p class="small-text gain-text"><strong>Result:</strong> You can now structure information so anyone can understand it.</p>
+                    </div>
+
+                    <div class="project-slide" id="html-slide-4">
+                        <div class="slide-badge">Phase 3: The Detective</div>
+                        
+                        <h3>Reading the Matrix</h3>
+                        
+                        <p class="intro-text">
+                            Websites aren't magic images. They are text files. 
+                            Now that you know the alphabet, go read a book.
+                        </p>
+
+                        <div class="action-box">
+                            <strong>⚔️ The Challenge</strong>
+                            <p>Go to a Wikipedia page. Right-click > <strong>"View Page Source"</strong>. Find the <code>&lt;h1&gt;</code> tag hiding in the mess.</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <strong>💡 The Gain</strong>
+                            <p>You stop seeing "Web Pages" and start seeing "Structured Documents". The fear of the code disappears.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-slide" id="html-slide-5">
+                        <div class="slide-badge project-badge">FINAL BOSS: THE CREATOR</div>
+                        
+                        <h3>The "Recipe" Project</h3>
+                        
+                        <p class="intro-text">
+                            Transition from Student to Creator. Structure real data. 
+                            A recipe is perfect: It has a Name, Ingredients, and Steps.
+                        </p>
+
+                        <div class="card-grid-layout">
+                            <div class="grid-box">
+                                <strong>⚔️ The Challenge</strong>
+                                <p>
+                                    1. <code>h1</code> for Recipe Name.<br>
+                                    2. <code>img</code> of the dish.<br>
+                                    3. <code>ul</code> (Unordered List) for Ingredients.<br>
+                                    4. <code>ol</code> (Ordered List) for Instructions.
+                                </p>
+                            </div>
+                            <div class="grid-box">
+                                <strong>🏆 The Gain</strong>
+                                <p>You built a logical, real-world document. This is the foundation of every Amazon product page and blog post in existence.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slider-controls">
+                        <button class="nav-btn prev-btn" onclick="changeSlide('html', -1)" disabled>← Prev</button>
+                        <div class="dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <button class="nav-btn next-btn" onclick="changeSlide('html', 1)">Next Step →</button>
+                    </div>
+
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <script src="gatekeeper.js"></script>
+</body>
+</html>
