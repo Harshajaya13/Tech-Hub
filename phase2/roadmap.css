@@ -1,0 +1,143 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc; /* Lighter background */
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+}
+
+.roadmap-header {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.roadmap-header h1 { margin-bottom: 0.5rem; }
+
+/* Progress Bar */
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    margin: 1rem auto;
+    overflow: hidden;
+}
+.fill {
+    height: 100%;
+    background: #2563eb; /* Trusting Blue */
+}
+
+/* --- THE SKILL TREE --- */
+.skill-tree-container {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 3rem; /* Space for the line */
+    padding-bottom: 3rem;
+}
+
+/* The Vertical Line Connecting Nodes */
+.skill-tree-container::before {
+    content: '';
+    position: absolute;
+    left: 48px; /* Aligned with icon center */
+    top: 20px;
+    bottom: 0;
+    width: 4px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+/* Node Container */
+.tree-node {
+    display: flex;
+    position: relative;
+    margin-bottom: 3rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.tree-node:hover {
+    transform: translateX(5px);
+}
+
+/* The Icon (Circle) */
+.node-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    border: 4px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1; /* Sit on top of line */
+    flex-shrink: 0;
+}
+
+/* Content Box */
+.node-content {
+    margin-left: 1.5rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    border-left: 5px solid transparent;
+}
+
+/* --- STATUS STYLES --- */
+
+/* Completed */
+.tree-node.completed .node-icon {
+    border-color: #10b981; /* Green */
+    background: #ecfdf5;
+}
+.tree-node.completed .node-content {
+    border-left-color: #10b981;
+}
+
+/* Active (Current) */
+.tree-node.active .node-icon {
+    border-color: #2563eb; /* Blue */
+    background: #eff6ff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2); /* Glow */
+}
+.tree-node.active .node-content {
+    border-left-color: #2563eb;
+}
+
+/* Locked */
+.tree-node.locked {
+    opacity: 0.6;
+    pointer-events: none; /* No clicking */
+    filter: grayscale(1);
+}
+
+/* Chips for links inside cards */
+.branch-options {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 5px 12px;
+    background: #f1f5f9;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #475569;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    transition: background 0.2s;
+}
+
+.chip:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}

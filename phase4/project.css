@@ -1,0 +1,61 @@
+/* Base Styles */
+body { font-family: 'Inter', sans-serif; background: #f4f7f6; display: flex; justify-content: center; }
+.project-container { width: 100%; max-width: 800px; background: white; margin: 2rem; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+
+/* --- THE SPAM SHIELD BUTTONS --- */
+.action-buttons { display: flex; flex-direction: column; align-items: flex-end; position: relative; }
+
+.btn-linkedin {
+    padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px;
+}
+
+/* Locked State */
+.locked-btn {
+    background-color: #e5e7eb; color: #9ca3af; cursor: not-allowed;
+}
+
+/* Unlocked State */
+.unlocked-btn {
+    background-color: #0077b5; color: white; cursor: pointer; animation: pulse 1s;
+}
+
+.unlock-hint {
+    font-size: 0.75rem; color: #ef4444; margin-top: 5px; display: block;
+}
+
+/* --- THREADED COMMENTS --- */
+.discussion-section { margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
+.discussion-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+
+.comment-box textarea { width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Inter', sans-serif; }
+.btn-post { background: #1f2937; color: white; border: none; padding: 8px 16px; margin-top: 10px; border-radius: 6px; cursor: pointer; }
+
+/* Comment Item */
+.comment-item { margin-bottom: 1.5rem; }
+.comment-main { display: flex; gap: 1rem; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: #ddd; }
+.comment-content { background: #f9fafb; padding: 10px 15px; border-radius: 12px; flex: 1; }
+.username { font-weight: bold; font-size: 0.9rem; margin-bottom: 4px; display: block; }
+.timestamp { font-size: 0.75rem; color: #888; font-weight: normal; margin-left: 5px; }
+
+/* Formatting for Code inside comments */
+code { background: #1f2937; color: #4ade80; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; }
+
+/* Action Bar (Reply/Upvote) */
+.comment-actions { margin-top: 5px; display: flex; gap: 15px; font-size: 0.8rem; color: #666; }
+.action-link { cursor: pointer; }
+.action-link:hover { color: #2563eb; }
+
+/* --- NESTED REPLIES (The Hierarchy) --- */
+.replies-container {
+    margin-left: 50px; /* Indent */
+    margin-top: 10px;
+    border-left: 2px solid #e5e7eb; /* Visual Guide Line */
+    padding-left: 15px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
