@@ -1,59 +1,175 @@
+/* --- THE PREMIUM "SALTED" MAC STYLE --- */
+:root {
+    /* Background isn't just grey anymore. It has light. */
+    --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #f0f2f5 100%);
+    
+    /* Card Glass Effect */
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(255, 255, 255, 0.6);
+    --card-backdrop: blur(20px);
+    
+    /* Colors */
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --apple-blue: #0071e3;
+    --apple-blue-gradient: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
+    
+    /* Premium Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-glow: 0 20px 40px rgba(0, 113, 227, 0.35);
+    
+    /* Physics */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* Very bouncy/juicy */
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
     margin: 0;
-    padding: 20px;
-    color: #333;
+    padding: 80px 20px 120px 20px;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-    color: #2c3e50;
+/* --- WRAPPER (Centered & Balanced) --- */
+.mac-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
     text-align: center;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
-    margin-top: 40px;
 }
 
+/* --- HERO TEXT WITH "SHEEN" --- */
+h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 80px;
+    letter-spacing: -0.04em;
+    
+    /* Gradient Text Fill */
+    background: linear-gradient(135deg, #1d1d1f 30%, #5e5ce6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Drop shadow for depth */
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.05));
+    
+    animation: fadeSlideDown 1s var(--ease-spring);
+}
+
+/* --- SECTION HEADERS --- */
 h2 {
-    color: #34495e;
-    margin-bottom: 15px;
-    text-align: center; 
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 60px 0 25px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 8px 16px;
+    border-radius: 20px; /* Pill shape */
 }
 
+/* --- LAYOUT CONTAINERS --- */
 .category {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    animation: fadeSlideUp 0.8s ease-out backwards;
 }
+
+/* Staggered entry animation */
+.category:nth-child(2) { animation-delay: 0.1s; }
+.category:nth-child(3) { animation-delay: 0.2s; }
+.category:nth-child(4) { animation-delay: 0.3s; }
+.category:nth-child(5) { animation-delay: 0.4s; }
+.category:nth-child(6) { animation-delay: 0.5s; }
 
 .links-container {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px; 
-    justify-content: center; /
+    gap: 18px;
 }
 
+/* --- THE "SALTED" CARDS --- */
 a {
-    display: inline-block;
-    background-color: #3498db;
-    color: #ffffff;
-    padding: 25px 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Glass Effect */
+    background: var(--card-bg);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
+    
+    /* Sizing */
+    min-width: 150px;
+    padding: 24px 32px;
+    border-radius: 24px; /* Super smooth corners */
+    
+    /* Typography */
     text-decoration: none;
-    border-radius: 12px; 
-    font-weight: bold;
-    text-align: center;
-    border: 2px solid #2980b9;
-    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.5); 
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    font-size: 1.2rem; 
-    min-width: 160px; 
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    
+    /* Border & Shadow */
+    border: 1px solid white;
+    box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(255,255,255,0.5);
+    
+    transition: all 0.4s var(--ease-spring);
+    z-index: 1;
+    overflow: hidden;
 }
 
+/* --- THE JUICY HOVER EFFECT --- */
 a:hover {
-    background-color: #2980b9;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(41, 128, 185, 0.7); 
+    /* Lift and Scale */
+    transform: translateY(-8px) scale(1.05);
+    
+    /* Change background to Vibrant Blue Gradient */
+    background: var(--apple-blue-gradient);
+    
+    /* Text becomes white */
+    color: white;
+    border-color: transparent;
+    
+    /* Add the Glow */
+    box-shadow: var(--shadow-glow);
+}
+
+/* Add a subtle shine animation on hover */
+a::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+    z-index: 2;
+}
+
+a:hover::after {
+    transform: translateX(100%);
+}
+
+/* --- MOBILE --- */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    .links-container { display: grid; grid-template-columns: 1fr 1fr; }
+    a { padding: 20px; min-width: auto; font-size: 1rem; }
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+@keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(40px); scale: 0.95; }
+    to { opacity: 1; transform: translateY(0); scale: 1; }
 }

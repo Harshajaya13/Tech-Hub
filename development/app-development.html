@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Reality Check</title>
+    <link rel="stylesheet" href="development.css">
+</head>
+<body>
+
+    <div class="gauntlet-wrapper">
+        
+        <div class="progress-container">
+            <span id="step-counter">Level 1 of 8</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="card-stack">
+
+            <div class="question-card active" data-step="1">
+                <h2>1. The First Step</h2>
+                <p>You have a billion-dollar app idea. You open your laptop to start building.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>The Prototype</h3>
+                            <p>Open a design tool (Figma) to make clickable screens immediately.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>The Environment</h3>
+                            <p>Spend 3 hours installing Android Studio, XCode, and Simulators.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="2">
+                <h2>2. The "Notch" Problem</h2>
+                <p>You placed your logo at the top. On the iPhone 15, the camera notch covers it.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>Move it down</h3>
+                            <p>I'll just add `padding-top: 50px` so it looks good on this phone.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>Safe Area View</h3>
+                            <p>Wrap the UI in a `SafeAreaProvider` to handle notches on all devices.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="3">
+                <h2>3. The Back Button</h2>
+                <p>The user navigates 5 screens deep, swipes "back", and the app crashes.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>Disable Swipe</h3>
+                            <p>I'll hide the back button and force them to use the menu.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>The Stack</h3>
+                            <p>Debug the Navigation Stack and component lifecycle.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="4">
+                <h2>4. The Tunnel</h2>
+                <p>Your user goes into a subway tunnel and loses internet. The app shows a white screen.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>The Error Message</h3>
+                            <p>Just show a "Please connect to WiFi" popup.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>Local Storage</h3>
+                            <p>Implement local caching (SQLite/Realm) to persist data offline.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="5">
+                <h2>5. The Camera</h2>
+                <p>You want to let users upload a profile picture. You click the button, nothing happens.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>Blame the Phone</h3>
+                            <p>"My phone is buggy. It works on the simulator."</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>The Handshake</h3>
+                            <p>Edit `Info.plist` / `Manifest` to request Camera Permissions.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="6">
+                <h2>6. The Keyboard Trap</h2>
+                <p>The user types their password, but the keyboard pops up and covers the "Submit" button.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>The UI Fix</h3>
+                            <p>I'll move the button to the top of the screen permanently.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>Keyboard Avoidance</h3>
+                            <p>Implement a `KeyboardAvoidingView` listener.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="7">
+                <h2>7. The Rejection</h2>
+                <p>You submit to the App Store. They reject it for "Guideline 4.2".</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>Give Up</h3>
+                            <p>"Apple is impossible. I'll just make it a website."</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>Compliance</h3>
+                            <p>Read guidelines, fix metadata, increment build version, resubmit.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="8">
+                <h2>8. The Legacy User</h2>
+                <p>You updated the API, but 20% of users haven't updated the app. It crashes for them.</p>
+                <div class="options-stack">
+                    <div class="choice-card choice-design" onclick="handleChoice('fail')">
+                        <div class="choice-content">
+                            <h3>Ignore Them</h3>
+                            <p>If they don't update, that's their fault.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                    <div class="choice-card choice-code" onclick="handleChoice('next')">
+                        <div class="choice-content">
+                            <h3>Backward Compatibility</h3>
+                            <p>Version the API or build a "Force Update" modal check.</p>
+                        </div>
+                        <div class="arrow-icon">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card" data-step="9" id="success-card" style="border-color: var(--accent-purple);">
+                <h2 style="color: var(--accent-purple); text-align: center;">Validation Complete.</h2>
+                <p style="text-align: center;">You crossed the Platform Frontier. You didn’t choose the "Browser-only" lane.</p>
+                <p style="text-align: center;">You have the mindset of a <strong>Mobile App Developer</strong>.</p>
+                
+                <div class="options-stack">
+                    <button class="choice-card choice-code" style="justify-content: center; border-color: var(--accent-purple); background: rgba(189, 0, 255, 0.1);" onclick="window.location.href='app-development.html'">
+                        <h3 style="color: var(--accent-purple)">📱 Begin App Dev Journey</h3>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="question-card" id="fail-card" style="border-color: var(--accent-gold);">
+                <div class="pivot-content">
+                    <h2 style="color: var(--accent-gold)">Wait... A Discovery!</h2>
+                    <p>You prefer the <strong>User Experience & Visuals</strong> over the strict logic of hardware and operating systems.</p>
+                    <p><strong>You might be a Product Manager or UI Designer.</strong> You care about how the app *feels*, not managing memory leaks.</p>
+                    
+                    <div class="options-stack">
+                        <button class="choice-card choice-design" style="justify-content: center; border-color: var(--accent-gold); background: rgba(255, 165, 2, 0.1);" onclick="window.location.href='frontend-path.html'">
+                            <h3 style="color: var(--accent-gold)">🎨 Explore Frontend Path</h3>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="nav-controls">
+            <button class="btn-back" id="back-btn" onclick="prevStep()">← Back to Hub</button>
+        </div>
+
+    </div>
+
+    <script src="development.js"></script>
+</body>
+</html>

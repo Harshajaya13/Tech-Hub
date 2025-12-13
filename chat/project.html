@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail | TalentHub</title>
+    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="mac-layout">
+        
+        <article class="project-card">
+            
+            <header class="card-header">
+                <div class="header-top">
+                    <span class="badge-pill">🏆 Top 1% Project</span>
+                    <div class="action-wrapper">
+                        <button id="linkedin-btn" class="apple-btn btn-locked" onclick="handleConnectClick()">
+                            <i class="fas fa-lock"></i> <span>Locked</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <h1>AI-Based Traffic Management System</h1>
+                
+                <div class="author-row">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rohan" class="avatar-small">
+                    <div class="meta">
+                        <span class="author-name">Rohan Das</span>
+                        <span class="meta-divider">•</span>
+                        <span class="college-name">Tier-3 Engineering College</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="visual-container">
+                <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800&q=80" alt="Code Screenshot">
+            </div>
+
+            <div class="content-body">
+                <h3>Technical Implementation</h3>
+                <p>I utilized <code class="mac-code">OpenCV</code> for object detection. The main challenge was optimizing the frame rate on edge devices. We managed to reduce latency by implementing multi-threading.</p>
+            </div>
+        </article>
+
+        <section class="discussion-panel">
+            <div class="panel-header">
+                <h3>Discussion <span class="count-badge" id="comment-count">0</span></h3>
+                <div class="sort-filter">
+                    <span>Sort by: Best <i class="fas fa-chevron-down"></i></span>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <textarea id="user-comment" placeholder="What are your thoughts?"></textarea>
+                <div class="input-actions">
+                    <span class="markdown-hint"><i class="fab fa-markdown"></i> Markdown supported</span>
+                    <button class="apple-btn btn-primary" onclick="postComment()">Comment</button>
+                </div>
+            </div>
+
+            <div id="unlock-hint" class="hint-toast">
+                <i class="fas fa-info-circle"></i> Engage to unlock the creator's contact.
+            </div>
+
+            <div class="comments-feed" id="comments-list">
+                </div>
+        </section>
+
+    </main>
+
+    <script src="project.js"></script>
+</body>
+</html>

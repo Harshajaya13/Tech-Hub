@@ -1,407 +1,481 @@
-
-        /* --- GLOBAL VARIABLES & RESET --- */
-        :root {
-            --primary: #2563EB; /* Royal Blue */
-            --primary-dark: #1E40AF;
-            --secondary: #64748B; /* Slate Gray */
-            --bg-light: #F8FAFC;
-            --white: #ffffff;
-            --text-dark: #1E293B;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            background-color: var(--white);
-            line-height: 1.6;
-        }
-
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            background: var(--white);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            font-weight: 500;
-            color: var(--secondary);
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--primary); }
-
-        .btn-login {
-            padding: 0.5rem 1.5rem;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-login:hover { background: var(--primary); color: var(--white); }
-
-        /* --- HERO SECTION (INTRO) --- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 4rem 5%;
-            background-color: var(--bg-light);
-            min-height: 85vh; /* Takes up most of the screen */
-        }
-
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .hero-tagline {
-            color: var(--primary);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: var(--text-dark);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: background 0.3s;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary:hover { background-color: var(--primary-dark); }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--text-dark);
-            border: 2px solid #E2E8F0;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            /* Placeholder styling if you don't have an image yet */
-        }
-
-        /* --- FEATURES GRID (Formerly "Images") --- */
-        .features {
-            padding: 5rem 5%;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            color: var(--secondary);
-            max-width: 700px;
-            margin: 0 auto 3rem auto;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            text-align: left;
-            transition: transform 0.3s;
-            border: 1px solid #f1f1f1;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .card h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
-        .card p { color: var(--secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
-
-        .card-link {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* --- ABOUT SECTION (Split) --- */
-        .about {
-            padding: 5rem 5%;
-            background-color: var(--bg-light);
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-        }
-
-        .about-text { flex: 1; }
-        .about-img { flex: 1; }
-        .about-img img { width: 100%; border-radius: 12px; box-shadow: var(--shadow); }
-
-        /* --- TESTIMONIALS --- */
-        .testimonials { padding: 5rem 5%; }
-        
-        .quote-card {
-            background: #F1F5F9;
-            padding: 2rem;
-            border-radius: 12px;
-            position: relative;
-        }
-        
-        .quote-text {
-            font-style: italic;
-            color: var(--text-dark);
-            margin-bottom: 1.5rem;
-        }
-
-        .quote-author {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--primary);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--text-dark);
-            color: #94A3B8;
-            padding: 3rem 5%;
-            text-align: center;
-        }
-
-        footer p { margin-bottom: 1rem; }
-
-        /* --- RESPONSIVE MOBILE --- */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 1rem; }
-            .nav-links { display: none; /* Hide links on mobile for simplicity or add hamburger menu */ }
-            
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 2rem; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero-buttons { justify-content: center; flex-direction: column; }
-            
-            .about { flex-direction: column; }
-        }
-
-        /* HERO SECTION */
-.hero-section {
-    text-align: center;
-    max-width: 800px;
-    margin: 60px auto 80px auto;
-    padding: 0 20px;
+/* -----------------------------------------------------------------
+   1. CORE VARIABLES & RESET (Apple System Colors)
+   ----------------------------------------------------------------- */
+:root {
+    --bg-body: #f5f5f7;       /* Apple Light Grey Background */
+    --bg-card: #ffffff;       /* Pure White Cards */
+    
+    --text-headline: #1d1d1f; /* Near Black */
+    --text-body: #86868b;     /* Apple Muted Grey */
+    --text-link: #0066cc;     /* Apple Link Blue */
+    
+    --accent-blue: #0071e3;   /* Apple Action Blue */
+    --accent-dark: #000000;
+    
+    --radius-large: 30px;     /* Smooth "Squircle" */
+    --radius-pill: 980px;
+    
+    --shadow-card: 0px 4px 24px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0px 12px 32px rgba(0, 0, 0, 0.08);
+    
+    --nav-height: 54px;
+    --max-width: 1024px;      /* Tighter width for readability */
 }
 
-.tagline {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #007aff; /* Blue */
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 15px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    color: #1a1a1a;
+body {
+    background-color: var(--bg-body);
+    color: var(--text-headline);
+    line-height: 1.4;
+    overflow-x: hidden;
 }
 
-.highlight {
-    color: #007aff;
-    position: relative;
-    white-space: nowrap;
-}
+a { text-decoration: none; color: inherit; transition: 0.2s; }
 
-/* Underline effect for 'Librarian' */
-.highlight::after {
-    content: '';
-    position: absolute;
-    bottom: 5px;
-    left: 0;
+/* -----------------------------------------------------------------
+   2. STICKY GLASS NAV
+   ----------------------------------------------------------------- */
+.apple-nav {
+    position: fixed;
+    top: 0;
     width: 100%;
-    height: 8px;
-    background: rgba(0, 122, 255, 0.2);
-    z-index: -1;
-}
-
-.hero-subtext {
-    font-size: 1.25rem;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 40px;
-}
-
-/* BUTTONS */
-.hero-buttons {
+    height: var(--nav-height);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 1000;
     display: flex;
-    gap: 15px;
     justify-content: center;
 }
 
-.cta-primary {
-    background-color: #007aff;
+.nav-content {
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.brand {
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+}
+
+.menu {
+    display: flex;
+    gap: 28px;
+}
+
+.menu a {
+    font-size: 0.85rem;
+    color: var(--text-headline);
+    opacity: 0.8;
+}
+
+.menu a:hover { opacity: 1; color: var(--text-link); }
+
+.auth { display: flex; align-items: center; gap: 16px; }
+
+.btn-text { font-size: 0.85rem; }
+
+.btn-pill {
+    background: var(--text-headline);
     color: white;
-    padding: 15px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform 0.2s;
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: 0.3s;
 }
 
-.cta-secondary {
-    background-color: #f0f2f5;
-    color: #333;
-    padding: 15px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.2s;
+.btn-pill:hover { background: #333; transform: scale(1.02); }
+
+/* -----------------------------------------------------------------
+   3. HERO SECTION (The Big Visual)
+   ----------------------------------------------------------------- */
+.hero-section {
+    padding-top: 140px;
+    padding-bottom: 80px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,122,255,0.3); }
-.cta-secondary:hover { background-color: #e4e6eb; }
+.eyebrow {
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+}
 
-/* FEATURES GRID */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+.hero-text h1 {
+    font-size: 4.5rem; /* Massive Scale */
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #1d1d1f;
+    margin-bottom: 24px;
+}
+
+.hero-sub {
+    font-size: 1.3rem;
+    color: #1d1d1f;
+    max-width: 650px;
+    margin: 0 auto 40px;
+    font-weight: 400;
+}
+
+.cta-wrapper {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.btn-primary {
+    background: var(--accent-blue);
+    color: white;
+    padding: 14px 30px;
+    border-radius: var(--radius-pill);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.btn-primary:hover { background: #0077ED; }
+
+.link-arrow {
+    color: var(--text-link);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.link-arrow:hover { text-decoration: underline; }
+.link-arrow i { font-size: 0.8rem; }
+
+/* The "Video" Container */
+.hero-media-container {
+    width: 90%;
     max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.feature-card {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
+    height: 600px;
+    background: #000; /* Black frame like a screen */
+    border-radius: var(--radius-large);
+    padding: 12px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.15);
     position: relative;
-    top: 0;
+    overflow: hidden;
 }
 
-.feature-card:hover {
-    top: -5px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border-color: #e0e0e0;
+.media-frame {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 18px; /* Inner radius */
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #e0f7fa 0%, #eef2f3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ICON CIRCLES */
-.card-icon-bg {
+/* Mockup UI inside the frame */
+.ui-mockup {
+    width: 80%;
+    height: 80%;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.mockup-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    gap: 12px;
+}
+
+.traffic-lights { display: flex; gap: 6px; }
+.traffic-lights span { width: 10px; height: 10px; border-radius: 50%; background: #ccc; }
+.traffic-lights span:nth-child(1) { background: #ff5f57; }
+.traffic-lights span:nth-child(2) { background: #febc2e; }
+.traffic-lights span:nth-child(3) { background: #28c840; }
+
+.mockup-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-body);
+}
+
+.play-button {
     width: 60px;
     height: 60px;
+    background: var(--text-headline);
+    color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+    font-size: 20px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.icon-blue { background: rgba(0, 122, 255, 0.1); }
-.icon-gold { background: rgba(255, 193, 7, 0.1); }
-.icon-purple { background: rgba(156, 39, 176, 0.1); }
+.play-button:hover { transform: scale(1.1); }
 
-.feature-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #2c3e50;
+/* -----------------------------------------------------------------
+   4. STATEMENT SECTION (Typography)
+   ----------------------------------------------------------------- */
+.statement-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px 24px;
+    text-align: center;
 }
 
-.feature-card p {
-    color: #64748b;
-    line-height: 1.5;
-    margin-bottom: 25px;
-}
-
-.card-link {
-    color: #007aff;
+.statement-section h2 {
+    font-size: 3rem;
     font-weight: 600;
-    text-decoration: none;
-    font-size: 0.95rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 
-.card-link:hover {
-    text-decoration: underline;
+.grey-text { color: #86868b; }
+
+/* -----------------------------------------------------------------
+   5. FEATURE GRID (Clean Cards)
+   ----------------------------------------------------------------- */
+./* -----------------------------------------------------------------
+   5. FEATURE GRID (Bento Layout 2.0)
+   ----------------------------------------------------------------- */
+.features-section {
+    background: #fff;
+    padding: 100px 0;
+}
+
+.section-label {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    letter-spacing: 0.1em;
+    color: #86868b;
+    text-transform: uppercase;
+}
+
+/* THE NEW 4-COLUMN GRID */
+.grid-layout {
+    display: grid;
+    /* This creates 4 equal columns */
+    grid-template-columns: repeat(4, 1fr); 
+    grid-auto-rows: minmax(200px, auto); /* Minimum height for cards */
+    gap: 20px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* CARD BASE STYLES */
+.feature-card {
+    background: #f5f5f7;
+    border-radius: 24px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    background: #fff;
+}
+
+/* SIZING UTILITIES */
+.double-width { grid-column: span 2; } /* Takes up half the row */
+.full-width   { grid-column: span 4; } /* Takes up full row */
+.single-box   { grid-column: span 1; } /* Takes up 1 small slot */
+
+/* SPECIFIC CARD STYLING */
+
+/* 1. Librarian & Mindset */
+.feature-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; }
+.feature-card p { font-size: 0.95rem; color: #86868b; line-height: 1.5; }
+
+.visual-books {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 6rem;
+    color: rgba(0,0,0,0.03);
+    transform: rotate(-10deg);
+}
+
+.highlight-bg { background: #e8f2ff; } /* Slight blue tint for Mindset */
+.icon-floating {
+    align-self: flex-end;
+    font-size: 2rem;
+    color: var(--accent-blue);
+    margin-top: 20px;
+}
+
+/* 2. The 4 Small Boxes */
+.feature-card.single-box {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px;
+    aspect-ratio: 1/1; /* Makes them perfect squares */
+}
+
+.icon-small {
+    font-size: 1.5rem;
+    color: #1d1d1f;
+    margin-bottom: 12px;
+}
+
+.single-box h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.sub-tag {
+    font-size: 0.75rem;
+    color: #86868b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* 3. The Hackathon Section (Dark Mode) */
+.feature-card.dark-mode {
+    background: #111;
+    color: white;
+    display: block; /* Override flex for grid inside */
+}
+
+.feature-card.dark-mode:hover { background: #000; }
+
+.hackathon-header { margin-bottom: 30px; text-align: left; }
+.hackathon-header h3 { color: white; }
+.hackathon-header p { color: #888; max-width: 500px; }
+
+/* Internal Grid for 4 Hackathons */
+.hackathon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+}
+
+.hack-item {
+    padding-right: 10px;
+}
+
+.phase-tag {
+    color: var(--accent-blue);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.hack-item h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: white;
+}
+
+.hack-item p {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .grid-layout {
+        grid-template-columns: 1fr; /* Everything stacks on mobile */
+    }
+    
+    .double-width, .full-width, .single-box {
+        grid-column: span 1;
+    }
+
+    .feature-card.single-box {
+        aspect-ratio: auto; /* Allow rectangles on mobile */
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .hackathon-grid {
+        grid-template-columns: 1fr; /* Stack phases on mobile */
+        gap: 30px;
+    }
+}
+/* -----------------------------------------------------------------
+   6. FOOTER
+   ----------------------------------------------------------------- */
+.cta-footer {
+    text-align: center;
+    padding: 100px 20px;
+    background: #f5f5f7;
+}
+
+.cta-footer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.btn-primary.large {
+    padding: 18px 40px;
+    font-size: 1.2rem;
+}
+
+footer {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 40px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-body);
+}
+
+/* -----------------------------------------------------------------
+   7. RESPONSIVE
+   ----------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .hero-text h1 { font-size: 3rem; }
+    .grid-layout { grid-template-columns: 1fr; }
+    .feature-card.large, .feature-card.full-width { grid-column: span 1; grid-row: auto; }
+    .card-flex { flex-direction: column; gap: 20px; align-items: flex-start; }
+    .menu { display: none; }
 }

@@ -1,6 +1,23 @@
+/* login.css */
+
+/* Import the same font as your main page */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #2563EB;       /* Royal Blue */
+    --primary-hover: #1d4ed8;
+    --bg-gradient: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+* { box-sizing: border-box; }
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,113 +26,137 @@ body {
 }
 
 .form-container {
-    background-color: #fff;
-    padding: 2rem 3rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
     width: 100%;
     max-width: 400px;
     text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Subtle animation on load */
+.form-container {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h2 {
+    margin-top: 0;
     margin-bottom: 0.5rem;
-    color: #1c1e21;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1.8rem;
 }
 
 p {
-    margin-bottom: 1.5rem;
-    color: #606770;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
 }
 
+/* GOOGLE BUTTON */
 .google-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 10px 25px;
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: 0.5rem;
-    border: 1px solid #bebebe;
-    gap: 10px;
-    color: #414141;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    gap: 12px;
+    color: var(--text-main);
     background: #fff;
     cursor: pointer;
-    margin-bottom: 1rem;
-    transition: border-color 0.3s;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s;
 }
 
 .google-btn:hover {
-    border-color: #464545;
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
 }
 
-.google-btn svg {
-    height: 24px;
-}
+.google-btn svg { height: 20px; }
 
+/* DIVIDER */
 .divider {
     display: flex;
     align-items: center;
-    text-align: center;
-    color: #bebebe;
-    margin-bottom: 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
 }
 
-.divider span {
-    padding: 0 10px;
-}
+.divider span { padding: 0 10px; }
 
 .divider::before, .divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid #dddfe2;
+    border-bottom: 1px solid var(--border);
 }
 
+/* INPUTS */
 .input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     text-align: left;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #606770;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-main);
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #dddfe2;
-    border-radius: 6px;
-    font-size: 16px;
-    box-sizing: border-box; /* Important */
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px; /* Modern rounded corners */
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.2s;
+    outline: none;
 }
 
+/* The "Glow" Effect */
+.input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* BUTTON */
 .submit-btn {
     width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    font-weight: 700;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
     color: #fff;
-    background-color: #1877f2;
+    background-color: var(--primary);
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 0.5rem;
 }
 
-.submit-btn:hover {
-    background-color: #166fe5;
-}
+.submit-btn:hover { background-color: var(--primary-hover); }
+.submit-btn:active { transform: scale(0.98); }
 
-.footer-text {
-    margin-top: 1.5rem;
-    font-size: 14px;
-}
-
+/* FOOTER LINK */
+.footer-text { margin-top: 1.5rem; font-size: 0.9rem; }
 .footer-text a {
-    color: #1877f2;
+    color: var(--primary);
     text-decoration: none;
+    font-weight: 600;
 }
+.footer-text a:hover { text-decoration: underline; }

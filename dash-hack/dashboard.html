@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My HQ | TalentHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <aside class="apple-sidebar">
+            <div class="sidebar-header">
+                <span class="brand-icon">⚡</span> TalentHub
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-label">MENU</div>
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-grid-2"></i> Dashboard
+                </a>
+                <a href="/harsha.html" class="nav-item">
+                    <i class="fas fa-map"></i> Roadmap
+                </a>
+                <a href="/harsha.html" class="nav-item">
+                    <i class="fas fa-layer-group"></i> Projects
+                </a>
+                <a href="/harsha.html" class="nav-item">
+                    <i class="fas fa-medal"></i> Badges
+                </a>
+            </div>
+
+            <div class="menu-group mt-auto">
+                <div class="user-card">
+                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="User">
+                    <div class="user-info">
+                        <strong>Dev Kumar</strong>
+                        <span>Level 3 Apprentice</span>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-view">
+            
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>TalentHub</span> / <span class="current">Dashboard</span>
+                </div>
+                <div class="actions">
+                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
+                    <button class="btn-primary-pill">+ New Project</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                
+                <div class="hero-text">
+                    <h1>Good Morning, Dev.</h1>
+                    <p>You're on a 15 Day Streak. Keep the momentum.</p>
+                </div>
+
+                <div class="widget-grid">
+                    <div class="widget">
+                        <div class="widget-icon blue"><i class="fas fa-code"></i></div>
+                        <div class="widget-data">
+                            <h3>12</h3>
+                            <span>Projects Shiped</span>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-icon green"><i class="fas fa-check-circle"></i></div>
+                        <div class="widget-data">
+                            <h3>85%</h3>
+                            <span>Roadmap Done</span>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-icon purple"><i class="fas fa-trophy"></i></div>
+                        <div class="widget-data">
+                            <h3>04</h3>
+                            <span>Gold Badges</span>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-icon orange"><i class="fas fa-chart-line"></i></div>
+                        <div class="widget-data">
+                            <h3>1.2k</h3>
+                            <span>Profile Views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="split-layout">
+                    
+                    <div class="panel large">
+                        <div class="panel-header">
+                            <h2>Current Mission</h2>
+                            <a href="#" class="link-action">Continue -></a>
+                        </div>
+                        <div class="mission-container">
+                            <div class="mission-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="mission-details">
+                                <h3>Advanced React Patterns</h3>
+                                <p>Module 4: Higher Order Components</p>
+                                <div class="progress-wrapper">
+                                    <div class="progress-bar">
+                                        <div class="fill" style="width: 45%"></div>
+                                    </div>
+                                    <span class="percentage">45%</span>
+                                </div>
+                            </div>
+                            <button class="btn-play"><i class="fas fa-play"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2>Live Activity</h2>
+                        </div>
+                        <div class="feed-list">
+                            <div class="feed-item">
+                                <div class="avatar small">R</div>
+                                <div class="feed-text">
+                                    <strong>Rohan</strong> commented on <br> "Traffic AI Logic"
+                                </div>
+                                <span class="time">2m</span>
+                            </div>
+                            <div class="feed-item">
+                                <div class="avatar icon"><i class="fas fa-medal"></i></div>
+                                <div class="feed-text">
+                                    You earned the badge <br> <strong>"Bug Hunter"</strong>
+                                </div>
+                                <span class="time">1h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
