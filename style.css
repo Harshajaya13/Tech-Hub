@@ -20,6 +20,9 @@
     
     --nav-height: 54px;
     --max-width: 1024px;      /* Tighter width for readability */
+
+    --ease-elastic: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -615,3 +618,295 @@ footer {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
+/* -----------------------------------------------------------------
+   8. THE GLASS MANIFESTO (PRE-HOME)
+   ----------------------------------------------------------------- */
+.overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999; /* Always on top */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
+}
+
+.overlay-container.dismissing {
+    pointer-events: none;
+}
+
+/* 2. The Backdrop Un-blurs slowly */
+.overlay-container.dismissing .glass-backdrop {
+    opacity: 0;
+    backdrop-filter: blur(0px); /* Animate the blur away */
+    -webkit-backdrop-filter: blur(0px);
+    transition: opacity 0.8s ease, backdrop-filter 0.8s ease;
+}
+
+/* 3. The Card Zooms IN towards the user and vanishes */
+.overlay-container.dismissing .manifesto-card {
+    transform: scale(1.1) translateY(-10px); /* Moves up and towards user */
+    opacity: 0;
+    filter: blur(10px); /* The card blurs out as it leaves */
+    transition: all 0.6s var(--ease-out);
+}
+
+
+/* The Frosted Glass Background */
+.glass-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(245, 245, 247, 0.6); /* Slightly more transparent */
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    transition: all 1s var(--ease-out);
+}
+
+/* The Main Card */
+.manifesto-card {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+    border-radius: 32px;
+    padding: 48px;
+    
+    /* Shadows */
+    box-shadow: 
+        0 40px 80px -20px rgba(0,0,0,0.1), 
+        0 0 0 1px rgba(0,0,0,0.02);
+    
+    /* Initial State for Animation */
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+    
+    /* Trigger the Entrance */
+    animation: cardEntrance 1s var(--ease-elastic) 0.2s forwards;
+}
+
+.card-header { text-align: center; margin-bottom: 32px; }
+
+.eyebrow-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #86868b;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.card-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -0.03em;
+}
+
+.intro-line {
+    font-size: 1rem;
+    color: #424245;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+/* The 3 Tenets List */
+.tenets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.tenet-item {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.8s var(--ease-out) forwards;
+}
+
+.tenet-item:hover {
+    background: #f5f5f7; /* Subtle hover state */
+}
+
+/* Icons */
+.icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+}
+
+.soft-green { background: #e8f5e9; color: #2e7d32; }
+.soft-blue  { background: #e3f2fd; color: #1565c0; }
+.soft-purple { background: #f3e5f5; color: #7b1fa2; }
+
+.tenet-text h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 4px;
+}
+
+.tenet-text p {
+    font-size: 0.9rem;
+    color: #86868b;
+    line-height: 1.4;
+}
+
+.tenet-item:nth-child(1) { animation-delay: 0.5s; }
+.tenet-item:nth-child(2) { animation-delay: 0.6s; }
+.tenet-item:nth-child(3) { animation-delay: 0.7s; }
+.manifesto-footer         { opacity: 0; animation: fadeInUp 0.8s var(--ease-out) 0.9s forwards; }
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes cardEntrance {
+    to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+    }
+}
+
+@keyframes fadeInUp {
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Footer / Button */
+.manifesto-footer {
+    text-align: center;
+}
+
+.btn-agree {
+    background: #1d1d1f;
+    color: white;
+    width: 100%;
+    padding: 18px;
+    border-radius: 98px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-agree:hover {
+    background: #000;
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.sub-disclaimer {
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: #a1a1a6;
+}
+
+/* The Fade Out Class */
+.overlay-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Card Entry Animation */
+@keyframes scaleIn {
+    from { transform: scale(0.95) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .manifesto-card { padding: 32px 24px; }
+    .card-header h1 { font-size: 1.8rem; }
+    .tenet-item { padding: 10px 0; } /* Save space on mobile */
+    .tenet-item:hover { background: transparent; }
+}
+
+
+/* 9. NEW COMPONENTS (The Relief Pillars)
+   ----------------------------------------------------------------- */
+
+/* The "Unsure" Quiet Link */
+.link-quiet {
+    font-size: 0.95rem;
+    color: #86868b;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 2px;
+    transition: 0.2s;
+}
+.link-quiet:hover { color: #1d1d1f; border-color: #1d1d1f; }
+
+/* The Culture Strip */
+.culture-strip {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 60px;
+}
+
+.culture-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #86868b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.culture-item i { color: #d1d1d6; }
+
+/* The Anti-Manifesto (What this is NOT) */
+.anti-manifesto {
+    max-width: 600px;
+    margin: 80px auto;
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+.manifesto-list {
+    list-style: none;
+    margin-top: 24px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.manifesto-list li {
+    margin-bottom: 12px;
+    color: #86868b;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.manifesto-list .fa-times { color: #ff5f57; } /* Red for NOT */
+.manifesto-list .fa-check { color: #28c840; } /* Green for IS */

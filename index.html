@@ -10,6 +10,62 @@
 </head>
 <body>
 
+
+  <div id="manifesto-overlay" class="overlay-container">
+    <div class="glass-backdrop"></div>
+    
+    <div class="manifesto-card">
+        <div class="card-header">
+            <span class="eyebrow-text">Read before entering</span>
+            <h1>The Anti-Race Protocol</h1>
+        </div>
+
+        <div class="manifesto-body">
+            <p class="intro-line">Most platforms treat learning like a sprint. We are different. By entering TalentHub, you acknowledge three things:</p>
+            
+            <div class="tenets-list">
+                <div class="tenet-item">
+                    <div class="icon-box soft-green">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="tenet-text">
+                        <h3>You are not "late."</h3>
+                        <p>There is no global clock. You are just early in your own timeline. Breathe.</p>
+                    </div>
+                </div>
+
+                <div class="tenet-item">
+                    <div class="icon-box soft-blue">
+                        <i class="fas fa-lightbulb"></i> </div>
+                    <div class="tenet-text">
+                        <h3>Proof, not pressure.</h3>
+                        <p>When you see other projects here, they aren't for comparison. They are blueprints. We show them to prove that students like you can build them.</p>
+                    </div>
+                </div>
+
+                <div class="tenet-item">
+                    <div class="icon-box soft-purple">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    <div class="tenet-text">
+                        <h3>Confusion is the starting point.</h3>
+                        <p>If you don't know what to build yet, that's not a weakness. That is why you are here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="manifesto-footer">
+            <button onclick="enterSite()" class="btn-agree">
+                <span>I Understand. Let's Build.</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <p class="sub-disclaimer">No judgment inside. Guaranteed.</p>
+        </div>
+    </div>
+</div>
+
+
     <nav class="apple-nav">
         <div class="nav-content">
             <a href="#" class="brand">TalentHub</a>
@@ -33,9 +89,25 @@
                 <p class="hero-sub">The gap between a student and a hired engineer isn't theory. It's execution. We provide the tools to cross it.</p>
                 <div class="cta-wrapper">
                     <a href="/purpose/index.html" class="btn-primary">Start the Roadmap</a>
-                    <a href="/dash-hack/hackathon.html" class="link-arrow">View the Hackathon <i class="fas fa-chevron-right"></i></a>
+                    <a href="/start/start.html" class="link-arrow">Don't know what to build? Start here.<i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
+
+
+                    <section class="culture-strip">
+            <div class="culture-item">
+                <i class="fas fa-trophy-alt broken-icon"></i>
+                <span>No Ranks</span>
+            </div>
+            <div class="culture-item">
+                <i class="fas fa-history"></i>
+                <span>No "Late"</span>
+            </div>
+            <div class="culture-item">
+                <i class="fas fa-user-friends"></i>
+                <span>No Comparison</span>
+            </div>
+        </section>
 
             <div class="hero-media-container">
                 <div class="media-frame">
@@ -201,6 +273,17 @@
     </div>
 </section>
 
+        <section class="anti-manifesto">
+    <div class="manifesto-box">
+        <h3>What this is NOT.</h3>
+        <ul class="manifesto-list">
+            <li><i class="fas fa-times"></i> A "Get Hired Quick" Scheme</li>
+            <li><i class="fas fa-times"></i> A Motivational Circus</li>
+            <li><i class="fas fa-check"></i> A Safe Place to Break Things</li>
+        </ul>
+    </div>
+</section>
+
         <section class="cta-footer">
             <h2>Ready to evolve?</h2>
             <a href="/login/login.html" class="btn-primary large">Join TalentHub</a>
@@ -212,6 +295,8 @@
             <p>Copyright © 2025 TalentHub. Crafted with precision.</p>
         </div>
     </footer>
+
+    <script src="server.js"></script>
 
 </body>
 </html>
