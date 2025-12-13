@@ -910,3 +910,188 @@ footer {
 
 .manifesto-list .fa-times { color: #ff5f57; } /* Red for NOT */
 .manifesto-list .fa-check { color: #28c840; } /* Green for IS */
+
+.highlight-text {
+    color: #2e7d32; /* Matches the soft-green icon */
+    font-weight: 600;
+    background: rgba(46, 125, 50, 0.1);
+    padding: 0 4px;
+    border-radius: 4px;
+}
+
+/* -----------------------------------------------------------------
+   12. RETINA PROOF SECTION (Apple Style v2)
+   ----------------------------------------------------------------- */
+
+.retina-proof-section {
+    max-width: 1080px;
+    margin: 0 auto 100px;
+    padding: 0 24px;
+}
+
+/* 1. Typography Hierarchy */
+.proof-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.eyebrow-apple {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #86868b;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.proof-header h2 {
+    font-size: 3rem;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.03em; /* TIGHT headline tracking = Premium feel */
+    color: #1d1d1f;
+}
+
+/* 2. The Grid Layout (1 Big + 2 Small) */
+.bento-grid-proof {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr; /* Asymmetric Grid */
+    grid-template-rows: auto auto;
+    gap: 24px;
+}
+
+/* 3. The Card Engine */
+.proof-card {
+    background: #ffffff;
+    border-radius: 28px; /* Smooth Corners */
+    padding: 40px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05); /* Soft, diffused shadow */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.proof-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px -15px rgba(0,0,0,0.1);
+}
+
+/* The Main Card (Takes full height on left) */
+.main-card {
+    grid-row: span 2;
+    background: linear-gradient(145deg, #ffffff 0%, #fbfbfd 100%);
+}
+
+/* 4. Text Styling - The "Not Sucky" Part */
+.quote-mark {
+    font-size: 4rem;
+    color: #e5e5ea;
+    font-family: serif;
+    line-height: 1;
+    margin-bottom: -10px;
+}
+
+.big-quote {
+    font-size: 1.6rem;
+    line-height: 1.35;
+    font-weight: 500;
+    color: #1d1d1f;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+}
+
+.highlight-blue {
+    color: #0071e3; /* Apple Blue */
+}
+
+.mid-quote {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #424245; /* Slightly lighter grey */
+    font-weight: 450;
+    margin-bottom: 30px;
+}
+
+/* 5. Footer / User Info */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.04); /* Thin separator */
+    padding-top: 24px;
+    margin-top: auto;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-info img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f5f5f7;
+}
+
+.text-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.role {
+    font-size: 0.8rem;
+    color: #86868b;
+}
+
+/* 6. Badges & Pills */
+.status-pill {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-pill.success {
+    background: #d1fae5; /* Very soft green */
+    color: #065f46;
+}
+
+.tech-stack-mini {
+    display: flex;
+    gap: 6px;
+}
+
+.tech-stack-mini span {
+    font-size: 0.7rem;
+    color: #86868b;
+    background: #f5f5f7;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* 7. Responsive Mobile */
+@media (max-width: 800px) {
+    .bento-grid-proof {
+        grid-template-columns: 1fr; /* Stack everything */
+    }
+    
+    .proof-header h2 { font-size: 2.2rem; }
+    .big-quote { font-size: 1.3rem; }
+}
