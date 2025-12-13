@@ -15,7 +15,7 @@
     --accent-red: #ff3b30;        /* Error/Fail */
     --accent-green: #34c759;      /* Success */
     --accent-purple: #af52de;     /* Victory */
-    
+     
     /* Shadows & Depth */
     --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.04);
     --shadow-hover: 0 12px 32px rgba(0, 113, 227, 0.15); /* Blue glow */

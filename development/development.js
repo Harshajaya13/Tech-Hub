@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Selectors
     const pivotCard = document.getElementById('fail-card');
-    const successCard = document.getElementById('success-card');
     const backBtn = document.getElementById('back-btn');
     const progressBar = document.getElementById('progress-fill');
     const stepCounter = document.getElementById('step-counter');
 
-    // Get all standard question cards
+    // Get all standard question cards (Steps 1-9)
+    // We only need to filter out the fail-card. 
+    // The "Validation Complete" card is just the last step (Step 9).
     const allQuestionCards = Array.from(document.querySelectorAll('.question-card'))
-        .filter(card => card.id !== 'fail-card' && card.id !== 'success-card');
+        .filter(card => card.id !== 'fail-card');
     
     // 2. State
     let currentStep = 1;
-    const totalQuestions = allQuestionCards.length;
+    const totalQuestions = allQuestionCards.length; // Should be 9
     let isPivotState = false; 
-    let isSuccessState = false;
 
     // 3. Initialize
     updateUI();
@@ -27,23 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentStep < totalQuestions) {
                 currentStep++;
                 updateUI();
-            } else {
-                showSuccessScreen();
-            }
+            } 
+            // Note: We don't need an 'else' here because the last card (Step 9) 
+            // has buttons that link to new pages, not handleChoice('next').
         }
     };
 
     window.prevStep = function() {
         if (isPivotState) {
             hidePivotScreen(); 
-        } else if (isSuccessState) {
-            isSuccessState = false;
-            updateUI();
         } else if (currentStep > 1) {
             currentStep--;
             updateUI();
         } else {
-            // Step 1 -> Back to Hub
+            // Step 1 -> Back to Hub (change URL if needed)
             window.location.href = 'start.html';
         }
     };
@@ -53,11 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideAll() {
         allQuestionCards.forEach(card => {
             card.classList.remove('active');
-            // Reset animations by briefly removing class if needed
-            // But usually, just display:none is enough
         });
         pivotCard.classList.remove('active');
-        successCard.classList.remove('active');
     }
 
     function showPivotScreen() {
@@ -71,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update Progress (Red Warning)
         progressBar.style.backgroundColor = 'var(--accent-red)';
-        progressBar.style.width = '100%'; 
+        // Visual indicator that progress is halted
         stepCounter.innerText = "Path Divergence";
         stepCounter.style.color = 'var(--accent-red)';
     }
@@ -81,21 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Restore color to Blue (Mac default)
         progressBar.style.backgroundColor = 'var(--accent-blue)';
         updateUI(); 
-    }
-
-    function showSuccessScreen() {
-        isSuccessState = true;
-        hideAll();
-
-        successCard.classList.add('active');
-
-        // Update Progress (Purple Victory)
-        progressBar.style.backgroundColor = 'var(--accent-purple)';
-        progressBar.style.width = '100%';
-        stepCounter.innerText = "Gauntlet Complete";
-        stepCounter.style.color = 'var(--accent-purple)';
-        
-        backBtn.innerText = "← Review Choices";
     }
 
     function updateUI() {
@@ -111,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.backgroundColor = 'var(--accent-blue)';
         stepCounter.style.color = 'var(--text-secondary)';
 
-        // Update Text
+        // Update Button Text
         if (currentStep === 1) {
             backBtn.innerText = "← Back to Hub";
         } else {
@@ -119,12 +98,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Calculate %
+        // If we are on Step 1, show a small amount (e.g., 10%) so bar isn't empty
+        // If we are on Step 9 (Final), show 100%
         let percentage = (currentStep / totalQuestions) * 100;
-        if(currentStep === 1) percentage = 12; 
+        
+        // Optional: Make the final step green to signify completion
+        if (currentStep === totalQuestions) {
+            progressBar.style.backgroundColor = 'var(--accent-green)';
+            stepCounter.style.color = 'var(--accent-green)';
+            stepCounter.innerText = "Validation Complete";
+            // Hide the 'Previous' button on the final success screen if you want:
+            // backBtn.style.display = 'none'; 
+        } else {
+            stepCounter.innerText = `Phase ${currentStep} of ${totalQuestions}`;
+        }
         
         progressBar.style.width = `${percentage}%`;
-        stepCounter.innerText = `Step ${currentStep} of ${totalQuestions}`;
         
+        // Scroll to top when changing cards
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 });
