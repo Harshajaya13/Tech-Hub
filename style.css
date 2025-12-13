@@ -956,23 +956,27 @@ footer {
 /* 2. The Grid Layout (1 Big + 2 Small) */
 .bento-grid-proof {
     display: grid;
-    grid-template-columns: 1.4fr 1fr; /* Asymmetric Grid */
-    grid-template-rows: auto auto;
+    /* Left column is wider (1.4x), Right column is standard (1x) */
+    grid-template-columns: 1.4fr 1fr; 
+    /* This forces the two rows on the right to be equal height */
+    grid-template-rows: repeat(2, 1fr); 
     gap: 24px;
+    /* Optional: Sets a max height so the left card doesn't get too tall */
+    height: auto; 
 }
 
 /* 3. The Card Engine */
 .proof-card {
     background: #ffffff;
-    border-radius: 28px; /* Smooth Corners */
-    padding: 40px;
+    border-radius: 28px;
+    padding: 32px; /* Reduced from 40px for a tighter feel */
     position: relative;
     border: 1px solid rgba(0,0,0,0.04);
-    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05); /* Soft, diffused shadow */
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes Footer to bottom */
+    height: 100%; /* key: ensures it fills the grid cell */
 }
 
 .proof-card:hover {
@@ -982,8 +986,13 @@ footer {
 
 /* The Main Card (Takes full height on left) */
 .main-card {
-    grid-row: span 2;
+    grid-row: span 2; /* Spans top and bottom rows */
     background: linear-gradient(145deg, #ffffff 0%, #fbfbfd 100%);
+    
+    /* Center the content vertically if it feels too empty */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
 }
 
 /* 4. Text Styling - The "Not Sucky" Part */
@@ -1087,11 +1096,22 @@ footer {
 }
 
 /* 7. Responsive Mobile */
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .bento-grid-proof {
-        grid-template-columns: 1fr; /* Stack everything */
+        grid-template-columns: 1fr; /* Stack everything 
     }
     
     .proof-header h2 { font-size: 2.2rem; }
     .big-quote { font-size: 1.3rem; }
+
+ */
+
+ @media (max-width: 800px) {
+    .bento-grid-proof {
+        grid-template-columns: 1fr; /* Stack into 1 column */
+        grid-template-rows: auto;   /* Heights adjust to text */
+    }
+    .main-card {
+        grid-row: span 1; /* Reset to normal size */
+    }
 }
