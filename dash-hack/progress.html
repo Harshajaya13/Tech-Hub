@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My HQ | To-Do</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+
+</head>
+<body>
+
+<section class="vault-section">
+    
+    <div class="star-wallet">
+        <div class="wallet-text">
+            <span>Current Balance</span>
+            <h1 id="starBalance">0</h1>
+        </div>
+        <div class="wallet-icon">
+            <i class="fas fa-star spin-star"></i>
+        </div>
+    </div>
+
+    <div class="vault-grid">
+        
+        <div class="vault-card earn-card">
+            <div class="card-header">
+                <h3><i class="fas fa-hammer"></i> The Grind</h3>
+                <p>Complete actions to mine stars.</p>
+            </div>
+            
+            <div class="task-list">
+                <div class="task-row">
+                    <div class="task-info">
+                        <span class="task-title">Upload Github Project</span>
+                        <span class="task-sub">Must include Readme.md</span>
+                    </div>
+                    <div class="task-action">
+                        <span class="reward-pill">+50 <i class="fas fa-star"></i></span>
+                        <button class="btn-claim" onclick="claimStars(50, this)">Claim</button>
+                    </div>
+                </div>
+
+                <div class="task-row">
+                    <div class="task-info">
+                        <span class="task-title">Merge PR (Open Source)</span>
+                        <span class="task-sub">Verified merge request</span>
+                    </div>
+                    <div class="task-action">
+                        <span class="reward-pill">+100 <i class="fas fa-star"></i></span>
+                        <button class="btn-claim" onclick="claimStars(100, this)">Claim</button>
+                    </div>
+                </div>
+
+                <div class="task-row">
+                    <div class="task-info">
+                        <span class="task-title">7-Day Streak</span>
+                        <span class="task-sub">Log in every day</span>
+                    </div>
+                    <div class="task-action">
+                        <span class="reward-pill">+20 <i class="fas fa-star"></i></span>
+                        <button class="btn-claim disabled">2/7 Days</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vault-card spend-card">
+            <div class="card-header">
+                <h3><i class="fas fa-shopping-bag"></i> The Market</h3>
+                <p>Exchange effort for access.</p>
+            </div>
+
+            <div class="market-list">
+                <div class="market-item">
+                    <div class="item-icon blue">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="item-details">
+                        <h4>15-min Mentor Chat</h4>
+                        <p>One-off session with Senior Dev.</p>
+                        <div class="price-row">
+                            <span class="cost">500 <i class="fas fa-star"></i></span>
+                            <button class="btn-buy" onclick="spendStars(500)">Redeem</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="market-item">
+                    <div class="item-icon purple">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="item-details">
+                        <h4>Resume Roast</h4>
+                        <p>Video feedback on your CV.</p>
+                        <div class="price-row">
+                            <span class="cost">300 <i class="fas fa-star"></i></span>
+                            <button class="btn-buy" onclick="spendStars(300)">Redeem</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="market-item premium-upsell">
+                    <div class="upsell-text">
+                        <strong>Tired of grinding?</strong>
+                        <p>Get unlimited access with Elite Plan.</p>
+                    </div>
+                    <a href="/mentor/mentor.html" class="btn-tiny-dark">View Plans</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div id="toast" class="toast hidden">Action Successful!</div>
+
+
+<script src="progress.js"></script>
+</body>
+</html>

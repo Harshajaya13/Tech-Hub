@@ -479,3 +479,139 @@ footer {
     .card-flex { flex-direction: column; gap: 20px; align-items: flex-start; }
     .menu { display: none; }
 }
+
+/* CONTAINER FOR THE LOCKED CARD */
+.premium-container {
+    position: relative;
+    overflow: hidden; /* Keeps the blur inside */
+    padding: 0; /* Remove padding so bg fills card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* THE TEASER CONTENT (BLURRED) */
+.mentor-blur-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+    filter: blur(4px) grayscale(0.3); /* The "Teaser" Effect */
+    opacity: 0.6;
+    pointer-events: none; /* User can't click the links behind */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mentor-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.avatar-circle img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.mentor-info h5 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.mentor-info .role {
+    font-size: 0.85rem;
+    color: #666;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.stars {
+    color: #FFD700; /* Gold */
+    font-size: 0.8rem;
+}
+
+.stars span {
+    color: #999;
+    margin-left: 6px;
+    font-size: 0.75rem;
+}
+
+.mentor-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.mentor-tags .tag {
+    background: #f0f0f5;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    color: #555;
+    font-weight: 600;
+}
+
+/* THE LOCKED OVERLAY (FOREGROUND) */
+.locked-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80%;
+}
+
+.lock-icon-circle {
+    width: 40px;
+    height: 40px;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.locked-overlay h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1d1d1f;
+}
+
+.locked-overlay p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* THE PREMIUM BUTTON */
+.btn-premium {
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-premium:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
