@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="test.css">
+</head>
+<style>
+    /* --- SECTION HEADERS --- */
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 60px 0 24px 0;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+
+/* --- THE META GRID (3 Columns) --- */
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.meta-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 220px; /* Fixed height for uniformity */
+}
+
+.meta-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.meta-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+.card-blue .meta-icon { color: #0071e3; }
+.card-purple .meta-icon { color: #af52de; }
+.card-orange .meta-icon { color: #ff9500; }
+
+.meta-content h3 { margin: 0 0 8px 0; font-size: 20px; font-weight: 600; }
+.meta-content p { 
+    margin: 0 0 20px 0; 
+    font-size: 14px; 
+    color: #86868b; 
+    line-height: 1.5; 
+}
+.link-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0071e3;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+.meta-card:hover .link-text { opacity: 1; transform: translateX(0); }
+
+
+/* --- THE SURPRISE (Mindset Debugger) --- */
+.debugger-section { margin-top: 60px; margin-bottom: 100px; }
+
+.debugger-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1d1d1f; /* Apple Dark Mode Background */
+    border-radius: 28px;
+    padding: 50px;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.debugger-banner:hover { transform: scale(1.02); }
+
+.debugger-left h2 { margin: 10px 0; font-size: 32px; }
+.debugger-left p { color: #a1a1a6; font-size: 17px; max-width: 500px; }
+
+.badge-pill {
+    background: #333;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #86868b;
+}
+
+.debugger-right {
+    font-size: 60px;
+    color: #ff3b30; /* System Red for 'Bug' */
+    position: relative;
+    z-index: 2;
+}
+
+/* Optional Pulse Animation for the Bug */
+.pulse-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px; height: 100px;
+    background: rgba(255, 59, 48, 0.2);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .meta-grid { grid-template-columns: 1fr; }
+    .debugger-banner { flex-direction: column; text-align: center; gap: 30px; }
+}
+</style>
+<body>
+
+<div class="section-title">Professional Mastery</div>
+<div class="meta-grid">
+
+    <a href="opensource.html" class="meta-card card-blue">
+        <div class="meta-icon">
+            <i class="fab fa-github"></i>
+        </div>
+        <div class="meta-content">
+            <h3>Open Source</h3>
+            <p>The Global Lab. Learn by contributing to code that runs the world.</p>
+            <span class="link-text">Start Contributing &rarr;</span>
+        </div>
+    </a>
+
+    <a href="communication.html" class="meta-card card-purple">
+        <div class="meta-icon">
+            <i class="fas fa-microphone-alt"></i>
+        </div>
+        <div class="meta-content">
+            <h3>Human Protocol</h3>
+            <p>Soft skills are your hardware driver. Learn to debug team friction.</p>
+            <span class="link-text">Upgrade Soft Skills &rarr;</span>
+        </div>
+    </a>
+
+    <a href="corporate.html" class="meta-card card-orange">
+        <div class="meta-icon">
+            <i class="fas fa-building"></i>
+        </div>
+        <div class="meta-content">
+            <h3>Corporate Ops</h3>
+            <p>The Black Box. How Agile, Scrum, and deployments actually work.</p>
+            <span class="link-text">See Inside &rarr;</span>
+        </div>
+    </a>
+
+</div>
+
+<div class="debugger-section">
+    <a href="mindset_debugger.html" class="debugger-banner">
+        <div class="debugger-left">
+            <span class="badge-pill">INTERNAL TOOL</span>
+            <h2>The Mindset Debugger</h2>
+            <p>Feeling stuck? Imposter syndrome? Debug your brain before you debug your code.</p>
+        </div>
+        <div class="debugger-right">
+            <div class="pulse-ring"></div>
+            <i class="fas fa-bug"></i>
+        </div>
+    </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
