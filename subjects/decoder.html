@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Decoder: TOC</title>
+    <style>
+        /* --- 1. APPLE DESIGN VARIABLES (Clean White Theme) --- */
+        :root {
+            --bg-body: #F5F5F7;       /* Apple Light Grey Background */
+            --bg-card: #FFFFFF;       /* Pure White Cards */
+            --text-primary: #1D1D1F;  /* Almost Black */
+            --text-secondary: #86868B;/* Apple Grey */
+            --accent-blue: #0071E3;   /* Apple Blue */
+            --accent-orange: #FF9500;
+            --accent-green: #34C759;
+            --accent-purple: #AF52DE;
+            
+            --shadow-subtle: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-float: 0 12px 30px rgba(0,0,0,0.08);
+            
+            --radius-card: 24px;
+            --radius-pill: 100px;
+            
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            --anim-physics: cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth 'Apple' feel */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- ANIMATIONS --- */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--anim-physics) forwards;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 2. HEADER: THE "WHY" & MARKET VALUE --- */
+        header {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-subtle);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1D1D1F 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mission-text {
+            font-size: 24px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        /* MARKET STATS BAR (New Architecture) */
+        .market-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-subtle);
+            text-align: center;
+            min-width: 160px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* --- 3. THE USAGE: BENTO GRID --- */
+        .section-label {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 80px 0 40px;
+            text-align: center;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        .usage-card {
+            background: var(--bg-card);
+            padding: 36px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-subtle);
+            transition: transform 0.3s var(--anim-physics), box-shadow 0.3s var(--anim-physics);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .usage-card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-float);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            background: #F2F2F7; /* Subtle grey backing for icon */
+        }
+
+        .usage-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .usage-card p {
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .usage-tag {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #F5F5F7;
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: var(--text-primary);
+        }
+
+        /* --- 4. THE LIBRARIAN: STACKED ACCORDION --- */
+        .librarian-wrapper {
+            margin: 80px auto 120px;
+            max-width: 900px;
+        }
+
+        .topic-row {
+            background: var(--bg-card);
+            margin-bottom: 16px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-subtle);
+            overflow: hidden;
+            transition: all 0.4s var(--anim-physics);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .topic-row:hover {
+            box-shadow: var(--shadow-float);
+        }
+
+        .topic-row.active {
+            border-color: var(--accent-blue);
+            transform: scale(1.01);
+        }
+
+        .topic-header {
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topic-title h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .topic-badges {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-green { background: var(--accent-green); }
+        .dot-orange { background: var(--accent-orange); }
+        .dot-purple { background: var(--accent-purple); }
+
+        .chevron {
+            font-size: 24px;
+            color: var(--text-secondary);
+            transition: transform 0.4s var(--anim-physics);
+        }
+        .topic-row.active .chevron {
+            transform: rotate(180deg);
+            color: var(--accent-blue);
+        }
+
+        /* Expanded Content */
+        .topic-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s var(--anim-physics);
+            background: #FAFAFC;
+        }
+
+        .topic-row.active .topic-content {
+            max-height: 400px; /* Adjust based on content */
+        }
+
+        .inner-content {
+            padding: 30px 32px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .librarian-note {
+            font-size: 16px;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background: var(--text-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+        .action-button:hover { opacity: 0.8; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 42px; }
+            .mission-text { font-size: 18px; }
+            .bento-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="container animate-in" style="animation-delay: 0.1s;">
+        <div class="nav-pill">Subject Decoder</div>
+        <h1>Theory of Computation</h1>
+        <p class="mission-text">
+            Your college included this to separate the <strong>Engineers</strong> from the Coders. 
+            This is the physics of logic, the blueprint of search engines, and the brain of AI.
+        </p>
+
+        <div class="market-bar animate-in" style="animation-delay: 0.2s;">
+            <div class="stat-card">
+                <span class="stat-value" style="color:var(--accent-green)">₹18-24 LPA</span>
+                <span class="stat-label">Avg. Salary</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value">Google / Meta</span>
+                <span class="stat-label">Top Recruiters</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" style="color:var(--accent-orange)">Core Logic</span>
+                <span class="stat-label">Skill Type</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="container animate-in" style="animation-delay: 0.3s;">
+        <div class="section-label">Where is it actually used?</div>
+        
+        <div class="bento-grid">
+            <div class="usage-card">
+                <div class="card-icon" style="color: #4285F4;">🔍</div>
+                <h3>Google Search</h3>
+                <p>How does Google find "cafes near me" in 0.02 seconds? It uses <strong>Finite Automata</strong> to scan billions of text patterns instantly.</p>
+                <span class="usage-tag">Pattern Matching</span>
+            </div>
+
+            <div class="usage-card">
+                <div class="card-icon" style="color: #EA4335;">⚙️</div>
+                <h3>Compilers & Interpreters</h3>
+                <p>Your Python code is just text. <strong>Context-Free Grammars</strong> are what turn that text into binary that the CPU understands.</p>
+                <span class="usage-tag">Syntax Analysis</span>
+            </div>
+
+            <div class="usage-card">
+                <div class="card-icon" style="color: #FBBC05;">🎮</div>
+                <h3>Game AI</h3>
+                <p>NPCs in games use <strong>State Machines</strong> (Idle → Detect Player → Attack). This logic is pure TOC applied to behavior.</p>
+                <span class="usage-tag">State Logic</span>
+            </div>
+
+            <div class="usage-card">
+                <div class="card-icon" style="color: #34A853;">🛡️</div>
+                <h3>Cybersecurity</h3>
+                <p>Firewalls use <strong>Regular Expressions</strong> to detect malicious patterns in network traffic packets.</p>
+                <span class="usage-tag">Validation</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container librarian-wrapper animate-in" style="animation-delay: 0.4s;">
+        <div class="section-label">The Librarian's Path</div>
+        <p style="text-align:center; color:#86868B; margin-bottom: 40px;">
+            Don't read the whole book. Master these 3 core topics.
+        </p>
+
+        <div class="topic-row" onclick="toggleTopic(this)">
+            <div class="topic-header">
+                <div class="topic-title">
+                    <h3>Finite Automata (DFA/NFA)</h3>
+                    <div class="topic-badges">
+                        <span><span class="dot dot-green"></span> The Foundation</span>
+                        <span>⏱️ 5 Days</span>
+                    </div>
+                </div>
+                <div class="chevron">↓</div>
+            </div>
+            <div class="topic-content">
+                <div class="inner-content">
+                    <p class="librarian-note">
+                        <strong>Why:</strong> This is the simplest form of logic. If you can't build a DFA, you can't design a circuit or a reliable algorithm.<br><br>
+                        <strong>Focus on:</strong> Converting NFA to DFA. This algorithm proves you know how to optimize messy logic into clean logic.
+                    </p>
+                    <a href="https://www.geeksforgeeks.org/introduction-of-finite-automata/" target="_blank" class="action-button">
+                        Start Learning on GFG ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-row" onclick="toggleTopic(this)">
+            <div class="topic-header">
+                <div class="topic-title">
+                    <h3>Regular Expressions (Regex)</h3>
+                    <div class="topic-badges">
+                        <span><span class="dot dot-orange"></span> High Utility</span>
+                        <span>⏱️ 3 Days</span>
+                    </div>
+                </div>
+                <div class="chevron">↓</div>
+            </div>
+            <div class="topic-content">
+                <div class="inner-content">
+                    <p class="librarian-note">
+                        <strong>Why:</strong> You will use this in 90% of software jobs. Form validation, data scraping, log parsing—it's all Regex.<br><br>
+                        <strong>Focus on:</strong> The syntax `(.*?)` and Pumping Lemma (which teaches you the limits of memory).
+                    </p>
+                    <a href="https://www.geeksforgeeks.org/regular-expressions-in-theory-of-computation/" target="_blank" class="action-button">
+                        Master Regex ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-row" onclick="toggleTopic(this)">
+            <div class="topic-header">
+                <div class="topic-title">
+                    <h3>Turing Machines</h3>
+                    <div class="topic-badges">
+                        <span><span class="dot dot-purple"></span> The Peak</span>
+                        <span>⏱️ 1 Week</span>
+                    </div>
+                </div>
+                <div class="chevron">↓</div>
+            </div>
+            <div class="topic-content">
+                <div class="inner-content">
+                    <p class="librarian-note">
+                        <strong>Why:</strong> This is the mathematical model of every computer ever built. It defines the boundary of what is computable.<br><br>
+                        <strong>Focus on:</strong> The Halting Problem. It's a philosophical realization that some problems cannot be solved by computers.
+                    </p>
+                    <a href="https://www.geeksforgeeks.org/turing-machine-in-toc/" target="_blank" class="action-button">
+                        Watch Explanation ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        function toggleTopic(element) {
+            // Optional: Accordion behavior (close others)
+            // const all = document.querySelectorAll('.topic-row');
+            // all.forEach(el => {
+            //     if(el !== element) el.classList.remove('active');
+            // });
+
+            // Toggle current
+            element.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>

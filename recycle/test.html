@@ -1,0 +1,93 @@
+<div class="review-dashboard">
+    <div class="ticket-card">
+        <div class="ticket-header">
+            <span class="ticket-id">#4209</span>
+            <span class="ticket-status pending">Pending Review</span>
+        </div>
+        <div class="project-details">
+            <h3>Netflix Clone</h3>
+            <p>Submitted by: <strong>Rahul_21</strong></p>
+            <a href="#" class="repo-link">View GitHub Repo ↗</a>
+        </div>
+        
+        <div class="review-checklist">
+            <label><input type="checkbox"> README.md is present</label>
+            <label><input type="checkbox"> No exposed API Keys</label>
+            <label><input type="checkbox"> Site is deployed (Vercel/Netlify)</label>
+            <label><input type="checkbox"> Code looks human-written (Not 100% AI)</label>
+        </div>
+
+        <div class="action-buttons">
+            <button class="reject-btn" onclick="askForChanges()">Request Changes</button>
+            <button class="approve-btn" onclick="approveProject()">Approve (+50 Stars)</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .review-dashboard {
+        background: #f5f5f7;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .ticket-card {
+        background: white;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .ticket-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 12px;
+        color: #86868b;
+    }
+    .ticket-status.pending {
+        color: #f5a623;
+        font-weight: 700;
+        background: rgba(245, 166, 35, 0.1);
+        padding: 4px 8px;
+        border-radius: 6px;
+    }
+    .review-checklist {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .review-checklist label {
+        font-size: 14px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        cursor: pointer;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .approve-btn {
+        flex: 1;
+        background: #34c759; /* Apple Green */
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .reject-btn {
+        flex: 1;
+        background: #ff3b30; /* Apple Red */
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+</style>

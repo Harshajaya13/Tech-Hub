@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Review</title>
+    <style>
+        /* REVIEW DASHBOARD (The "Job" Interface) */
+.review-dashboard {
+    background: #fbfbfd;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.ticket-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.ticket-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.ticket-card.priority {
+    border-left: 4px solid #ff2d55; /* Urgency indicator */
+}
+
+.ticket-status {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #86868b;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.ticket-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.ticket-tags {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.tag {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f0f0f0;
+    color: #666;
+}
+
+.tag.js { background: #fef3c7; color: #92400e; } /* Yellow */
+.tag.css { background: #dbeafe; color: #1e40af; } /* Blue */
+
+.ticket-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn-small {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-small.primary { background: #1d1d1f; color: #fff; }
+.btn-small.secondary { background: #e5e5ea; color: #1d1d1f; }
+
+.path-selector {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.path-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 24px;
+    padding: 30px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
+}
+
+.founder-card {
+    border: 1px solid rgba(255, 165, 0, 0.2);
+    background: linear-gradient(180deg, #fff 0%, #fffaf0 100%); /* Subtle orange tint */
+}
+
+.milestones li {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #424245;
+}
+
+.milestones span {
+    font-weight: 700;
+    color: #1d1d1f;
+    min-width: 50px;
+}
+
+.outcome {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+    color: #1d1d1f !important;
+}
+
+.manifesto-banner {
+    background: #1d1d1f;
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+    border-radius: 30px;
+    margin: 60px 20px;
+}
+
+.manifesto-content h2 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.strike {
+    color: #ff2d55; /* Red for emphasis */
+    text-decoration: underline; /* Or keep it clean */
+}
+
+</style>
+</head>
+<body>
+
+<section class="outcome-paths">
+    <div class="section-header">
+        <h2>Choose Your Endgame</h2>
+        <p>Not everyone wants a salary. Some want to build an empire.</p>
+    </div>
+
+    <div class="path-selector">
+        
+        <div class="path-card">
+            <div class="icon-box soft-blue"><i class="fas fa-briefcase"></i></div>
+            <h3>The Engineer</h3>
+            <p>You want to build massive systems at scale within a team.</p>
+            <ul class="milestones">
+                <li><span>Step 1</span> Clone a SaaS</li>
+                <li><span>Step 2</span> Contribute to Open Source</li>
+                <li><span>Step 3</span> Crack the System Design Interview</li>
+                <li class="outcome"><strong>Outcome:</strong> SDE Role (₹8L - ₹24L)</li>
+            </ul>
+        </div>
+
+        <div class="path-card founder-card">
+            <div class="icon-box soft-orange"><i class="fas fa-rocket"></i></div>
+            <h3>The Founder</h3>
+            <p>You want to own the product, the problem, and the profit.</p>
+            <ul class="milestones">
+                <li><span>Step 1</span> Build an MVP (Ugly but functional)</li>
+                <li><span>Step 2</span> Get 10 Users (Marketing + Sales)</li>
+                <li><span>Step 3</span> Iterate based on Feedback</li>
+                <li class="outcome"><strong>Outcome:</strong> Revenue & Independence</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<div class="manifesto-banner">
+    <div class="manifesto-content">
+        <h2>Stars are optional.<br>Money is optional.<br><span class="strike">Effort is not.</span></h2>
+        <p>We provide the compass. You have to walk the path. We don't sell shortcuts.</p>
+    </div>
+</div>
+
+
+</body>
+</html>
