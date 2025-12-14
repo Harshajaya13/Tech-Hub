@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindset Console | System Log</title>
+    <style>
+        /* --- 1. SYSTEM VARIABLES --- */
+        :root {
+            --bg-body: #fbfbfd;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --card-bg: #ffffff;
+            
+            /* Console Colors */
+            --sys-red: #ff3b30;    /* Critical */
+            --sys-orange: #ff9500; /* Warning */
+            --sys-blue: #0071e3;   /* Info/Action */
+            --sys-green: #34c759;  /* Success */
+            --sys-gray: #f2f2f7;   /* Backgrounds */
+            
+            /* Fonts */
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            /* The Technical Font */
+            --font-mono: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
+            
+            --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 60px 20px;
+            color: var(--text-primary);
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* --- 2. SCREEN TRANSITIONS --- */
+        .screen {
+            transition: opacity 0.4s var(--ease-snap), transform 0.4s var(--ease-snap);
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 3. HEADER --- */
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .console-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .console-subtitle {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .system-status {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            background: var(--sys-gray);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .blink {
+            width: 8px; height: 8px;
+            background: var(--sys-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* --- 4. GRID (SELECTION SCREEN) --- */
+        .bug-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .bug-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-snap);
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            text-align: left;
+            width: 100%;
+        }
+
+        .bug-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: rgba(0,0,0,0.15);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .error-code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .code-red { color: var(--sys-red); background: rgba(255, 59, 48, 0.1); }
+        .code-orange { color: var(--sys-orange); background: rgba(255, 149, 0, 0.1); }
+        .code-blue { color: var(--sys-blue); background: rgba(0, 113, 227, 0.1); }
+
+        .bug-icon { font-size: 20px; }
+
+        .bug-msg {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .bug-sub {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        /* --- 5. STORY SCREEN (UPDATED FONT STYLES) --- */
+        .story-container {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-family: var(--font-mono);
+            color: var(--sys-blue);
+            cursor: pointer;
+            font-size: 13px;
+            margin-bottom: 30px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .back-btn:hover { opacity: 1; text-decoration: underline; }
+
+        .scenario-tag {
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .story-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        /* ---> THIS IS THE STYLE UPDATE <--- */
+        .story-body {
+            font-family: var(--font-mono); /* Now using the Technical Font */
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 40px;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--sys-blue);
+        }
+
+        /* Technical Box Styles */
+        .tech-box {
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .box-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Truth Box */
+        .truth-box { background: rgba(255, 59, 48, 0.04); border: 1px solid rgba(255, 59, 48, 0.1); }
+        .truth-box .box-label { color: var(--sys-red); }
+        .truth-box p { 
+            font-family: var(--font-mono); /* Technical Font */
+            font-size: 14px; 
+            color: #1d1d1f; 
+            margin: 0; 
+            line-height: 1.6;
+        }
+
+        /* Fix Box */
+        .fix-box { background: #f0f7ff; border: 1px solid rgba(0, 113, 227, 0.1); }
+        .fix-box .box-label { color: var(--sys-blue); }
+        .fix-box p { 
+            font-family: var(--font-mono); /* Technical Font */
+            font-size: 14px; 
+            color: #1d1d1f; 
+            margin: 0; 
+            line-height: 1.6; 
+        }
+
+        @media (max-width: 768px) {
+            .bug-grid { grid-template-columns: 1fr; }
+            .console-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .story-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div id="selection-screen" class="screen active">
+            
+            <div class="console-header">
+                <div class="console-title">
+                    <h1>Mindset Debugger</h1>
+                    <span class="console-subtitle">> Select Error Log to Analyze...</span>
+                </div>
+                <div class="system-status">
+                    <div class="blink"></div> SYSTEM: LISTENING
+                </div>
+            </div>
+
+            <div class="bug-grid">
+                
+                <button class="bug-card" onclick="showStory('stuck')">
+                    <div class="card-top">
+                        <span class="error-code code-red">ERR_LOOP_3HR</span>
+                        <span class="bug-icon">🐞</span>
+                    </div>
+                    <h3 class="bug-msg">"I've been stuck on one error for 3 hours."</h3>
+                    <p class="bug-sub">Process halted. No visible progress.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('comparison')">
+                    <div class="card-top">
+                        <span class="error-code code-orange">DEP_CONFLICT_FOMO</span>
+                        <span class="bug-icon">🏃</span>
+                    </div>
+                    <h3 class="bug-msg">"Everyone else is getting internships."</h3>
+                    <p class="bug-sub">External validation dependency failed.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('quitter')">
+                    <div class="card-top">
+                        <span class="error-code code-red">FATAL_CONFIDENCE</span>
+                        <span class="bug-icon">🛑</span>
+                    </div>
+                    <h3 class="bug-msg">"I'm too dumb for this. I should quit."</h3>
+                    <p class="bug-sub">Imposter Syndrome detected.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('fail')">
+                    <div class="card-top">
+                        <span class="error-code code-red">PROCESS_FAILED</span>
+                        <span class="bug-icon">📉</span>
+                    </div>
+                    <h3 class="bug-msg">"I failed an exam or contest. I feel useless."</h3>
+                    <p class="bug-sub">Performance metric crash.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('memory')">
+                    <div class="card-top">
+                        <span class="error-code code-blue">MEM_LEAK_SYNTAX</span>
+                        <span class="bug-icon">🧠</span>
+                    </div>
+                    <h3 class="bug-msg">"I can’t remember syntax. Brain not working."</h3>
+                    <p class="bug-sub">Retention buffer overflow.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('family')">
+                    <div class="card-top">
+                        <span class="error-code code-orange">EXT_PRESSURE_HIGH</span>
+                        <span class="bug-icon">👪</span>
+                    </div>
+                    <h3 class="bug-msg">"My family pressure is too heavy."</h3>
+                    <p class="bug-sub">Expectation load exceeds capacity.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('switch')">
+                    <div class="card-top">
+                        <span class="error-code code-blue">CONTEXT_SWITCH_ERR</span>
+                        <span class="bug-icon">🔄</span>
+                    </div>
+                    <h3 class="bug-msg">"I keep switching languages constantly."</h3>
+                    <p class="bug-sub">Focus thrashing detected.</p>
+                </button>
+
+            </div>
+        </div>
+
+        <div id="story-screen" class="screen hidden">
+            <div class="story-container">
+                <button class="back-btn" onclick="goBack()">
+                    <span>&lt;</span> cd .. (Back)
+                </button>
+                
+                <span class="scenario-tag" id="scenario-tag">LOG_ID_001</span>
+                <h1 class="story-title" id="story-title">Title Here</h1>
+                
+                <div class="story-body">
+                    <span style="opacity:0.5;">// User Log:</span><br>
+                    <span id="story-text">Description of the feeling goes here...</span>
+                </div>
+
+                <div class="tech-box truth-box">
+                    <span class="box-label">ROOT CAUSE ANALYSIS</span>
+                    <p id="story-truth">The harsh truth.</p>
+                </div>
+
+                <div class="tech-box fix-box">
+                    <span class="box-label">PATCH / SOLUTION</span>
+                    <p id="story-fix">The actionable step.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const contentDB = {
+            'stuck': {
+                tag: 'ERR_LOOP_3HR',
+                title: 'The "Stuck" Loop',
+                text: 'System has been staring at the same red error line for 180 minutes. Subject feels like no progress is being made and suspects internal incompetence.',
+                truth: 'Getting stuck is the primary function of the job. Senior engineers spend 60% of their time debugging. You are not failing; you are compiling.',
+                fix: 'Stop coding immediately. Stand up. Walk away for 10 minutes. When you return, explain the code line-by-line to a rubber duck. The answer usually appears when you articulate the problem verbally.'
+            },
+            'comparison': {
+                tag: 'DEP_CONFLICT_FOMO',
+                title: 'The LinkedIn Trap',
+                text: 'Subject is viewing peer achievements (Internships at MNCs). Subject feels internal process is lagging behind schedule.',
+                truth: 'LinkedIn is a highlight reel. You do not see their rejection emails. Comparing your Chapter 1 to someone else\'s Chapter 10 is a logic error.',
+                fix: 'Mute the noise. Focus on your local git commit graph. If you commit code every day for 30 days, you will be statistically ahead of 90% of the peers you are worried about.'
+            },
+            'quitter': {
+                tag: 'FATAL_CONFIDENCE',
+                title: 'Imposter Syndrome',
+                text: 'Logic complexity exceeds current cache. Subject believes neural hardware is incompatible with programming tasks.',
+                truth: 'Coding is difficult by design. If it were easy, the market value would be zero. Every programmer feels stupid at least once per daily cycle.',
+                fix: 'Initiate "Growth Mindset" protocol. Replace "I cannot do this" with "I cannot do this YET". Deconstruct the problem into smaller components until solution is viable.'
+            },
+            'fail': {
+                tag: 'PROCESS_FAILED',
+                title: 'System Failure',
+                text: 'Subject failed a contest, exam, or interview. Emotional status: Critical.',
+                truth: 'Failure is simply data collection. Neural networks learn by failing millions of times. You are currently training your model.',
+                fix: 'Execute "Post-Mortem" analysis. Do not dwell on emotion. Analyze exactly why the crash occurred (Syntax? Logic? Speed?). Patch that specific bug and re-deploy.'
+            },
+            'memory': {
+                tag: 'MEM_LEAK_SYNTAX',
+                title: 'Syntax Amnesia',
+                text: 'Subject cannot retrieve "For Loop" syntax from memory without external query (Google).',
+                truth: 'Memorization is for historians, not engineers. Understanding logic > Remembering syntax. External documentation is a valid dependency.',
+                fix: 'Stop attempting to memorize. Start building. You retain what you utilize. Keep documentation open on secondary tab. It is not cheating; it is reference.'
+            },
+            'family': {
+                tag: 'EXT_PRESSURE_HIGH',
+                title: 'Legacy Burden',
+                text: 'Parental expectations are causing CPU throttling. Fear of disappointment is preventing clear logic processing.',
+                truth: 'You cannot code with a gun to your head. Fear kills creativity and logic.',
+                fix: 'Detach from the output. Focus on the input. Tell yourself: "I will study for 2 hours today." That is a variable you control. The result is an external variable.'
+            },
+            'switch': {
+                tag: 'CONTEXT_SWITCH_ERR',
+                title: 'Tutorial Hell',
+                text: 'Subject switches stack (Python -> Java -> Web) every 48 hours. No project completion recorded.',
+                truth: 'You are digging 10 holes that are 1 foot deep, instead of 1 hole that is 10 feet deep. You will find no water.',
+                fix: 'Lock dependency: Commit to ONE stack for 60 days. No switching allowed. Boredom is where mastery happens.'
+            }
+        };
+
+        function showStory(id) {
+            const data = contentDB[id];
+            
+            document.getElementById('scenario-tag').innerText = data.tag;
+            document.getElementById('story-title').innerText = data.title;
+            document.getElementById('story-text').innerText = data.text;
+            document.getElementById('story-truth').innerText = data.truth;
+            document.getElementById('story-fix').innerText = data.fix;
+
+            document.getElementById('selection-screen').classList.remove('active');
+            document.getElementById('selection-screen').classList.add('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('story-screen').classList.remove('hidden');
+                document.getElementById('story-screen').classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+        }
+
+        function goBack() {
+            document.getElementById('story-screen').classList.remove('active');
+            document.getElementById('story-screen').classList.add('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('selection-screen').classList.remove('hidden');
+                document.getElementById('selection-screen').classList.add('active');
+            }, 100);
+        }
+    </script> 
+</body>
+</html>
