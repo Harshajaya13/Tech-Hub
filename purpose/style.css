@@ -205,3 +205,29 @@
             .hub-card { padding: 20px; }
             .app-icon { width: 54px; height: 54px; font-size: 1.5rem; }
         }
+
+        /* Container Transition */
+        #main-grid {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* New cards animation */
+        .animate-card {
+            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; /* Start invisible */
+            transform: translateY(20px);
+        }
+
+        /* Stagger the animation slightly for a premium feel */
+        .animate-card:nth-child(1) { animation-delay: 0.05s; }
+        .animate-card:nth-child(2) { animation-delay: 0.1s; }
+        .animate-card:nth-child(3) { animation-delay: 0.15s; }
+        .animate-card:nth-child(4) { animation-delay: 0.2s; }
+        .animate-card:nth-child(5) { animation-delay: 0.25s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
