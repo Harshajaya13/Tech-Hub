@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindset Console | Apple Psychology</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="debug.css" rel="stylesheet">
+
+  
+</head>
+<body>
+
+    <div class="container">
+
+        <div id="selection-screen" class="screen active">
+            
+            <div class="console-header">
+                <div class="console-title">
+                    <h1>Internal Diagnostics</h1>
+                    <span class="console-subtitle">Identify the friction in your operating system.</span>
+                </div>
+                <div class="system-status">
+                    <div class="blink"></div> System Status: Online
+                </div>
+            </div>
+
+            <div class="bug-grid">
+                
+                <button class="bug-card" onclick="showStory('stuck')">
+                    <div class="card-top">
+                        <span class="error-code code-red">ERR_LOOP_3HR</span>
+                        <span class="bug-msg">🐞</span>
+                    </div>
+                    <h3 class="bug-msg">"I've been stuck on one error for 3 hours."</h3>
+                    <p class="bug-sub">Feeling of zero progress.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('comparison')">
+                    <div class="card-top">
+                        <span class="error-code code-orange">DEP_CONFLICT</span>
+                        <span class="bug-msg">🏃</span>
+                    </div>
+                    <h3 class="bug-msg">"Everyone else is getting internships."</h3>
+                    <p class="bug-sub">The feeling of being left behind.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('quitter')">
+                    <div class="card-top">
+                        <span class="error-code code-red">FATAL_CONFIDENCE</span>
+                        <span class="bug-msg">🛑</span>
+                    </div>
+                    <h3 class="bug-msg">"I'm too dumb for this. I should quit."</h3>
+                    <p class="bug-sub">Deep self-doubt detected.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('fail')">
+                    <div class="card-top">
+                        <span class="error-code code-red">PROCESS_FAILED</span>
+                        <span class="bug-msg">📉</span>
+                    </div>
+                    <h3 class="bug-msg">"I failed an exam. I feel useless."</h3>
+                    <p class="bug-sub">Performance crash.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('memory')">
+                    <div class="card-top">
+                        <span class="error-code code-blue">MEM_LEAK</span>
+                        <span class="bug-msg">🧠</span>
+                    </div>
+                    <h3 class="bug-msg">"I can’t remember syntax."</h3>
+                    <p class="bug-sub">Brain feels like a sieve.</p>
+                </button>
+
+                <button class="bug-card" onclick="showStory('family')">
+                    <div class="card-top">
+                        <span class="error-code code-orange">EXT_PRESSURE</span>
+                        <span class="bug-msg">👪</span>
+                    </div>
+                    <h3 class="bug-msg">"My family pressure is too heavy."</h3>
+                    <p class="bug-sub">The fear of disappointing others.</p>
+                </button>
+            </div>
+        </div>
+
+        <div id="story-screen" class="screen hidden">
+            <div class="story-container">
+                <button class="back-btn" onclick="goBack()">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M7 11L2 6l5-5"></path></svg>
+                    Back to Diagnostics
+                </button>
+                
+                <span class="scenario-tag" id="scenario-tag">LOG_ID_001</span>
+                <h1 class="story-title" id="story-title">Title Here</h1>
+                
+                <div class="story-body">
+                    <p id="story-text">Description of the feeling goes here...</p>
+                </div>
+
+                <div class="tech-box truth-box">
+                    <span class="box-label">The Reality Check</span>
+                    <p id="story-truth">The harsh truth.</p>
+                </div>
+
+                <div class="tech-box fix-box">
+                    <span class="box-label">The Patch</span>
+                    <p id="story-fix">The actionable step.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="debug.js"></script>
+ 
+</body>
+</html>

@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateUI();
         } else {
             // Step 1 -> Back to Hub (change URL if needed)
-            window.location.href = 'start.html';
+            window.location.href = '/start/start.html';
         }
     };
 
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Button Text
         if (currentStep === 1) {
             backBtn.innerText = "← Back to Hub";
+            
         } else {
             backBtn.innerText = "← Previous";
         }
