@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Compass | Find Your Path</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. CORE STYLES --- */
+        :root {
+            --bg-body: #ffffff;
+            --text-main: #1d1d1f;
+            --text-sub: #86868b;
+            --accent-corp: #0071e3; /* Tech Blue */
+            --accent-govt: #b45309; /* Bronze/Gold for Institutions */
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- 2. HERO --- */
+        .hero {
+            padding: 80px 20px 40px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            color: var(--text-sub);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: inline-block;
+            border: 1px solid #eee;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin: 0 0 24px 0;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-sub);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- 3. PHASE 1: THE GREAT DIVIDE (Govt vs Corp) --- */
+        .macro-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 60px auto 100px;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .macro-card {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 30px;
+            padding: 50px 40px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            min-height: 350px;
+        }
+
+        .macro-card:hover { transform: translateY(-8px); }
+
+        /* A. The Builder (Private Sector) */
+        .card-corp {
+            background: #f5f5f7;
+            border: 1px solid transparent;
+        }
+        .card-corp:hover {
+            box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+            background: #fff;
+            border-color: var(--accent-corp);
+        }
+        .card-corp .icon-large { color: var(--accent-corp); }
+        .card-corp h2 { color: #1d1d1f; }
+        
+        /* B. The Scholar (Govt/GATE) */
+        .card-govt {
+            background: #fffbf7; /* Very light warm tone */
+            border: 1px solid rgba(180, 83, 9, 0.1);
+        }
+        .card-govt:hover {
+            box-shadow: 0 20px 40px rgba(180, 83, 9, 0.15);
+            background: #fff;
+            border-color: var(--accent-govt);
+        }
+        .card-govt .icon-large { color: var(--accent-govt); }
+        .card-govt h2 { color: #451a03; }
+
+        .icon-large { font-size: 50px; margin-bottom: 30px; }
+        .macro-title { font-size: 32px; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .macro-desc { font-size: 18px; color: var(--text-sub); line-height: 1.5; margin-bottom: 40px; }
+        
+        .macro-btn {
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .card-corp .macro-btn { color: var(--accent-corp); }
+        .card-govt .macro-btn { color: var(--accent-govt); }
+
+
+        /* --- 4. PHASE 2: THE TECH TRIANGLE (Hidden initially or scrolled to) --- */
+        .tech-section-header {
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .divider-line {
+            width: 2px;
+            height: 80px;
+            background: #e5e5e5;
+            margin: 0 auto 30px;
+        }
+
+        .archetype-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .archetype-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 24px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .archetype-card:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+
+        .icon-box {
+            width: 50px; height: 50px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin-bottom: 20px;
+        }
+
+        /* Tech Colors */
+        .icon-vis { color: #ff2d55; background: rgba(255, 45, 85, 0.1); }
+        .icon-log { color: #5856d6; background: rgba(88, 86, 214, 0.1); }
+        .icon-dat { color: #30b0c7; background: rgba(48, 176, 199, 0.1); }
+
+        .card-title { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .card-desc { font-size: 15px; color: var(--text-sub); line-height: 1.6; margin-bottom: 20px; }
+        
+        .path-link { text-decoration: none; font-weight: 600; font-size: 14px; }
+        .link-vis { color: #ff2d55; }
+        .link-log { color: #5856d6; }
+        .link-dat { color: #30b0c7; }
+
+
+        /* --- NAV BACK --- */
+        .nav-back {
+            position: absolute; top: 40px; left: 40px;
+            color: var(--text-sub); text-decoration: none;
+            display: flex; align-items: center; gap: 8px; font-weight: 500;
+        }
+        .nav-back:hover { color: #000; }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="nav-back">
+        <i class="fas fa-arrow-left"></i> Grand Central
+    </a>
+
+    <section class="hero">
+        <div class="eyebrow">Phase 1: The Great Divide</div>
+        <h1>Choose your Arena.</h1>
+        <p>Before you choose a language, choose your battlefield. Do you want to build in the private sector, or serve in the public sphere?</p>
+    </section>
+
+    <div class="macro-container">
+        
+        <a href="subjects/landing.html" class="macro-card card-govt" style="text-decoration: none;">
+            <div>
+                <i class="fas fa-landmark icon-large"></i>
+                <h2 class="macro-title">The Strategist</h2>
+                <p class="macro-desc">
+                    You seek stability, deep theoretical mastery, or service to the nation. You are preparing for <strong>GATE, UPSC, PSUs,</strong> or Higher Education (M.Tech).
+                </p>
+            </div>
+            <span class="macro-btn">Enter the Exam Wing <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <div class="macro-card card-corp" onclick="document.getElementById('tech-specs').scrollIntoView();">
+            <div>
+                <i class="fas fa-rocket icon-large"></i>
+                <h2 class="macro-title">The Builder</h2>
+                <p class="macro-desc">
+                    You seek innovation, speed, and product creation. You want to work at <strong>Startups, MNCs,</strong> or launch your own ideas. You live in code.
+                </p>
+            </div>
+            <span class="macro-btn">Identify Your Role <i class="fas fa-arrow-down"></i></span>
+        </div>
+
+    </div>
+
+    <div id="tech-specs">
+        <div class="tech-section-header">
+            <div class="divider-line"></div>
+            <h2 style="font-size: 32px; font-weight: 800;">Phase 2: The Builder's Path</h2>
+            <p style="color: var(--text-sub);">You chose the private sector. Now, how do you want to build?</p>
+        </div>
+
+        <div class="archetype-container">
+            
+            <div class="archetype-card">
+                <div class="icon-box icon-vis"><i class="fas fa-paint-brush"></i></div>
+                <div class="card-title">The Creator</div>
+                <div class="card-desc">
+                    "I want to make things people see."<br>
+                    Focus: Frontend, Mobile, UI/UX.<br>
+                    <strong>Tools: React, JavaScript, Swift.</strong>
+                </div>
+                <a href="/subjects/landing.html" class="path-link link-vis">Select Profile <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="archetype-card">
+                <div class="icon-box icon-log"><i class="fas fa-server"></i></div>
+                <div class="card-title">The Architect</div>
+                <div class="card-desc">
+                    "I care about how it works inside."<br>
+                    Focus: Backend, Cloud, Systems.<br>
+                    <strong>Tools: Java, Go, Docker.</strong>
+                </div>
+                <a href="/subjects/landing.html" class="path-link link-log">Select Profile <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="archetype-card">
+                <div class="icon-box icon-dat"><i class="fas fa-brain"></i></div>
+                <div class="card-title">The Detective</div>
+                <div class="card-desc">
+                    "I want to find patterns in data."<br>
+                    Focus: AI, ML, Data Science.<br>
+                    <strong>Tools: Python, PyTorch, SQL.</strong>
+                </div>
+                <a href="/subjects/landing.html" class="path-link link-dat">Select Profile <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

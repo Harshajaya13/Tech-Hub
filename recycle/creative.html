@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Compass | Find Your Path</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. CLEAN SLATE CSS --- */
+        :root {
+            --bg-body: #ffffff;
+            --text-main: #1d1d1f;
+            --text-sub: #86868b;
+            --accent-guide: #0071e3; /* Trustworthy Blue */
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- 2. HERO: THE DIAGNOSIS --- */
+        .hero {
+            padding: 100px 20px 60px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            color: var(--accent-guide);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin: 0 0 24px 0;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        /* --- 3. THE TRIANGLE OF CHOICE --- */
+        .archetype-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto 100px;
+            padding: 0 20px;
+        }
+
+        .archetype-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .archetype-card:hover {
+            background: #fff;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: transparent;
+        }
+
+        /* Distinct Colors for Identity */
+        .card-visual .icon-box { color: #ff2d55; background: rgba(255, 45, 85, 0.1); }
+        .card-logic .icon-box { color: #5856d6; background: rgba(88, 86, 214, 0.1); }
+        .card-data .icon-box { color: #30b0c7; background: rgba(48, 176, 199, 0.1); }
+
+        .icon-box {
+            width: 64px; height: 64px;
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .card-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .card-question { font-size: 18px; font-style: italic; color: #555; margin-bottom: 20px; }
+        .card-desc { font-size: 16px; color: var(--text-sub); line-height: 1.6; margin-bottom: 30px; }
+
+        .path-btn {
+            padding: 14px 0;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(0,0,0,0.1);
+            color: var(--text-main);
+            transition: 0.2s;
+            margin-top: auto;
+        }
+        
+        .card-visual .path-btn:hover { background: #ff2d55; color: white; border-color: #ff2d55; }
+        .card-logic .path-btn:hover { background: #5856d6; color: white; border-color: #5856d6; }
+        .card-data .path-btn:hover { background: #30b0c7; color: white; border-color: #30b0c7; }
+
+        /* --- 4. THE ACTION PLAN --- */
+        .action-section {
+            background: #111;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .action-box {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .action-box h2 { font-size: 40px; margin-bottom: 20px; }
+        .action-box p { font-size: 18px; color: #888; margin-bottom: 40px; }
+
+        .nav-back {
+            position: absolute; top: 40px; left: 40px;
+            color: var(--text-sub); text-decoration: none;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-back:hover { color: #000; }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="nav-back">
+        <i class="fas fa-arrow-left"></i> Grand Central
+    </a>
+
+    <section class="hero">
+        <div class="eyebrow">The Diagnosis</div>
+        <h1>Clarity comes from<br>doing, not thinking.</h1>
+        <p>You are stuck because you are trying to pick a "career." Stop. Pick a problem type instead. Which of these sounds like you?</p>
+    </section>
+
+    <div class="archetype-container">
+        
+        <div class="archetype-card card-visual">
+            <div class="icon-box"><i class="fas fa-eye"></i></div>
+            <div class="card-title">The Creator</div>
+            <div class="card-question">"I want to make things people can see and touch."</div>
+            <div class="card-desc">
+                You care about aesthetics, user interaction, and immediate feedback. You get frustrated when things look ugly or feel clunky.
+                <br><br>
+                <strong>Your Path:</strong> Frontend Engineering & UI/UX.
+            </div>
+            <a href="/subjects/landing.html" class="path-btn">Start with JavaScript & React</a>
+        </div>
+
+        <div class="archetype-card card-logic">
+            <div class="icon-box"><i class="fas fa-cogs"></i></div>
+            <div class="card-title">The Architect</div>
+            <div class="card-question">"I care about how the machine works on the inside."</div>
+            <div class="card-desc">
+                You like logic puzzles. You care about speed, data storage, and efficiency. You prefer the terminal over the canvas.
+                <br><br>
+                <strong>Your Path:</strong> Backend Systems & APIs.
+            </div>
+            <a href="/subjects/landing.html" class="path-btn">Start with Python or Go</a>
+        </div>
+
+        <div class="archetype-card card-data">
+            <div class="icon-box"><i class="fas fa-magnifying-glass-chart"></i></div>
+            <div class="card-title">The Detective</div>
+            <div class="card-question">"I want to find patterns in the chaos."</div>
+            <div class="card-desc">
+                You love math, statistics, and predicting the future. You want to teach machines how to think, learn, and automate.
+                <br><br>
+                <strong>Your Path:</strong> AI, ML & Data Science.
+            </div>
+            <a href="/subjects/landing.html" class="path-btn">Start with Python & Math</a>
+        </div>
+
+    </div>
+
+    <section class="action-section">
+        <div class="action-box">
+            <h2>Still Undecided?</h2>
+            <p>Then stop thinking and default to the "Universal Language."</p>
+            
+            <div style="background: #222; padding: 30px; border-radius: 20px; text-align: left; font-family: monospace; color: #28cd41; margin-bottom: 30px;">
+                > Default_Path = "Python"<br>
+                > Reason = "It runs servers, AI, and scripts."<br>
+                > Task = "Build a To-Do List in Python CLI"<br>
+                > Status = "Waiting for you..."<span class="cursor">|</span>
+            </div>
+
+            <a href="/subjects/landing.html" style="background: #fff; color: #000; padding: 16px 40px; border-radius: 100px; text-decoration: none; font-weight: 700;">
+                Accept the Mission
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>
