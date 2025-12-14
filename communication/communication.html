@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Communication | TalentHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. KEYNOTE AESTHETIC CSS --- */
+        :root {
+            --bg-body: #ffffff;
+            --bg-offset: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-sub: #86868b;
+            --accent-orange: #ff9500; /* The "Human" Warmth Color */
+            --radius-card: 28px;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. HERO: "THE REALITY DISTORTION FIELD" --- */
+        .hero {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
+        }
+
+        .eyebrow {
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 149, 0, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+        }
+
+        .hero h1 {
+            font-size: 80px;
+            font-weight: 800;
+            letter-spacing: -3px;
+            margin: 0;
+            line-height: 1.05;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: var(--text-sub);
+            max-width: 680px;
+            margin-top: 24px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* --- 3. THE "JOBS" QUOTE BLOCK --- */
+        .quote-section {
+            background: #000;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .quote-text {
+            font-size: 36px;
+            font-weight: 600;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.4;
+            font-family: "SF Pro Display", "Inter", sans-serif; 
+        }
+
+        .quote-author {
+            margin-top: 30px;
+            color: #888;
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        /* --- 4. THE SKILL GRID (Bento Style) --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .section-header { margin-bottom: 60px; text-align: left; }
+        .section-header h2 { font-size: 48px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+        .section-header p { font-size: 20px; color: var(--text-sub); }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 340px);
+            gap: 24px;
+        }
+
+        .bento-card {
+            background: var(--bg-offset);
+            border-radius: var(--radius-card);
+            padding: 40px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-8px);
+            background: #ffffff;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .wide { grid-column: span 2; }
+        .tall { grid-row: span 2; }
+
+        .card-icon { font-size: 36px; margin-bottom: 20px; color: var(--text-main); }
+        .card-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .card-desc { font-size: 17px; color: var(--text-sub); line-height: 1.6; }
+
+        /* Highlight Card (The Pitch) */
+        .highlight-card {
+            background: #fff;
+            border: 2px solid var(--accent-orange);
+        }
+        .highlight-card .card-icon { color: var(--accent-orange); }
+
+        /* --- 5. INTERACTIVE CTA --- */
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--bg-offset);
+            border-radius: 40px;
+            margin: 20px;
+        }
+
+        .cta-btn {
+            background: #000;
+            color: #fff;
+            padding: 18px 40px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        /* Nav Back */
+        .nav-back {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-back:hover { color: #000; }
+
+        @media(max-width: 900px) {
+            .hero h1 { font-size: 48px; }
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .wide, .tall { grid-column: span 1; grid-row: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/index.html" class="nav-back">
+        <i class="fas fa-arrow-left"></i> Grand Central
+    </a>
+
+    <section class="hero">
+        <div class="eyebrow">Soft Skills are Hard Skills</div>
+        <h1>Code is Logic.<br>Communication is Power.</h1>
+        <p>You can write the most efficient algorithm in history, but if you cannot explain why it matters to a human, it does not exist.</p>
+    </section>
+
+    <section class="quote-section">
+        <div class="quote-text">
+            "The most powerful person in the world is the storyteller. The storyteller sets the vision, values, and agenda of an entire generation that is to come."
+        </div>
+        <div class="quote-author">— Steve Jobs</div>
+    </section>
+
+    <div class="container">
+        <div class="section-header">
+            <h2>The Protocol.</h2>
+            <p>Mastering the interface between human and machine.</p>
+        </div>
+        
+        <div class="bento-grid">
+            
+            <div class="bento-card wide highlight-card">
+                <div class="card-icon"><i class="fas fa-microphone-lines"></i></div>
+                <div>
+                    <div class="card-title">The Pitch</div>
+                    <div class="card-desc">
+                        Every great product started as a conversation. Whether you are asking for a raise, pitching a startup, or explaining a bug to a manager—you are selling. Learn to speak with clarity, brevity, and conviction.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card">
+                <div class="card-icon"><i class="fas fa-pen-nib"></i></div>
+                <div class="card-title">Documentation</div>
+                <div class="card-desc">
+                    Code is read 10x more than it is written. Good documentation isn't a chore; it's empathy for the next developer (who might be you).
+                </div>
+            </div>
+
+            <div class="bento-card tall">
+                <div class="card-icon"><i class="fas fa-ear-listen"></i></div>
+                <div class="card-title">Active Listening</div>
+                <div class="card-desc">
+                    <br>
+                    Engineers are trained to solve problems immediately.
+                    <br><br>
+                    Communicators are trained to <strong>understand</strong> the problem first.
+                    <br><br>
+                    Stop waiting for your turn to speak. Start listening to understand the requirements, the user's pain, and the team's friction.
+                </div>
+            </div>
+
+            <div class="bento-card">
+                <div class="card-icon"><i class="fas fa-handshake"></i></div>
+                <div class="card-title">Negotiation</div>
+                <div class="card-desc">
+                    Deadlines, salaries, and features are all negotiable. Don't say "Yes" to everything. Learn to say "No" with respect.
+                </div>
+            </div>
+
+            <div class="bento-card">
+                <div class="card-icon"><i class="fas fa-shapes"></i></div>
+                <div class="card-title">Simplicity</div>
+                <div class="card-desc">
+                    "Simple can be harder than complex." Strip away the jargon. Explain your code as if you are teaching a child.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2 style="font-size: 40px; font-weight: 800; margin-bottom: 10px;">Ready to Speak Up?</h2>
+        <p style="color: var(--text-sub); font-size: 18px;">Great leaders are just engineers who learned to tell a story.</p>
+        <a href="#" class="cta-btn">Start the Course</a>
+    </div>
+
+</body>
+</html>

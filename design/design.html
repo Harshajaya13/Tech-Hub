@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design & Architecture | TalentHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. THE STUDIO AESTHETIC --- */
+        :root {
+            --bg-canvas: #ffffff;
+            --bg-grid: #f0f0f0;
+            --text-ink: #111111;
+            --text-pencil: #666666;
+            --accent-art: #db2777; /* Hot Pink */
+            --accent-blue: #2563eb;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            /* Subtle Grid Background like a Notebook */
+            background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px),
+            linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-ink);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- 2. HERO: "THE ARCHITECT" --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.9); /* Fade out grid */
+            backdrop-filter: blur(5px);
+        }
+
+        .tag {
+            font-family: monospace;
+            color: var(--accent-art);
+            border: 1px solid var(--accent-art);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(135deg, #111 0%, #555 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: var(--text-pencil);
+            max-width: 600px;
+            margin-top: 24px;
+            line-height: 1.6;
+        }
+
+        /* --- 3. DUALITY SECTION (Form vs Function) --- */
+        .duality-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .duality-card {
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #e5e5e5;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .duality-card:hover { transform: translateY(-10px); border-color: var(--accent-art); }
+
+        .icon-box {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sys-design .icon-box { background: #eff6ff; color: var(--accent-blue); }
+        .ux-design .icon-box { background: #fdf2f8; color: var(--accent-art); }
+
+        .card-head { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .card-body { font-size: 16px; color: var(--text-pencil); line-height: 1.6; }
+
+        /* --- 4. THE 3 PILLARS --- */
+        .pillars-section {
+            background: #fff;
+            padding: 100px 20px;
+            text-align: center;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .pillar-grid {
+            max-width: 1000px;
+            margin: 60px auto 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pillar { flex: 1; min-width: 250px; }
+        .pillar h3 { font-size: 20px; margin-bottom: 10px; }
+        .pillar p { color: var(--text-pencil); }
+
+        /* --- 5. NAV BACK --- */
+        .nav-back {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            color: var(--text-pencil);
+            text-decoration: none;
+            display: flex; align-items: center; gap: 8px; font-weight: 500;
+        }
+        .nav-back:hover { color: var(--text-ink); }
+        
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="nav-back">
+        <i class="fas fa-arrow-left"></i> Grand Central
+    </a>
+
+    <section class="hero">
+        <div class="tag">FORM FOLLOWS FUNCTION</div>
+        <h1>The Architect's Mind.</h1>
+        <p>A coder knows how to write a function. An engineer knows how to structure a system. A designer knows how to make it matter.</p>
+    </section>
+    
+    <div class="duality-container">
+        
+        <div class="duality-card sys-design">
+            <div class="icon-box"><i class="fas fa-network-wired"></i></div>
+            <div class="card-head">System Design</div>
+            <div class="card-body">
+                The "Invisible" Design. How do you handle 1 million users? How do you structure your database? 
+                <strong>Scalability</strong>, <strong>Security</strong>, and <strong>Reliability</strong> are not accidents. They are designed.
+            </div>
+        </div>
+
+        <div class="duality-card ux-design">
+            <div class="icon-box"><i class="fas fa-pen-fancy"></i></div>
+            <div class="card-head">User Experience</div>
+            <div class="card-body">
+                The "Visible" Design. If a user cannot figure out your app in 3 seconds, they leave.
+                <strong>Empathy</strong>, <strong>Simplicity</strong>, and <strong>Aesthetics</strong> turn code into a product.
+            </div>
+        </div>
+
+    </div>
+
+    <section class="pillars-section">
+        <i class="fas fa-quote-left" style="font-size: 30px; color: #ddd; margin-bottom: 20px;"></i>
+        <h2 style="font-size: 32px; max-width: 800px; margin: 0 auto 60px;">
+            "Most people make the mistake of thinking design is what it looks like. People think it’s this veneer. Design is how it works."
+        </h2>
+
+        <div class="pillar-grid">
+            <div class="pillar">
+                <i class="fas fa-crop-simple" style="font-size: 30px; color: var(--text-ink); margin-bottom: 15px;"></i>
+                <h3>Simplicity</h3>
+                <p>The ultimate sophistication. Remove everything that is not essential.</p>
+            </div>
+            <div class="pillar">
+                <i class="fas fa-users-viewfinder" style="font-size: 30px; color: var(--text-ink); margin-bottom: 15px;"></i>
+                <h3>Empathy</h3>
+                <p>Don't build for yourself. Build for the person holding the phone.</p>
+            </div>
+            <div class="pillar">
+                <i class="fas fa-server" style="font-size: 30px; color: var(--text-ink); margin-bottom: 15px;"></i>
+                <h3>Scale</h3>
+                <p>Build systems that don't break when the world starts watching.</p>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>
