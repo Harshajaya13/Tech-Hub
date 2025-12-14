@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Architecture Grid</title>
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --bg-body: #fbfbfd;
+            --text-headline: #1d1d1f;
+            --text-body: #86868b;
+            --card-bg: #ffffff;
+            
+            /* Persona Colors */
+            --color-corporate: #0071e3;   /* Apple Blue */
+            --color-startup: #ff6e30;     /* Builder Orange */
+            --color-govt: #32a852;        /* Stability Green */
+            --color-research: #af52de;    /* Academic Purple */
+
+            --shadow-subtle: 0 4px 24px rgba(0,0,0,0.04);
+            --shadow-hover: 0 20px 40px rgba(0,0,0,0.08);
+            --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 80px 20px;
+        }
+
+        /* --- 2. GRID CONTAINER --- */
+        .arch-container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .arch-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .arch-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-headline);
+            margin-bottom: 16px;
+        }
+
+        .arch-header p {
+            font-size: 20px;
+            color: var(--text-body);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- 3. THE ARCHITECTURE CARDS --- */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 Columns standard */
+            gap: 24px;
+        }
+
+        .arch-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
+            border: 1px solid rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
+        }
+
+        .arch-card:hover {
+            transform: scale(1.015);
+            box-shadow: var(--shadow-hover);
+            z-index: 2;
+        }
+
+        /* Top Line Indicator */
+        .arch-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            opacity: 0.8;
+        }
+        .card-corp::before { background: var(--color-corporate); }
+        .card-startup::before { background: var(--color-startup); }
+        .card-govt::before { background: var(--color-govt); }
+        .card-research::before { background: var(--color-research); }
+
+        /* Icon Styling */
+        .arch-icon-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+            transition: transform 0.4s var(--ease-apple);
+        }
+
+        .card-corp .arch-icon-box { background: #eef7ff; color: var(--color-corporate); }
+        .card-startup .arch-icon-box { background: #fff4ec; color: var(--color-startup); }
+        .card-govt .arch-icon-box { background: #eafbf0; color: var(--color-govt); }
+        .card-research .arch-icon-box { background: #f7efff; color: var(--color-research); }
+
+        .arch-card:hover .arch-icon-box { transform: scale(1.1); }
+
+        /* Text Styling */
+        .arch-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-headline);
+            margin-bottom: 12px;
+        }
+
+        .arch-desc {
+            font-size: 17px;
+            line-height: 1.5;
+            color: var(--text-body);
+            margin-bottom: 30px;
+        }
+
+        .arch-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-body);
+            background: #f5f5f7;
+            padding: 8px 16px;
+            border-radius: 100px;
+            align-self: flex-start;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .arch-header h2 { font-size: 36px; }
+            .arch-grid { grid-template-columns: 1fr; } /* Stack on mobile */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="arch-container">
+        
+        <div class="arch-header">
+            <h2>Select your Architecture.</h2>
+            <p>Every career requires a different blueprint. <br>Choose the path that matches your ambition.</p>
+        </div>
+
+        <div class="arch-grid">
+
+            <div class="arch-card card-corp" onclick="window.location.href='internships_pro.html'">
+                <div>
+                    <div class="arch-icon-box">🏢</div>
+                    <h3 class="arch-title">The Enterprise Engineer</h3>
+                    <p class="arch-desc">
+                        Google, Microsoft, Amazon. You value scale, high compensation, and structured growth. 
+                        Your weapon is Data Structures & Algorithms.
+                    </p>
+                </div>
+                <span class="arch-tag">Focus: LeetCode & System Design</span>
+            </div>
+
+            <div class="arch-card card-startup" onclick="window.location.href='startup_plan.html'">
+                <div>
+                    <div class="arch-icon-box">🚀</div>
+                    <h3 class="arch-title">The Startup Builder</h3>
+                    <p class="arch-desc">
+                        YCombinator, Indie Hacking. You value equity, speed, and ownership. 
+                        You don't want a boss; you want to build the product.
+                    </p>
+                </div>
+                <span class="arch-tag">Focus: Development & Shipping</span>
+            </div>
+
+            <div class="arch-card card-govt" onclick="window.location.href='#'">
+                <div>
+                    <div class="arch-icon-box">🏛️</div>
+                    <h3 class="arch-title">The Public Servant</h3>
+                    <p class="arch-desc">
+                        GATE, PSU, UPSC, ISRO. You value stability, national service, and core engineering depth. 
+                        You are playing the long game of prestige.
+                    </p>
+                </div>
+                <span class="arch-tag">Focus: Core Concepts & Aptitude</span>
+            </div>
+
+            <div class="arch-card card-research" onclick="window.location.href='#'">
+                <div>
+                    <div class="arch-icon-box">🎓</div>
+                    <h3 class="arch-title">The Academic</h3>
+                    <p class="arch-desc">
+                        Masters (MS/MTech), PhD, R&D. You value knowledge depth and specialization. 
+                        You are looking to solve unsolved mathematical problems.
+                    </p>
+                </div>
+                <span class="arch-tag">Focus: Mathematics & Research Papers</span>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

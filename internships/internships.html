@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships | Pro</title>
+    <style>
+        /* --- 1. THE CUPERTINO ENGINE (Shared DNA) --- */
+        :root {
+            --bg-body: #fbfbfd;
+            --text-headline: #1d1d1f;
+            --text-body: #86868b;
+            --link-blue: #0066cc;
+            --card-bg: #ffffff;
+            --section-bg: #f5f5f7;
+            --glass: rgba(251, 251, 253, 0.8);
+            --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+            
+            /* Path Colors */
+            --mnc-blue: #0071e3;
+            --startup-orange: #ff6e30; /* Adjusted for vibrancy */
+            --research-purple: #af52de;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: local('-apple-system'), local('BlinkMacSystemFont');
+            font-weight: 400;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-headline);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. UTILITY & ANIMATION --- */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s var(--ease-apple);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 3. NAV (Sticky Glass) --- */
+        .global-nav {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            height: 52px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nav-back {
+            text-decoration: none;
+            color: var(--text-headline);
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--link-blue); }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            padding: 130px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1s 0.2s forwards;
+        }
+
+        .hero p {
+            font-size: 24px;
+            line-height: 1.4;
+            color: var(--text-body);
+            max-width: 600px;
+            margin: 0 auto 50px;
+            opacity: 0;
+            animation: fadeIn 1s 0.4s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* --- 5. THE STRATEGY GRID (Bento Style) --- */
+        .grid-section {
+            background: var(--section-bg);
+            padding: 120px 0;
+        }
+
+        .section-headline {
+            font-size: 40px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .paths-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .path-card {
+            background: #fff;
+            border-radius: 28px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 480px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .path-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        /* Card Content */
+        .path-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .badge-mnc { color: var(--mnc-blue); }
+        .badge-startup { color: var(--startup-orange); }
+        .badge-research { color: var(--research-purple); }
+
+        .path-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+
+        .path-desc {
+            font-size: 17px;
+            color: var(--text-body);
+            line-height: 1.5;
+        }
+
+        .path-icon {
+            font-size: 40px;
+            margin-top: 30px;
+            margin-bottom: auto; /* Pushes content up */
+        }
+
+        .path-link {
+            margin-top: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--link-blue);
+            text-decoration: none;
+        }
+        .path-link:hover { text-decoration: underline; }
+
+        /* --- 6. THE PORTAL LIST (Clean List) --- */
+        .tools-section {
+            background: #fff;
+            padding: 100px 0;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tool-item:hover { background: #f5f5f7; }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .tool-item:hover .tool-icon { background: #fff; }
+
+        .tool-info h3 { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+        .tool-info p { font-size: 14px; color: var(--text-body); }
+
+        /* Footer */
+        footer {
+            background: #f5f5f7;
+            padding: 60px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-body);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 48px; }
+            .paths-wrapper { grid-template-columns: 1fr; height: auto; }
+            .path-card { height: auto; min-height: 350px; }
+            .tool-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="container nav-content">
+            <a href="toc_pro_max.html" class="nav-back">‹ Subject Decoder</a>
+            <span>Career Pro</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Choose your<br>Trajectory.</h1>
+            <p>Not all internships are created equal.<br>Select the ecosystem that fits your code.</p>
+        </div>
+    </section>
+
+    <section class="grid-section">
+        <div class="container">
+            <h2 class="section-headline reveal-on-scroll">Three distinct paths.</h2>
+
+            <div class="paths-wrapper">
+                
+                <div class="path-card reveal-on-scroll">
+                    <div>
+                        <div class="path-badge badge-mnc">Enterprise Class</div>
+                        <h3 class="path-title">The Giants.</h3>
+                        <div class="path-icon">🏢</div>
+                        <p class="path-desc">
+                            Google. Microsoft. Amazon. <br><br>
+                            They optimize for scale. They require DSA mastery and algorithmic perfection.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/jobs/" target="_blank" class="path-link">View Corporate Openings ></a>
+                </div>
+
+                <div class="path-card reveal-on-scroll" style="transition-delay: 0.1s;">
+                    <div>
+                        <div class="path-badge badge-startup">Velocity Class</div>
+                        <h3 class="path-title">The Builders.</h3>
+                        <div class="path-icon">🚀</div>
+                        <p class="path-desc">
+                            YCombinator. Series A. <br><br>
+                            They optimize for speed. They don't care about grades; they care about your GitHub commit history.
+                        </p>
+                    </div>
+                    <a href="https://wellfound.com/" target="_blank" class="path-link">View Startup Roles ></a>
+                </div>
+
+                <div class="path-card reveal-on-scroll" style="transition-delay: 0.2s;">
+                    <div>
+                        <div class="path-badge badge-research">Innovation Class</div>
+                        <h3 class="path-title">The Scientists.</h3>
+                        <div class="path-icon">🔬</div>
+                        <p class="path-desc">
+                            IITs. DRDO. ISRO. <br><br>
+                            They optimize for depth. Ideal for future PhDs. It’s about mathematics, not production code.
+                        </p>
+                    </div>
+                    <a href="https://www.iit.ac.in/" target="_blank" class="path-link">View Research Programs ></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-section">
+        <div class="container">
+            <h2 class="section-headline reveal-on-scroll">Authorized Portals.</h2>
+            
+            <div class="tool-grid">
+                
+                <a href="https://wellfound.com/" target="_blank" class="tool-item reveal-on-scroll">
+                    <div class="tool-icon">✌️</div>
+                    <div class="tool-info">
+                        <h3>Wellfound</h3>
+                        <p>The standard for startup hiring.</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/SimplifyJobs/Summer2025-Internships" target="_blank" class="tool-item reveal-on-scroll">
+                    <div class="tool-icon">🐙</div>
+                    <div class="tool-info">
+                        <h3>Pitt CSC List</h3>
+                        <p>The "Holy Grail" GitHub repo.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.ycombinator.com/jobs" target="_blank" class="tool-item reveal-on-scroll">
+                    <div class="tool-icon">🟧</div>
+                    <div class="tool-info">
+                        <h3>YC Jobs</h3>
+                        <p>Join the next Unicorn.</p>
+                    </div>
+                </a>
+
+                <a href="https://internshala.com/" target="_blank" class="tool-item reveal-on-scroll">
+                    <div class="tool-icon">🇮🇳</div>
+                    <div class="tool-info">
+                        <h3>Internshala</h3>
+                        <p>Local opportunities.</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Copyright © 2025 Subject Compass. Designed in California.</p>
+        </div>
+    </footer>
+
+    <script>
+        // SCROLL OBSERVER (The Apple Reveal)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theory of Computation | Pro</title>
+    <style>
+        /* --- 1. THE CUPERTINO ENGINE --- */
+        :root {
+            --bg-body: #fbfbfd; /* The specific off-white Apple uses */
+            --text-headline: #1d1d1f;
+            --text-body: #86868b;
+            --link-blue: #0066cc;
+            --card-bg: #ffffff;
+            --section-bg: #f5f5f7; /* The light grey contrast sections */
+            --glass: rgba(251, 251, 253, 0.8);
+            --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: local('-apple-system'), local('BlinkMacSystemFont');
+            font-weight: 400;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-headline);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. UTILITY & ANIMATION --- */
+        .container {
+            max-width: 980px; /* Legacy Apple container width */
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* The Scroll Observer Animation Class */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s var(--ease-apple);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 3. NAV (Sticky Glass) --- */
+        .global-nav {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            height: 52px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- 4. HERO SECTION (Massive Scale) --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .new-badge {
+            color: #b64400; /* Apple's "New" orange */
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            margin-bottom: 14px;
+            opacity: 0; 
+            animation: fadeIn 1s 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-size: 80px;
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+            font-weight: 700;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 1s 0.4s forwards;
+        }
+
+        .hero p {
+            font-size: 26px;
+            line-height: 1.4;
+            font-weight: 400;
+            color: var(--text-headline);
+            max-width: 680px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1s 0.6s forwards;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeIn 1s 0.8s forwards;
+        }
+
+        .btn-primary {
+            background: #0071e3;
+            color: white;
+            padding: 12px 26px;
+            border-radius: 980px;
+            font-size: 17px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover { background: #0077ed; }
+
+        .btn-link {
+            color: var(--link-blue);
+            font-size: 17px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .btn-link:hover { text-decoration: underline; }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* --- 5. THE GRID (Grey Background Section) --- */
+        .grid-section {
+            background: var(--section-bg);
+            padding: 120px 0;
+        }
+
+        .section-headline {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .bento-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .bento-card {
+            background: #fff;
+            border-radius: 28px;
+            padding: 50px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: transform 0.6s var(--ease-apple);
+        }
+
+        .bento-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* Specific Card Layouts */
+        .card-large { grid-column: span 2; }
+        
+        .card-eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-body);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .card-desc {
+            font-size: 19px;
+            line-height: 1.5;
+            color: var(--text-body);
+            max-width: 80%;
+        }
+
+        /* --- 6. THE SPECS (Accordion / Table) --- */
+        .specs-section {
+            background: #fff;
+            padding: 120px 0;
+        }
+
+        .specs-list {
+            margin-top: 60px;
+            border-top: 1px solid #d2d2d7;
+        }
+
+        .spec-item {
+            border-bottom: 1px solid #d2d2d7;
+            padding: 28px 0;
+            cursor: pointer;
+        }
+
+        .spec-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .spec-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .spec-icon {
+            font-size: 28px;
+            transition: transform 0.4s var(--ease-apple);
+            color: #1d1d1f;
+        }
+
+        .spec-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s var(--ease-apple);
+            opacity: 0;
+        }
+
+        .spec-item.active .spec-details {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+
+        .spec-item.active .spec-icon {
+            transform: rotate(45deg); /* Apple style X rotation */
+        }
+
+        .detail-text {
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--text-body);
+            max-width: 800px;
+        }
+
+        .learn-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--link-blue);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* --- 7. FOOTER --- */
+        footer {
+            background: #f5f5f7;
+            padding: 60px 0;
+            font-size: 12px;
+            color: var(--text-body);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 48px; }
+            .bento-wrapper { grid-template-columns: 1fr; }
+            .card-large { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="container nav-content">
+            <span style="font-size: 19px;"></span>
+            <span>Subject Decoder</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="new-badge">Curriculum Pro</span>
+        <h1>Theory of<br>Computation.</h1>
+        <p>The architecture of thought.<br>Redefining what logic can do.</p>
+        <div class="cta-container">
+            <a href="#core" class="btn-primary">Start Decoding</a>
+            <a href="internships.html" class="btn-link">View Career Value ></a>
+        </div>
+    </section>
+
+    <section class="grid-section" id="core">
+        <div class="container">
+            <h2 class="section-headline reveal-on-scroll">Powering everything<br>you touch.</h2>
+            
+            <div class="bento-wrapper">
+                <div class="bento-card card-large reveal-on-scroll">
+                    <div class="card-eyebrow">Search Engine Core</div>
+                    <div class="card-title">Finite Automata.</div>
+                    <div class="card-desc">
+                        Google search results don't appear by magic. They appear because FA algorithms scan petabytes of data faster than any human comprehension.
+                    </div>
+                </div>
+
+                <div class="bento-card reveal-on-scroll">
+                    <div class="card-eyebrow">Language Design</div>
+                    <div class="card-title">Compilers.</div>
+                    <div class="card-desc">
+                        Context-Free Grammars turn your syntax into the binary reality of the machine.
+                    </div>
+                </div>
+
+                <div class="bento-card reveal-on-scroll">
+                    <div class="card-eyebrow">Intelligence</div>
+                    <div class="card-title">AI Logic.</div>
+                    <div class="card-desc">
+                        Neural networks are advanced state machines. The logic flow remains the same.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specs-section">
+        <div class="container">
+            <h2 class="section-headline reveal-on-scroll">Which chip to master.</h2>
+            <p style="text-align: center; font-size: 21px; color: #86868b; margin-bottom: 40px;" class="reveal-on-scroll">
+                Three logical models. Infinite possibilities.
+            </p>
+
+            <div class="specs-list">
+                <div class="spec-item reveal-on-scroll" onclick="toggleSpec(this)">
+                    <div class="spec-summary">
+                        <div class="spec-title">Finite Automata</div>
+                        <div class="spec-icon">+</div>
+                    </div>
+                    <div class="spec-details">
+                        <p class="detail-text">
+                            <strong>The Foundation.</strong> Used in hardware design, traffic lights, and regex. <br>
+                            Master the conversion of NFA to DFA to understand how ambiguity is resolved into certainty.
+                        </p>
+                        <a href="#" class="learn-link">Learn the basics ></a>
+                    </div>
+                </div>
+
+                <div class="spec-item reveal-on-scroll" onclick="toggleSpec(this)">
+                    <div class="spec-summary">
+                        <div class="spec-title">Pushdown Automata</div>
+                        <div class="spec-icon">+</div>
+                    </div>
+                    <div class="spec-details">
+                        <p class="detail-text">
+                            <strong>The Memory.</strong> Unlike FA, this machine has a stack memory. <br>
+                            This is the logic used to parse nested structures like HTML tags or JSON objects.
+                        </p>
+                        <a href="#" class="learn-link">Study the Stack ></a>
+                    </div>
+                </div>
+
+                <div class="spec-item reveal-on-scroll" onclick="toggleSpec(this)">
+                    <div class="spec-summary">
+                        <div class="spec-title">Turing Machines</div>
+                        <div class="spec-icon">+</div>
+                    </div>
+                    <div class="spec-details">
+                        <p class="detail-text">
+                            <strong>The Limit.</strong> The mathematical model of a modern CPU. <br>
+                            Understanding the Halting Problem is the distinct line between a coder and a computer scientist.
+                        </p>
+                        <a href="#" class="learn-link">Explore the boundary ></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Copyright © 2025 Subject Compass. Designed in California.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. SCROLL OBSERVER (The Apple Reveal)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
+            observer.observe(element);
+        });
+
+        // 2. ACCORDION LOGIC
+        function toggleSpec(el) {
+            // Close others
+            document.querySelectorAll('.spec-item').forEach(item => {
+                if(item !== el) item.classList.remove('active');
+            });
+            // Toggle clicked
+            el.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

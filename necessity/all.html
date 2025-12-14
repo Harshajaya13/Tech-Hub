@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path Selector | Trap Avoidance</title>
+    <style>
+        /* --- 1. THE CUPERTINO PALETTE --- */
+        :root {
+            --bg-body: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-sub: #86868b;
+            --card-bg: #ffffff;
+            
+            /* The "Wisdom" Accent Colors */
+            --accent-eng: #0071e3;   /* Intellectual Blue */
+            --accent-govt: #34c759;  /* Institutional Green */
+            --accent-start: #ff6e30; /* Kinetic Orange */
+            --accent-uni: #af52de;   /* Academic Purple */
+
+            --shadow-rest: 0 10px 30px rgba(0,0,0,0.04);
+            --shadow-hover: 0 30px 60px rgba(0,0,0,0.12);
+            --ease-pro: cubic-bezier(0.2, 0.8, 0.2, 1); /* Snappy yet smooth */
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 100px 20px;
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- 2. PHILOSOPHICAL HEADER --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header-eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-sub);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .header-title {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .header-desc {
+            font-size: 24px;
+            line-height: 1.5;
+            color: var(--text-sub);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* --- 3. THE PATH GRID --- */
+        .path-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .path-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s var(--ease-pro);
+            border: 1px solid rgba(255,255,255,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+        }
+
+        .path-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* The "Glow" Effect on Hover */
+        .path-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            opacity: 0;
+            transition: opacity 0.6s var(--ease-pro);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card-eng:hover::after { background: radial-gradient(circle at top right, rgba(0,113,227,0.08), transparent 60%); }
+        .card-govt:hover::after { background: radial-gradient(circle at top right, rgba(52,199,89,0.08), transparent 60%); }
+        .card-start:hover::after { background: radial-gradient(circle at top right, rgba(255,110,48,0.08), transparent 60%); }
+        .card-uni:hover::after { background: radial-gradient(circle at top right, rgba(175,82,222,0.08), transparent 60%); }
+
+        /* Card Content */
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .path-icon {
+            font-size: 48px;
+            margin-bottom: 30px;
+            display: inline-block;
+            filter: grayscale(100%);
+            transition: filter 0.4s var(--ease-pro), transform 0.4s var(--ease-pro);
+        }
+        
+        .path-card:hover .path-icon {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .path-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .path-philosophy {
+            font-size: 19px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        /* The Trap Alert Line */
+        .trap-indicator {
+            margin-top: auto;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            padding-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .trap-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .trap-arrow {
+            font-size: 20px;
+            color: var(--text-main);
+            transition: transform 0.3s var(--ease-pro);
+        }
+
+        .path-card:hover .trap-arrow {
+            transform: translateX(6px);
+            color: var(--text-main);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title { font-size: 40px; }
+            .path-grid { grid-template-columns: 1fr; }
+            .path-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header-section">
+            <span class="header-eyebrow">The Survivor's Manual</span>
+            <h1 class="header-title">Avoid the Great Filters.</h1>
+            <p class="header-desc">
+                History repeats itself. Most students fall into the same invisible traps.
+                <br>Select your path to see where the others failed.
+            </p>
+        </div>
+
+        <div class="path-grid">
+
+            <div class="path-card card-eng" onclick="window.location.href='/necessity/necessity.html'">
+                <div class="card-content">
+                    <div class="path-icon">⚡️</div>
+                    <h3 class="path-name">Engineering</h3>
+                    <p class="path-philosophy">
+                        The art of balancing GPA with actual skills. <br>
+                        Don't let the syllabus become your only resume.
+                    </p>
+                </div>
+                <div class="trap-indicator">
+                    <span class="trap-text">Analyze The "CGPA Trap"</span>
+                    <span class="trap-arrow">→</span>
+                </div>
+            </div>
+
+            <div class="path-card card-govt" onclick="window.location.href='#govt-traps'">
+                <div class="card-content">
+                    <div class="path-icon">🏛️</div>
+                    <h3 class="path-name">Govt & GATE</h3>
+                    <p class="path-philosophy">
+                        The marathon of patience. <br>
+                        Learn how to survive the "Gap Year" abyss without losing your mind.
+                    </p>
+                </div>
+                <div class="trap-indicator">
+                    <span class="trap-text">Avoid "The Infinite Wait"</span>
+                    <span class="trap-arrow">→</span>
+                </div>
+            </div>
+
+            <div class="path-card card-start" onclick="window.location.href='#startup-traps'">
+                <div class="card-content">
+                    <div class="path-icon">🚀</div>
+                    <h3 class="path-name">Startups</h3>
+                    <p class="path-philosophy">
+                        High risk, high reward. <br>
+                        Stop watching tutorials. Start shipping code.
+                    </p>
+                </div>
+                <div class="trap-indicator">
+                    <span class="trap-text">Escape "Tutorial Hell"</span>
+                    <span class="trap-arrow">→</span>
+                </div>
+            </div>
+
+            <div class="path-card card-uni" onclick="window.location.href='#masters-traps'">
+                <div class="card-content">
+                    <div class="path-icon">🎓</div>
+                    <h3 class="path-name">Masters Abroad</h3>
+                    <p class="path-philosophy">
+                        The quest for specialization. <br>
+                        Ensure the degree is worth the debt before you board the flight.
+                    </p>
+                </div>
+                <div class="trap-indicator">
+                    <span class="trap-text">Calculate "The ROI Risk"</span>
+                    <span class="trap-arrow">→</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
