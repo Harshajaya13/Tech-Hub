@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Central | TalentHub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hub-header">
+        <span class="eyebrow">Grand Central</span>
+        <h1 id="page-title">Choose your Path.</h1>
+        <p id="page-subtitle">Select a workspace to customize your dashboard.</p>
+    </header>
+
+    <div class="view-container">
+
+        <main id="view-main" class="hub-grid active-view">
+            
+            <div class="hub-card" data-category="main-eng" onclick="switchView('view-engineering', 'Engineering Stream', 'Select your specialization.')">
+                <div class="app-icon bg-blue"><i class="fas fa-microchip"></i></div>
+                <div class="card-content">
+                    <h3>Engineering</h3>
+                    <p>B.Tech, Core Skills & DSA</p>
+                </div>
+            </div>
+
+            <div class="hub-card" data-category="main-gate" onclick="switchView('view-gate', 'GATE Preparation', 'Masters & PSU Prep')">
+                <div class="app-icon bg-purple"><i class="fas fa-book-journal-whills"></i></div>
+                <div class="card-content">
+                    <h3>GATE Exams</h3>
+                    <p>Masters & PSU Prep</p>
+                </div>
+            </div>
+
+            <div class="hub-card" data-category="main-govt" onclick="switchView('view-govt', 'Government Exams', 'Service & Stability')">
+                <div class="app-icon bg-orange"><i class="fas fa-landmark"></i></div>
+                <div class="card-content">
+                    <h3>Govt Jobs</h3>
+                    <p>SSC, Banking & Railways</p>
+                </div>
+            </div>
+
+        </main>
+
+        <main id="view-engineering" class="hub-grid hidden-view">
+            
+            <div class="hub-card back-btn" onclick="switchView('view-main', 'Choose your Path.', 'Select a workspace to customize your dashboard.')">
+                <div class="app-icon bg-gray"><i class="fas fa-arrow-left"></i></div>
+                <div class="card-content">
+                    <h3>Go Back</h3>
+                    <p>Return to Main Menu</p>
+                </div>
+            </div>
+
+            <a href="subject.html" class="hub-card" data-category="sub-cse">
+                <div class="app-icon bg-blue"><i class="fas fa-laptop-code"></i></div>
+                <div class="card-content">
+                    <h3>CSE</h3>
+                    <p>Computer Science</p>
+                </div>
+            </a>
+
+            <a href="#" class="hub-card" data-category="sub-ece">
+                <div class="app-icon bg-teal"><i class="fas fa-satellite-dish"></i></div>
+                <div class="card-content">
+                    <h3>ECE</h3>
+                    <p>Electronics & Comm</p>
+                </div>
+            </a>
+
+            <a href="#" class="hub-card" data-category="sub-mech">
+                <div class="app-icon bg-purple"><i class="fas fa-cogs"></i></div>
+                <div class="card-content">
+                    <h3>Mechanical</h3>
+                    <p>Design & Robotics</p>
+                </div>
+            </a>
+
+        </main>
+
+        <main id="view-gate" class="hub-grid hidden-view">
+            
+            <div class="hub-card back-btn" onclick="switchView('view-main', 'Choose your Path.', 'Select a workspace to customize your dashboard.')">
+                <div class="app-icon bg-gray"><i class="fas fa-arrow-left"></i></div>
+                <div class="card-content">
+                    <h3>Go Back</h3>
+                    <p>Return to Main Menu</p>
+                </div>
+            </div>
+
+            <a href="#" class="hub-card" data-category="sub-gate-cs">
+                <div class="app-icon bg-purple"><i class="fas fa-calculator"></i></div>
+                <div class="card-content">
+                    <h3>GATE CS</h3>
+                    <p>Algorithms & Logic</p>
+                </div>
+            </a>
+            
+             <a href="#" class="hub-card" data-category="sub-gate-ec">
+                <div class="app-icon bg-teal"><i class="fas fa-microchip"></i></div>
+                <div class="card-content">
+                    <h3>GATE EC</h3>
+                    <p>Circuits & Systems</p>
+                </div>
+            </a>
+
+        </main>
+
+        <main id="view-govt" class="hub-grid hidden-view">
+             <div class="hub-card back-btn" onclick="switchView('view-main', 'Choose your Path.', 'Select a workspace to customize your dashboard.')">
+                <div class="app-icon bg-gray"><i class="fas fa-arrow-left"></i></div>
+                <div class="card-content">
+                    <h3>Go Back</h3>
+                    <p>Return to Main Menu</p>
+                </div>
+            </div>
+            
+            <a href="#" class="hub-card">
+                <div class="app-icon bg-orange"><i class="fas fa-train"></i></div>
+                <div class="card-content">
+                    <h3>Railways</h3>
+                    <p>NTPC & Group D</p>
+                </div>
+            </a>
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
