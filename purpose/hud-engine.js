@@ -1,4 +1,4 @@
-// 1. THE DATA (Easy to edit)
+/* --- DATA CONFIGURATION --- */
 const CARD_DATA = {
     "engineering": {
         label: "Branches",
@@ -6,55 +6,90 @@ const CARD_DATA = {
     },
     "gate": {
         label: "Exam Format",
-        items: ["Engg Mathematics", "General Aptitude", "Subject Core (70m)", "Mock Tests"]
+        items: ["Mathematics", "General Aptitude", "Core Subject", "Mock Tests"]
     },
     "govt-prep": {
-        label: "Opportunities",
-        items: ["SSC CGL / CHSL", "Railways (RRB)", "Banking (IBPS)", "State PSC"]
+        label: "Exams",
+        items: ["SSC CGL", "Railways (RRB)", "Banking (IBPS)", "State PSC"]
     },
     "foundations": {
-        label: "School Level",
-        items: ["Class 11 Physics", "Class 12 Maths", "JEE Mains Prep", "NEET Biology"]
+        label: "Classes",
+        items: ["Class 11", "Class 12", "IIT JEE", "NEET Prep"]
     },
     "interview": {
-        label: "Placement Prep",
-        items: ["Mock HR Round", "Aptitude Tests", "Resume Building", "Group Discussion"]
+        label: "Preparation",
+        items: ["Mock HR", "Aptitude", "Resume Building", "Group Discussion"]
     },
     "jobs": {
-        label: "Job Feeds",
-        items: ["Freshers World", "LinkedIn Alerts", "Off-Campus Drives", "Internships"]
+        label: "Job Portal",
+        items: ["Freshers World", "LinkedIn Alerts", "Off-Campus", "Internships"]
     }
 };
 
-// 2. THE INJECTION ENGINE
-document.querySelectorAll('.hub-card').forEach(card => {
-    // A. Wrap existing content in a container called "default-view"
-    // This allows us to blur it later without removing it.
-    const originalContent = card.innerHTML;
-    card.innerHTML = `<div class="default-view">${originalContent}</div>`;
+/* --- INITIALIZATION --- */
+document.addEventListener('DOMContentLoaded', () => {
+    
+    document.querySelectorAll('.hub-card').forEach(card => {
+        // 1. Wrap existing content 
+        const originalContent = card.innerHTML;
+        card.innerHTML = `<div class="default-view">${originalContent}</div>`;
 
-    // B. Get the Data
-    const category = card.getAttribute('data-category');
-    const data = CARD_DATA[category];
+        // 2. Get Data
+        const category = card.getAttribute('data-category');
+        const data = CARD_DATA[category];
 
-    if (data) {
-        // C. Generate the Overlay HTML
-        const listHTML = data.items.map(item => `
-            <div class="overlay-item">
-                <span>${item}</span>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        `).join('');
+        if (data) {
+            // 3. Generate Content
+            const listHTML = data.items.map(item => `
+                <div class="overlay-item">
+                    <span>${item}</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            `).join('');
 
-        const overlayHTML = `
-            <div class="card-overlay">
-                <div class="overlay-header">${data.label}</div>
-                <div class="overlay-list">${listHTML}</div>
-                <div class="overlay-cta">Click to Explore <i class="fas fa-arrow-right"></i></div>
-            </div>
-        `;
+            const overlayHTML = `
+                <div class="mobile-toggle">
+                    <i class="fas fa-plus"></i>
+                </div>
 
-        // D. Inject it inside the card (so it sits on top)
-        card.insertAdjacentHTML('beforeend', overlayHTML);
-    }
+                <div class="card-overlay">
+                    <div class="overlay-header">${data.label}</div>
+                    <div class="overlay-list">${listHTML}</div>
+                    <div class="overlay-cta">
+                        Explore Workspace <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            `;
+            
+            // 4. Inject
+            card.insertAdjacentHTML('beforeend', overlayHTML);
+
+            // 5. MOBILE LOGIC (The (+) Button)
+            const toggleBtn = card.querySelector('.mobile-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', (e) => {
+                    // Stop the click from bubbling to the link
+                    e.preventDefault(); 
+                    e.stopPropagation(); 
+                    
+                    // Close other cards
+                    document.querySelectorAll('.hub-card').forEach(c => {
+                        if(c !== card) c.classList.remove('mobile-active');
+                    });
+                    
+                    // Toggle this card
+                    card.classList.toggle('mobile-active');
+                });
+            }
+        }
+    });
+
+    // 6. GLOBAL CLICK LISTENER (To close cards when clicking outside)
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.hub-card')) {
+            document.querySelectorAll('.hub-card').forEach(c => {
+                c.classList.remove('mobile-active');
+            });
+        }
+    });
 });

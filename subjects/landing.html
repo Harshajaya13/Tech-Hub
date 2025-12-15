@@ -7,145 +7,162 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <style>
-        /* --- 1. CORE VARIABLES --- */
-        :root {
-            --bg-body: #f5f5f7;
-            --bg-card: #ffffff;
-            --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
-            --accent-blue: #0071e3;
-            --radius-card: 24px;
-            --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
-        }
+   <style>
+    /* --- 1. CORE VARIABLES --- */
+    :root {
+        --bg-body: #f5f5f7;
+        --bg-card: #ffffff;
+        --text-primary: #1d1d1f;
+        --text-secondary: #86868b;
+        --accent-blue: #0071e3;
+        --radius-card: 24px;
+        --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+    }
 
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 20px;
+        margin: 0;
+        /* Prevent horizontal scroll on mobile */
+        overflow-x: hidden; 
+        box-sizing: border-box;
+    }
+
+    /* --- 2. HEADER --- */
+    .hub-header { text-align: center; margin-bottom: 50px; transition: all 0.3s ease; width: 100%; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase; }
+    h1 { font-size: 42px; font-weight: 800; margin: 10px 0; letter-spacing: -1px; }
+    p { font-size: 18px; color: var(--text-secondary); margin: 0; }
+
+    /* --- 3. GRID SYSTEM --- */
+    .view-container { width: 100%; max-width: 1000px; position: relative; }
+    
+    .hub-grid {
+        display: grid;
+        /* CHANGE: Reduced min-width to 280px to fit small phone screens */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        width: 100%;
+    }
+
+    .hidden-view { display: none; }
+    .active-view { display: grid; animation: fadeIn 0.5s var(--ease-apple) forwards; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); scale: 0.98; }
+        to { opacity: 1; transform: translateY(0); scale: 1; }
+    }
+
+    /* --- 4. THE CARD --- */
+    .hub-card {
+        position: relative;
+        background: var(--bg-card);
+        padding: 30px;
+        border-radius: var(--radius-card);
+        height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(0,0,0,0.02);
+        /* Ensure taps don't flash blue on Android */
+        -webkit-tap-highlight-color: transparent; 
+    }
+
+    .hub-card:active { transform: scale(0.98); }
+
+    /* --- 5. DEFAULT VIEW --- */
+    .default-view {
+        height: 100%; display: flex; flex-direction: column; 
+        justify-content: center; align-items: center; text-align: center;
+        transition: 0.4s ease;
+    }
+
+    .app-icon { width: 68px; height: 68px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .bg-blue { background: linear-gradient(135deg, #0071e3, #4c9eff); }
+    .bg-purple { background: linear-gradient(135deg, #5856d6, #7a78e8); }
+    .bg-orange { background: linear-gradient(135deg, #ff9500, #ffb340); }
+    .bg-teal { background: linear-gradient(135deg, #30b0c7, #5ac8fa); }
+    .bg-gray { background: #e5e5ea; color: #1d1d1f; }
+
+    .card-content h3 { margin: 0 0 8px 0; font-size: 22px; font-weight: 600; }
+    .card-content p { margin: 0; font-size: 15px; color: var(--text-secondary); line-height: 1.4; }
+
+    /* --- 6. OVERLAY --- */
+    .card-overlay {
+        position: absolute; inset: 0;
+        background: rgba(255, 255, 255, 0.90); /* Increased opacity slightly for mobile readabilty */
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        padding: 24px; display: flex; flex-direction: column;
+        opacity: 0; transform: translateY(15px);
+        transition: all 0.35s var(--ease-apple);
+        pointer-events: none; z-index: 10;
+    }
+
+    .overlay-header { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 8px; }
+    .overlay-list { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-item { font-size: 14px; font-weight: 500; padding: 8px 12px; background: rgba(0,0,0,0.03); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .overlay-item i { font-size: 12px; color: var(--text-secondary); opacity: 0.7; }
+    .overlay-cta { margin-top: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--accent-blue); display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .mobile-toggle { display: none; }
+
+    /* --- 7. DESKTOP HOVER ONLY --- */
+    /* This prevents "Sticky Hover" on phones */
+    @media (hover: hover) {
+        .hub-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .hub-card:hover .default-view { opacity: 0.15; filter: blur(8px); transform: scale(0.95); }
+        .hub-card:hover .card-overlay { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    }
+
+    /* --- 8. MOBILE OPTIMIZATION --- */
+    @media (max-width: 768px) {
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 20px;
-            margin: 0;
+            padding: 40px 16px; /* Less padding on mobile */
         }
 
-        /* --- 2. HEADER --- */
-        .hub-header { text-align: center; margin-bottom: 50px; transition: all 0.3s ease; }
-        .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase; }
-        h1 { font-size: 42px; font-weight: 800; margin: 10px 0; letter-spacing: -1px; }
-        p { font-size: 18px; color: var(--text-secondary); margin: 0; }
-
-        /* --- 3. GRID SYSTEM --- */
-        .view-container { width: 100%; max-width: 1000px; position: relative; }
+        h1 { font-size: 32px; } /* Smaller Title */
         
         .hub-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            width: 100%;
+            /* Force single column if screen is very narrow, or keep 280px logic */
+            grid-template-columns: 1fr; 
         }
 
-        .hidden-view { display: none; }
-        .active-view { display: grid; animation: fadeIn 0.5s var(--ease-apple) forwards; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); scale: 0.98; }
-            to { opacity: 1; transform: translateY(0); scale: 1; }
-        }
-
-        /* --- 4. THE CARD --- */
         .hub-card {
-            position: relative;
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: var(--radius-card);
-            height: 320px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            border: 1px solid rgba(0,0,0,0.02);
+            height: 280px; /* Shorter cards for mobile screens */
         }
 
-        .hub-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .hub-card:active { transform: scale(0.98); }
-
-        /* --- 5. DEFAULT VIEW --- */
-        .default-view {
-            height: 100%; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center;
-            transition: 0.4s ease;
+        /* The Corner Button for Mobile */
+        .mobile-toggle {
+            display: flex; position: absolute; top: 0; right: 0;
+            width: 50px; height: 50px; /* Larger touch target */
+            background: rgba(0,0,0,0.04);
+            border-bottom-left-radius: 24px;
+            border-top-right-radius: 24px;
+            align-items: center; justify-content: center;
+            z-index: 20; transition: all 0.3s ease;
         }
-
-        .hub-card:hover .default-view { opacity: 0.15; filter: blur(8px); transform: scale(0.95); }
-
-        .app-icon { width: 68px; height: 68px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .bg-blue { background: linear-gradient(135deg, #0071e3, #4c9eff); }
-        .bg-purple { background: linear-gradient(135deg, #5856d6, #7a78e8); }
-        .bg-orange { background: linear-gradient(135deg, #ff9500, #ffb340); }
-        .bg-teal { background: linear-gradient(135deg, #30b0c7, #5ac8fa); }
-        .bg-gray { background: #e5e5ea; color: #1d1d1f; }
-
-        .card-content h3 { margin: 0 0 8px 0; font-size: 22px; font-weight: 600; }
-        .card-content p { margin: 0; font-size: 15px; color: var(--text-secondary); line-height: 1.4; }
-        .arrow-indicator { display: none; } 
-
-        /* --- 6. OVERLAY --- */
-        .card-overlay {
-            position: absolute; inset: 0;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            padding: 24px; display: flex; flex-direction: column;
-            opacity: 0; transform: translateY(15px);
-            transition: all 0.35s var(--ease-apple);
-            pointer-events: none; z-index: 10;
-        }
-
-        .hub-card:hover .card-overlay { opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-        .overlay-header { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 8px; }
-        .overlay-list { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
-        .overlay-item { font-size: 14px; font-weight: 500; padding: 8px 12px; background: rgba(0,0,0,0.03); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .overlay-item i { font-size: 12px; color: var(--text-secondary); opacity: 0.7; }
-        .overlay-cta { margin-top: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--accent-blue); display: flex; align-items: center; justify-content: center; gap: 6px; }
-
-        /* --- 7. MOBILE TOGGLE (The Edge Fix) --- */
-        .mobile-toggle { display: none; }
-
-        @media (max-width: 768px) {
-            /* Disable Hover on Mobile */
-            .hub-card:hover .card-overlay { opacity: 0; pointer-events: none; transform: translateY(10px); }
-            .hub-card:hover .default-view { opacity: 1; filter: none; transform: none; }
-            
-            /* The Corner Button */
-            .mobile-toggle {
-                display: flex; position: absolute; top: 0; right: 0;
-                width: 44px; height: 44px;
-                background: rgba(0,0,0,0.04);
-                border-bottom-left-radius: 20px; /* Smooth Curve */
-                border-top-right-radius: 24px;   /* Matches Card */
-                align-items: center; justify-content: center;
-                z-index: 20; transition: all 0.3s ease;
-                -webkit-tap-highlight-color: transparent;
-            }
-            
-            .mobile-toggle i { font-size: 14px; color: var(--text-secondary); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-            
-            /* Active State */
-            .hub-card.mobile-active .mobile-toggle { background: #1d1d1f; }
-            .hub-card.mobile-active .mobile-toggle i { color: white; transform: rotate(135deg); }
-            .hub-card.mobile-active .card-overlay { opacity: 1; transform: translateY(0); pointer-events: auto; }
-            .hub-card.mobile-active .default-view { opacity: 0.2; filter: blur(4px); }
-        }
-    </style>
+        
+        .mobile-toggle i { font-size: 16px; color: var(--text-secondary); transition: transform 0.3s ease; }
+        
+        /* Active State (Triggered by JS) */
+        .hub-card.mobile-active .mobile-toggle { background: #1d1d1f; }
+        .hub-card.mobile-active .mobile-toggle i { color: white; transform: rotate(135deg); }
+        .hub-card.mobile-active .card-overlay { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .hub-card.mobile-active .default-view { opacity: 0.2; filter: blur(4px); }
+    }
+</style>
 </head>
 <body>
 
