@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub Pro | The Horizon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. THE VOID (Base Setup) --- */
+        :root {
+            --bg-void: #050507;
+            --text-white: #ffffff;
+            --text-grey: #86868b;
+            --accent-light: rgba(255, 255, 255, 0.1);
+            --glow-core: #2997ff;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1000px; /* Essential for 3D */
+        }
+
+        /* --- 2. THE ATMOSPHERE (Background) --- */
+        .spotlight {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(41, 151, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: opacity 1s ease;
+        }
+
+        /* --- 3. THE ARTIFACT (Main Card) --- */
+        .artifact-container {
+            width: 480px;
+            padding: 60px 40px;
+            background: rgba(20, 20, 22, 0.6);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            
+            /* 3D Transform Init */
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out; 
+        }
+
+        /* Inner shine effect on the card edges */
+        .artifact-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* --- 4. THE PULSE (Icon) --- */
+        .pulse-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateZ(30px); /* Pops out in 3D */
+        }
+
+        .core-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid rgba(41, 151, 255, 0.3);
+            animation: ripple 3s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        
+        .core-ring:nth-child(2) { animation-delay: 1s; }
+        .core-ring:nth-child(3) { animation-delay: 2s; }
+
+        .icon-static {
+            font-size: 24px;
+            color: #fff;
+            z-index: 2;
+        }
+
+        /* --- 5. TYPOGRAPHY --- */
+        h1 {
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -1.5px;
+            margin: 0 0 15px 0;
+            background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateZ(20px);
+        }
+
+        p {
+            font-size: 17px;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin-bottom: 50px;
+            font-weight: 300;
+            transform: translateZ(20px);
+        }
+
+        /* --- 6. THE INPUT (Glass Field) --- */
+        .input-group {
+            position: relative;
+            transform: translateZ(30px);
+            display: flex;
+            gap: 10px;
+        }
+
+        .glass-input {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .glass-input::placeholder { color: #555; }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(41, 151, 255, 0.5);
+            box-shadow: 0 0 30px rgba(41, 151, 255, 0.1);
+        }
+
+        .action-btn {
+            padding: 0 30px;
+            background: #fff;
+            color: #000;
+            font-weight: 500;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- 7. UTILS --- */
+        .back-nav {
+            margin-top: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+            transform: translateZ(10px);
+        }
+        .back-nav:hover { color: #fff; }
+
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 0.8; border-width: 2px; }
+            100% { transform: scale(2.5); opacity: 0; border-width: 0px; }
+        }
+
+        /* Success State */
+        .success-state {
+            display: none;
+            color: #34c759;
+            font-weight: 500;
+            margin-top: 20px;
+            transform: translateZ(30px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spotlight" id="spotlight"></div>
+
+    <div class="artifact-container" id="card">
+        
+        <div class="pulse-wrapper">
+            <div class="core-ring"></div>
+            <div class="core-ring"></div>
+            <div class="core-ring"></div>
+            <i class="fas fa-cube icon-static"></i>
+        </div>
+
+        <h1>Architecting the Future.</h1>
+        <p>You have discovered the entry point to our Pro Tier. <br>The environment is currently being provisioned for high-performance learning. 
+        <br><br>Join the priority queue.</p>
+
+        <div class="input-group" id="formArea">
+            <input type="email" class="glass-input" placeholder="name@example.com" id="email">
+            <button class="action-btn" onclick="submitForm()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="success-state" id="successMsg">
+            <i class="fas fa-check-circle"></i> Access Granted. Stand by for deployment.
+        </div>
+
+        <a href="index.html" class="back-nav">
+            <i class="fas fa-times"></i> Cancel Sequence
+        </a>
+
+    </div>
+
+    <script>
+        // 1. THE PHYSICS ENGINE (3D Tilt)
+        const card = document.getElementById('card');
+        const spotlight = document.getElementById('spotlight');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Calculate center
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Calculate rotation (Limit to 15 degrees)
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            // Apply 3D Transform
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            // Move Spotlight
+            spotlight.style.left = x + 'px';
+            spotlight.style.top = y + 'px';
+        });
+
+        // Reset on mouse leave
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0) rotateY(0)`;
+        });
+
+        // 2. FORM SUBMISSION ANIMATION
+        function submitForm() {
+            const email = document.getElementById('email').value;
+            if(email.length > 5 && email.includes('@')) {
+                const btn = document.querySelector('.action-btn');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                
+                setTimeout(() => {
+                    document.getElementById('formArea').style.display = 'none';
+                    const success = document.getElementById('successMsg');
+                    success.style.display = 'block';
+                    
+                    // Trigger a little "pop" animation
+                    success.animate([
+                        { transform: 'translateZ(30px) scale(0.9)', opacity: 0 },
+                        { transform: 'translateZ(30px) scale(1)', opacity: 1 }
+                    ], { duration: 400, easing: 'ease-out' });
+
+                }, 1500);
+            } else {
+                // Shake animation for error
+                card.animate([
+                    { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 300 });
+                document.getElementById('email').style.borderColor = '#ff3b30';
+            }
+        }
+    </script>
+</body>
+</html>

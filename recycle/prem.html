@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    /* --- VARIABLES ADDITION --- */
+    :root {
+        --gold: #fbbf24;
+        --gold-glow: rgba(251, 191, 36, 0.4);
+        --dark-overlay: rgba(15, 23, 42, 0.9);
+    }
+
+    /* --- THE PREMIUM CARD STYLES --- */
+    .topic-card.premium {
+        background: linear-gradient(145deg, #1e293b, #0f172a);
+        border: 1px solid var(--gold);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* The "Shimmer" effect to catch their eye */
+    .topic-card.premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+        transition: 0.5s;
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { left: -100%; }
+        20% { left: 100%; }
+        100% { left: 100%; }
+    }
+
+    .topic-card.premium .topic-icon {
+        text-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .topic-card.premium .topic-title {
+        color: var(--gold);
+    }
+
+    .lock-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--gold);
+        color: #000;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* --- THE "UNDER CONSTRUCTION" MODAL --- */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--dark-overlay);
+        backdrop-filter: blur(8px); /* The "Glass" effect */
+        z-index: 1000;
+        display: none; /* Hidden by default */
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+    }
+
+    .construction-modal {
+        background: #1e293b;
+        border: 1px solid var(--gold);
+        padding: 3rem;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 0 50px var(--gold-glow);
+        transform: scale(0.9);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .construction-modal {
+        transform: scale(1);
+    }
+
+    .gear-loader {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+        animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .modal-title {
+        font-size: 2rem;
+        color: var(--gold);
+        margin-bottom: 1rem;
+    }
+
+    .modal-desc {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .notify-btn {
+        background: var(--gold);
+        color: #0f172a;
+        border: none;
+        padding: 1rem 2rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: transform 0.2s;
+    }
+
+    .notify-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+        font-size: 1.5rem;
+        opacity: 0.5;
+    }
+    .close-modal:hover { opacity: 1; }
+
+</style>
+</head>
+<body>
+
+    <div class="cards-grid">
+        <div class="topic-card premium" onclick="openModal()">
+            <div class="lock-badge">Pro Vault</div>
+            <div class="topic-icon">💎</div>
+            <h3 class="topic-title">The Master Class</h3>
+            <p class="topic-preview">Advanced Architectures, Real-world Compiler Design, and Interview Crackers.</p>
+            </div>
+    </div>
+
+
+    <div class="modal-overlay" id="proModal">
+        <div class="construction-modal">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            
+            <div class="gear-loader">⚙️</div>
+            
+            <h2 class="modal-title">Forging Perfection</h2>
+            
+            <p class="modal-desc">
+                We know you want access. But we refuse to give you something that is just "okay." 
+                <br><br>
+                This module is currently being engineered to be the absolute best resource on the internet. 
+                <strong>We are building the expectations you deserve.</strong>
+            </p>
+
+            <button class="notify-btn" onclick="closeModal()">I'll Wait for Greatness</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            const modal = document.getElementById('proModal');
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('proModal');
+            modal.classList.remove('active');
+        }
+
+        // Close if clicked outside the box
+        window.onclick = function(event) {
+            const modal = document.getElementById('proModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
