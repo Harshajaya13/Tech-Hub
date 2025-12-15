@@ -173,3 +173,76 @@ body {
     padding-top: 15px;
     border-top: 1px solid rgba(0,0,0,0.06);
 }
+
+/* --- MOBILE INTERACTION (Add this to the bottom of style.css) --- */
+
+/* 1. Default: Hide the toggle button on Desktop */
+.mobile-toggle {
+    display: none;
+}
+
+/* 2. Mobile Specific Styles */
+@media (max-width: 768px) {
+    
+    /* Disable the hover effect on mobile (it feels sticky/buggy on phones) */
+    .hub-card:hover .card-overlay {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+    }
+    
+    .hub-card:hover .default-view {
+        opacity: 1;
+        filter: none;
+        transform: none;
+    }
+
+    /* 3. The Toggle Button */
+    .mobile-toggle {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        background: rgba(0,0,0,0.05); /* Subtle grey */
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        z-index: 20; /* Above everything */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-toggle i {
+        font-size: 14px;
+        color: var(--text-main);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* 4. THE ACTIVE STATE (When clicked) */
+    
+    /* A. Rotate the Plus to an X */
+    .hub-card.mobile-active .mobile-toggle {
+        background: var(--text-main); /* Button turns dark */
+    }
+    
+    .hub-card.mobile-active .mobile-toggle i {
+        color: #fff;
+        transform: rotate(135deg); /* + becomes x */
+    }
+
+    /* B. Show the Overlay */
+    .hub-card.mobile-active .card-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    /* C. Blur the background content */
+    .hub-card.mobile-active .default-view {
+        opacity: 0.2;
+        filter: blur(5px);
+    }
+}

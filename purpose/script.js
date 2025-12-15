@@ -1,104 +1,84 @@
+/* --- DATA CONFIGURATION --- */
+const CARD_DATA = {
+    "engineering": {
+        label: "Branches",
+        items: ["CSE / IT", "Electronics (ECE)", "Mechanical", "Civil & Others"]
+    },
+    "gate": {
+        label: "Exam Format",
+        items: ["Mathematics", "General Aptitude", "Core Subject", "Mock Tests"]
+    },
+    "govt-prep": {
+        label: "Exams",
+        items: ["SSC CGL", "Railways (RRB)", "Banking (IBPS)", "State PSC"]
+    },
+    "foundations": {
+        label: "Classes",
+        items: ["Class 11", "Class 12", "IIT JEE", "NEET Prep"]
+    },
+    "interview": {
+        label: "Preparation",
+        items: ["Mock HR", "Aptitude", "Resume Building", "Group Discussion"]
+    },
+    "jobs": {
+        label: "Job Portal",
+        items: ["Freshers World", "LinkedIn Alerts", "Off-Campus", "Internships"]
+    }
+};
+
+/* --- INITIALIZATION --- */
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Selectors
-    const gridContainer = document.getElementById('main-grid');
-    const headerTitle = document.querySelector('.hub-header h1');
-    const headerSubtitle = document.querySelector('.hub-header p');
-    const cards = document.querySelectorAll('.hub-card[data-category]');
+    document.querySelectorAll('.hub-card').forEach(card => {
+        // 1. Wrap existing content for the blur effect
+        const originalContent = card.innerHTML;
+        card.innerHTML = `<div class="default-view">${originalContent}</div>`;
 
-    // --- CONFIGURATION (Add your real HTML filenames here) ---
-    const pathConfig = {
-        'engineering': {
-            title: "Engineering Stream",
-            subtitle: "Select your specialization.",
-            colorClass: "bg-blue", 
-            options: [
-                { icon: 'fas fa-laptop-code', title: 'CSE', desc: 'Computer Science', url: '/start/start.html' },
-                { icon: 'fas fa-robot', title: 'CSM', desc: 'AI & Machine Learning', url: '/start/start.html' },
-                { icon: 'fas fa-satellite-dish', title: 'ECE', desc: 'Electronics', url: 'course-ece.html' },
-                { icon: 'fas fa-cogs', title: 'Mechanical', desc: 'Machines & Design', url: 'course-mech.html' }
-            ]
-        },
-        'gate': {
-            title: "GATE Preparation",
-            subtitle: "Master the concepts.",
-            colorClass: "bg-purple",
-            options: [
-                { icon: 'fas fa-calculator', title: 'CS & IT', desc: 'Algorithms & Logic', url: 'gate-cs.html' },
-                { icon: 'fas fa-microchip', title: 'Electronics', desc: 'Circuits & Signals', url: 'gate-ec.html' }
-            ]
-        },
-        'govt-prep': {
-            title: "Government Exams",
-            subtitle: "Service and Stability.",
-            colorClass: "bg-orange",
-            options: [
-                { icon: 'fas fa-flag', title: 'SSC CGL', desc: 'Staff Selection', url: 'govt-ssc.html' },
-                { icon: 'fas fa-university', title: 'Banking', desc: 'PO & Clerk', url: 'govt-bank.html' }
-            ]
-        }
-    };
+        // 2. Get Data
+        const category = card.getAttribute('data-category');
+        const data = CARD_DATA[category];
 
-    // --- CLICK LISTENER ---
-    cards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            e.preventDefault(); // Stop the link from jumping immediately
-            const category = this.getAttribute('data-category');
-            
-            if (pathConfig[category]) {
-                morphInterface(pathConfig[category]);
-            }
-        });
-    });
+        if (data) {
+            // 3. Generate Content
+            const listHTML = data.items.map(item => `
+                <div class="overlay-item">
+                    <span>${item}</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            `).join('');
 
-    // --- THE RENDERER ---
-    function morphInterface(data) {
-        // 1. Smooth Fade Out
-        gridContainer.style.opacity = '0';
-        gridContainer.style.transform = 'translateY(10px)'; // Subtle drop effect
+            const overlayHTML = `
+                <div class="mobile-toggle">
+                    <i class="fas fa-plus"></i>
+                </div>
 
-        setTimeout(() => {
-            // 2. Update Header
-            headerTitle.innerText = data.title;
-            headerSubtitle.innerText = data.subtitle;
-
-            // 3. Build New Cards (Using actual hrefs)
-            let htmlContent = '';
-            
-            data.options.forEach(opt => {
-                htmlContent += `
-                    <a href="${opt.url}" class="hub-card animate-card">
-                        <div class="app-icon ${data.colorClass}">
-                            <i class="${opt.icon}"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>${opt.title}</h3>
-                            <p>${opt.desc}</p>
-                        </div>
-                        <i class="fas fa-chevron-right arrow-indicator"></i>
-                    </a>
-                `;
-            });
-
-            // 4. Back Button
-            htmlContent += `
-                <a href="javascript:location.reload()" class="hub-card animate-card back-card">
-                    <div class="app-icon" style="background: #e5e5ea; color: #1d1d1f;">
-                        <i class="fas fa-arrow-left"></i>
+                <div class="card-overlay">
+                    <div class="overlay-header">${data.label}</div>
+                    <div class="overlay-list">${listHTML}</div>
+                    <div class="overlay-cta">
+                        Explore Workspace <i class="fas fa-arrow-right"></i>
                     </div>
-                    <div class="card-content">
-                        <h3>Go Back</h3>
-                        <p>Main Menu</p>
-                    </div>
-                </a>
+                </div>
             `;
-
-            gridContainer.innerHTML = htmlContent;
-
-            // 5. Smooth Fade In
-            gridContainer.style.opacity = '1';
-            gridContainer.style.transform = 'translateY(0)';
             
-        }, 300);
-    }
+            // 4. Inject
+            card.insertAdjacentHTML('beforeend', overlayHTML);
+
+            // 5. Add Click Logic (Mobile Only)
+            const toggleBtn = card.querySelector('.mobile-toggle');
+            
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop link navigation
+                e.stopPropagation(); // Stop bubble up
+                
+                // Optional: Close all other cards first (Accordion Style)
+                document.querySelectorAll('.hub-card').forEach(c => {
+                    if(c !== card) c.classList.remove('mobile-active');
+                });
+
+                // Toggle this card
+                card.classList.toggle('mobile-active');
+            });
+        }
+    });
 });
