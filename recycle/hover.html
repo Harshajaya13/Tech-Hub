@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Central | Power View</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CORE SETTINGS --- */
+        :root {
+            --bg-body: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --accent-blue: #0071e3;
+            --accent-purple: #5e5ce6;
+            --shadow-rest: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-hover: 0 30px 60px rgba(0,0,0,0.12);
+            --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-main);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 { font-size: 2.5rem; letter-spacing: -1px; margin: 10px 0; }
+        .eyebrow { font-size: 0.8rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- THE GRID --- */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        /* --- THE POWER CARD --- */
+        .power-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            position: relative;
+            box-shadow: var(--shadow-rest);
+            transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple), height 0.4s var(--ease-apple);
+            cursor: pointer;
+            overflow: hidden;
+            height: 280px; /* Default Compact Height */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        /* --- DESKTOP HOVER LOGIC --- */
+        @media (min-width: 769px) {
+            .power-card:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: var(--shadow-hover);
+                height: 450px; /* Expands to reveal content */
+                z-index: 10;
+            }
+            
+            /* Hide the expand button on desktop */
+            .mobile-toggle { display: none; }
+        }
+
+        /* --- CARD HEADER (Always Visible) --- */
+        .card-header {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+            background: var(--card-bg); /* Covers content when collapsed */
+        }
+
+        .icon-box {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center; justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .bg-blue { background: linear-gradient(135deg, #0071e3, #4c9eff); }
+        .bg-purple { background: linear-gradient(135deg, #5e5ce6, #8e8cf7); }
+
+        .card-header h3 { font-size: 1.5rem; margin: 0; }
+        .card-header p { margin: 0; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+
+        /* --- THE HIDDEN GLIMPSE (Reveal on Hover) --- */
+        .glimpse-container {
+            padding: 0 30px 30px 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s var(--ease-apple) 0.1s; /* Delay for smoothness */
+            pointer-events: none; /* Prevent clicks when hidden */
+        }
+
+        /* Show content on hover (Desktop) or Active (Mobile) */
+        .power-card:hover .glimpse-container,
+        .power-card.mobile-active .glimpse-container {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .divider { height: 1px; background: rgba(0,0,0,0.05); margin-bottom: 20px; width: 100%; }
+
+        .path-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            background: rgba(0,0,0,0.03);
+            padding: 10px 14px;
+            border-radius: 12px;
+        }
+
+        .preview-item i { color: var(--text-muted); font-size: 0.8rem; }
+        .preview-tag { 
+            margin-left: auto; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            background: #fff; 
+            padding: 4px 8px; 
+            border-radius: 6px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .action-link {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-decoration: none;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* --- MOBILE SPECIFIC: THE (+) BUTTON --- */
+        @media (max-width: 768px) {
+            .power-card { height: auto; min-height: 280px; } /* Reset height logic for mobile */
+            
+            .glimpse-container { 
+                display: none; /* Physically remove it so it doesn't take space */
+                padding-top: 0;
+            }
+
+            .power-card.mobile-active .glimpse-container {
+                display: block; /* Show when active */
+                animation: slideDown 0.3s ease-out forwards;
+            }
+
+            .mobile-toggle {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                width: 36px;
+                height: 36px;
+                background: rgba(0,0,0,0.05);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: 0.3s;
+                z-index: 5;
+            }
+
+            .mobile-toggle i {
+                font-size: 14px;
+                color: var(--text-main);
+                transition: 0.3s;
+            }
+
+            /* Rotate to X when active */
+            .power-card.mobile-active .mobile-toggle {
+                background: var(--text-main);
+            }
+            .power-card.mobile-active .mobile-toggle i {
+                color: #fff;
+                transform: rotate(45deg);
+            }
+            
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="eyebrow">Grand Central</span>
+        <h1>Choose Your Path</h1>
+    </header>
+
+    <main class="hub-grid">
+
+        <div class="power-card" id="card-eng">
+            <div class="mobile-toggle" onclick="toggleCard('card-eng')">
+                <i class="fas fa-plus"></i>
+            </div>
+
+            <div class="card-header" onclick="location.href='engineering.html'">
+                <div class="icon-box bg-blue">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3>Engineering</h3>
+                <p>The core B.Tech curriculum. From "Hello World" to System Architect.</p>
+            </div>
+
+            <div class="glimpse-container">
+                <div class="divider"></div>
+                <div class="path-preview">
+                    <div class="preview-item">
+                        <i class="fas fa-code"></i>
+                        <span>CSE / IT</span>
+                        <span class="preview-tag">Full Stack</span>
+                    </div>
+                    <div class="preview-item">
+                        <i class="fas fa-robot"></i>
+                        <span>ECE / EEE</span>
+                        <span class="preview-tag">Embedded</span>
+                    </div>
+                    <div class="preview-item">
+                        <i class="fas fa-cogs"></i>
+                        <span>Mech / Civil</span>
+                        <span class="preview-tag">AutoCAD</span>
+                    </div>
+                </div>
+                <a href="engineering.html" class="action-link">
+                    Enter Workspace <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="power-card" id="card-gate">
+            <div class="mobile-toggle" onclick="toggleCard('card-gate')">
+                <i class="fas fa-plus"></i>
+            </div>
+
+            <div class="card-header" onclick="location.href='gate.html'">
+                <div class="icon-box bg-purple">
+                    <i class="fas fa-book-journal-whills"></i>
+                </div>
+                <h3>GATE & Masters</h3>
+                <p>Crack the exam. PSU preparation and IIT M.Tech roadmaps.</p>
+            </div>
+
+            <div class="glimpse-container">
+                <div class="divider"></div>
+                <div class="path-preview">
+                    <div class="preview-item">
+                        <i class="fas fa-calculator"></i>
+                        <span>Engg. Mathematics</span>
+                        <span class="preview-tag">15 Marks</span>
+                    </div>
+                    <div class="preview-item">
+                        <i class="fas fa-brain"></i>
+                        <span>General Aptitude</span>
+                        <span class="preview-tag">15 Marks</span>
+                    </div>
+                    <div class="preview-item">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Core Subjects</span>
+                        <span class="preview-tag">70 Marks</span>
+                    </div>
+                </div>
+                <a href="gate.html" class="action-link">
+                    Start Preparation <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        </main>
+
+    <script>
+        // MOBILE ONLY: Logic to handle the + button click
+        function toggleCard(cardId) {
+            const card = document.getElementById(cardId);
+            const isAlreadyActive = card.classList.contains('mobile-active');
+
+            // Optional: Close others when opening one (Accordion style)
+            document.querySelectorAll('.power-card').forEach(c => {
+                c.classList.remove('mobile-active');
+            });
+
+            // Toggle current one
+            if (!isAlreadyActive) {
+                card.classList.add('mobile-active');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Central | TalentHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="hud-style.css">
+</head>
+<body>
+
+    <div id="hologram-overlay" class="hologram-hidden">
+        <div class="hologram-content">
+            </div>
+    </div>
+
+    <header class="hub-header">
+        <span class="eyebrow">The Network</span>
+        <h1>Select Protocol.</h1>
+    </header>
+
+    <main class="hub-grid">
+        
+        <div class="hub-card" data-target="engineering">
+            <div class="icon-box blue"><i class="fas fa-microchip"></i></div>
+            <h3>Engineering</h3>
+            <p>B.Tech, Core Skills & DSA</p>
+        </div>
+
+        <div class="hub-card" data-target="gate">
+            <div class="icon-box purple"><i class="fas fa-book-journal-whills"></i></div>
+            <h3>GATE / Masters</h3>
+            <p>PSU Prep & Higher Ed</p>
+        </div>
+
+        <div class="hub-card" data-target="govt">
+            <div class="icon-box orange"><i class="fas fa-landmark"></i></div>
+            <h3>Govt Jobs</h3>
+            <p>SSC, Railways, Banking</p>
+        </div>
+
+    </main>
+
+    <script src="hud-engine.js"></script>
+</body>
+</html>
