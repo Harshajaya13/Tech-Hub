@@ -174,42 +174,28 @@ body {
     border-top: 1px solid rgba(0,0,0,0.06);
 }
 
-/* --- MOBILE INTERACTION (Add this to the bottom of style.css) --- */
+/* --- 7. MOBILE TOGGLE (The Edge Button) --- */
+.mobile-toggle { display: none; }
 
-/* 1. Default: Hide the toggle button on Desktop */
-.mobile-toggle {
-    display: none;
-}
-
-/* 2. Mobile Specific Styles */
 @media (max-width: 768px) {
+    /* Hide overlay by default on mobile */
+    .hub-card:hover .card-overlay { opacity: 0; pointer-events: none; transform: translateY(10px); }
+    .hub-card:hover .default-view { opacity: 1; filter: none; transform: none; }
     
-    /* Disable the hover effect on mobile (it feels sticky/buggy on phones) */
-    .hub-card:hover .card-overlay {
-        opacity: 0;
-        transform: translateY(10px);
-        pointer-events: none;
-    }
-    
-    .hub-card:hover .default-view {
-        opacity: 1;
-        filter: none;
-        transform: none;
-    }
-
-    /* 3. The Toggle Button */
+    /* THE BUTTON: Anchored to the Edge */
     .mobile-toggle {
         display: flex;
         position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 36px;
-        height: 36px;
-        background: rgba(0,0,0,0.05); /* Subtle grey */
-        border-radius: 50%;
+        top: 0;
+        right: 0;
+        width: 44px; /* Larger touch target */
+        height: 44px;
+        background: rgba(0,0,0,0.04); /* Subtle grey background */
+        border-bottom-left-radius: 20px; /* Smooth curve into the card */
+        border-top-right-radius: 24px;   /* Matches card corner */
         align-items: center;
         justify-content: center;
-        z-index: 20; /* Above everything */
+        z-index: 20;
         cursor: pointer;
         transition: all 0.3s ease;
         -webkit-tap-highlight-color: transparent;
@@ -217,32 +203,33 @@ body {
 
     .mobile-toggle i {
         font-size: 14px;
-        color: var(--text-main);
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    /* 4. THE ACTIVE STATE (When clicked) */
-    
-    /* A. Rotate the Plus to an X */
-    .hub-card.mobile-active .mobile-toggle {
-        background: var(--text-main); /* Button turns dark */
+        color: var(--text-secondary);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Springy spin */
     }
     
+    /* --- ACTIVE STATE (When Tapped) --- */
+    
+    /* 1. Spin the Icon */
     .hub-card.mobile-active .mobile-toggle i {
-        color: #fff;
         transform: rotate(135deg); /* + becomes x */
+        color: white;
     }
 
-    /* B. Show the Overlay */
+    /* 2. Darken the Button */
+    .hub-card.mobile-active .mobile-toggle {
+        background: #1d1d1f;
+    }
+
+    /* 3. Show Overlay */
     .hub-card.mobile-active .card-overlay {
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
     }
 
-    /* C. Blur the background content */
+    /* 4. Blur Background */
     .hub-card.mobile-active .default-view {
         opacity: 0.2;
-        filter: blur(5px);
+        filter: blur(4px);
     }
 }

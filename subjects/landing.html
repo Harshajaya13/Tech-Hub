@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- 1. CORE VARIABLES & RESET --- */
+        /* --- 1. CORE VARIABLES --- */
         :root {
             --bg-body: #f5f5f7;
             --bg-card: #ffffff;
@@ -47,57 +47,45 @@
             width: 100%;
         }
 
-        /* View Switching Logic */
         .hidden-view { display: none; }
-        .active-view { 
-            display: grid; 
-            animation: fadeIn 0.5s var(--ease-apple) forwards; 
-        }
+        .active-view { display: grid; animation: fadeIn 0.5s var(--ease-apple) forwards; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); scale: 0.98; }
             to { opacity: 1; transform: translateY(0); scale: 1; }
         }
 
-        /* --- 4. THE CARD (Base Style) --- */
+        /* --- 4. THE CARD --- */
         .hub-card {
-            position: relative; /* Anchor for Overlay */
+            position: relative;
             background: var(--bg-card);
             padding: 30px;
             border-radius: var(--radius-card);
-            height: 320px; /* Fixed Height is mandatory for overlay */
+            height: 320px;
             display: flex;
-            flex-direction: column; /* Stack vertically */
+            flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(0,0,0,0.02);
             transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
-            overflow: hidden; /* Clips the glass overlay */
+            overflow: hidden;
             text-decoration: none;
             color: inherit;
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
         .hub-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .hub-card:active { transform: scale(0.98); }
 
-        /* --- 5. DEFAULT CONTENT (Icon & Text) --- */
+        /* --- 5. DEFAULT VIEW --- */
         .default-view {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center; /* Center horizontally */
-            text-align: center;
+            height: 100%; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
             transition: 0.4s ease;
         }
 
-        .hub-card:hover .default-view {
-            opacity: 0.15;
-            filter: blur(8px); /* Cinematic Blur */
-            transform: scale(0.95);
-        }
+        .hub-card:hover .default-view { opacity: 0.15; filter: blur(8px); transform: scale(0.95); }
 
-        /* Icons */
         .app-icon { width: 68px; height: 68px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .bg-blue { background: linear-gradient(135deg, #0071e3, #4c9eff); }
         .bg-purple { background: linear-gradient(135deg, #5856d6, #7a78e8); }
@@ -107,88 +95,55 @@
 
         .card-content h3 { margin: 0 0 8px 0; font-size: 22px; font-weight: 600; }
         .card-content p { margin: 0; font-size: 15px; color: var(--text-secondary); line-height: 1.4; }
-        .arrow-indicator { display: none; } /* Hidden because overlay handles interaction */
+        .arrow-indicator { display: none; } 
 
-        /* --- 6. THE GLASS OVERLAY (Apple Style) --- */
+        /* --- 6. OVERLAY --- */
         .card-overlay {
-            position: absolute;
-            inset: 0; /* Covers entire card */
+            position: absolute; inset: 0;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            transform: translateY(15px);
+            padding: 24px; display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(15px);
             transition: all 0.35s var(--ease-apple);
-            pointer-events: none;
-            z-index: 10;
+            pointer-events: none; z-index: 10;
         }
 
-        .hub-card:hover .card-overlay {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
+        .hub-card:hover .card-overlay { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
-        .overlay-header {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            padding-bottom: 8px;
-        }
-
-        .overlay-list {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .overlay-item {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            padding: 8px 12px;
-            background: rgba(0,0,0,0.03);
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .overlay-header { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 8px; }
+        .overlay-list { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+        .overlay-item { font-size: 14px; font-weight: 500; padding: 8px 12px; background: rgba(0,0,0,0.03); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         .overlay-item i { font-size: 12px; color: var(--text-secondary); opacity: 0.7; }
+        .overlay-cta { margin-top: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--accent-blue); display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        .overlay-cta {
-            margin-top: 12px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-blue);
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-        }
-
-        /* --- 7. MOBILE TOGGLE (The (+) Button) --- */
+        /* --- 7. MOBILE TOGGLE (The Edge Fix) --- */
         .mobile-toggle { display: none; }
 
         @media (max-width: 768px) {
+            /* Disable Hover on Mobile */
             .hub-card:hover .card-overlay { opacity: 0; pointer-events: none; transform: translateY(10px); }
             .hub-card:hover .default-view { opacity: 1; filter: none; transform: none; }
             
+            /* The Corner Button */
             .mobile-toggle {
-                display: flex; position: absolute; top: 16px; right: 16px; width: 32px; height: 32px;
-                background: rgba(0,0,0,0.06); border-radius: 50%; align-items: center; justify-content: center;
-                z-index: 20; transition: 0.3s;
+                display: flex; position: absolute; top: 0; right: 0;
+                width: 44px; height: 44px;
+                background: rgba(0,0,0,0.04);
+                border-bottom-left-radius: 20px; /* Smooth Curve */
+                border-top-right-radius: 24px;   /* Matches Card */
+                align-items: center; justify-content: center;
+                z-index: 20; transition: all 0.3s ease;
+                -webkit-tap-highlight-color: transparent;
             }
             
+            .mobile-toggle i { font-size: 14px; color: var(--text-secondary); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+            
+            /* Active State */
+            .hub-card.mobile-active .mobile-toggle { background: #1d1d1f; }
+            .hub-card.mobile-active .mobile-toggle i { color: white; transform: rotate(135deg); }
             .hub-card.mobile-active .card-overlay { opacity: 1; transform: translateY(0); pointer-events: auto; }
             .hub-card.mobile-active .default-view { opacity: 0.2; filter: blur(4px); }
-            .hub-card.mobile-active .mobile-toggle { background: #1d1d1f; color: white; transform: rotate(135deg); }
         }
     </style>
 </head>
@@ -289,7 +244,7 @@
     </div>
 
     <script>
-        /* 1. VIEW SWITCHER LOGIC */
+        /* 1. VIEW SWITCHER */
         function switchView(viewId, title, subtitle) {
             document.querySelectorAll('.hub-grid').forEach(view => {
                 view.classList.remove('active-view');
@@ -305,62 +260,39 @@
             document.getElementById('page-title').innerText = title;
             document.getElementById('page-subtitle').innerText = subtitle;
             
-            // Close any open mobile cards when switching views
+            // Clean up any open cards
             document.querySelectorAll('.hub-card').forEach(c => c.classList.remove('mobile-active'));
         }
 
-        /* 2. OVERLAY DATA ENGINE */
+        /* 2. DATA CONFIGURATION (Edit this to change text) */
         const OVERLAY_DATA = {
-            // Main Menu Data
-            "main-eng": {
-                label: "Select Branch",
-                items: ["Computer Science", "Electronics (ECE)", "Mechanical Engg", "Civil Engineering"]
-            },
-            "main-gate": {
-                label: "Select Stream",
-                items: ["CS & IT", "Electrical (EE)", "Electronics (EC)", "Mechanical (ME)"]
-            },
-            "main-govt": {
-                label: "Choose Exam",
-                items: ["SSC CGL / CHSL", "IBPS Banking", "RRB Railways", "UPSC / State PSC"]
-            },
+            // Main Cards
+            "main-eng": { label: "Select Branch", items: ["Computer Science", "Electronics (ECE)", "Mechanical Engg", "Civil Engineering"] },
+            "main-gate": { label: "Select Stream", items: ["CS & IT", "Electrical (EE)", "Electronics (EC)", "Mechanical (ME)"] },
+            "main-govt": { label: "Choose Exam", items: ["SSC CGL / CHSL", "IBPS Banking", "RRB Railways", "UPSC / State PSC"] },
 
-            // Sub Menu Data (Engineering)
-            "sub-cse": {
-                label: "Syllabus Map",
-                items: ["Data Structures", "Web Development", "Operating Systems", "Algorithms"]
-            },
-            "sub-ece": {
-                label: "Core Subjects",
-                items: ["Analog Circuits", "Digital Logic", "Signal & Systems", "Microprocessors"]
-            },
-            "sub-mech": {
-                label: "Core Subjects",
-                items: ["Thermodynamics", "Fluid Mechanics", "AutoCAD / Design", "Robotics"]
-            },
-
-            // Sub Menu Data (GATE)
-            "sub-gate-cs": {
-                label: "Exam Pattern",
-                items: ["Engg Math (15%)", "Aptitude (15%)", "Core CS (70%)", "Mock Series"]
-            }
+            // Sub Cards
+            "sub-cse": { label: "Syllabus Map", items: ["Data Structures", "Web Development", "Operating Systems", "Algorithms"] },
+            "sub-ece": { label: "Core Subjects", items: ["Analog Circuits", "Digital Logic", "Signal & Systems", "Microprocessors"] },
+            "sub-mech": { label: "Core Subjects", items: ["Thermodynamics", "Fluid Mechanics", "AutoCAD / Design", "Robotics"] },
+            "sub-gate-cs": { label: "Exam Pattern", items: ["Engg Math (15%)", "Aptitude (15%)", "Core CS (70%)", "Mock Series"] }
         };
 
-        /* 3. INJECTION LOGIC */
+        /* 3. INJECT CONTENT & LOGIC */
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.hub-card').forEach(card => {
-                // Skip Back Buttons
                 if(card.classList.contains('back-btn')) return;
 
-                // A. Wrap Content for Blur Effect
+                // Wrap content
                 const originalContent = card.innerHTML;
                 card.innerHTML = `<div class="default-view">${originalContent}</div>`;
 
-                // B. Get Data & Inject Overlay
+                // Check Data
                 const category = card.getAttribute('data-category');
                 const data = OVERLAY_DATA[category];
 
                 if (data) {
+                    // Create HTML
                     const listHTML = data.items.map(item => `
                         <div class="overlay-item">
                             <span>${item}</span>
@@ -378,17 +310,18 @@
                     `;
                     card.insertAdjacentHTML('beforeend', overlayHTML);
 
-                    // C. Mobile Toggle Logic
+                    // Click Listener (The Edge Button)
                     const toggle = card.querySelector('.mobile-toggle');
                     toggle.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                        e.stopPropagation(); // Don't trigger the card click (switchView/Link)
                         e.preventDefault();
                         
-                        // Close others
+                        // Close all others
                         document.querySelectorAll('.hub-card').forEach(c => {
                             if(c !== card) c.classList.remove('mobile-active');
                         });
                         
+                        // Toggle this one
                         card.classList.toggle('mobile-active');
                     });
                 }
