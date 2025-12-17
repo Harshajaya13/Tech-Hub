@@ -178,7 +178,7 @@ function updateDashboardAuth() {
     if (userContainer) {
         userContainer.innerHTML = `
             <div class="user-card" id="sidebar-user-btn" style="cursor: pointer;">
-                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=${user.username}&backgroundColor=lightblue&radius=50" alt="User">
+            <img src="https://api.dicebear.com/7.x/notionists/svg?seed=${user.username}&backgroundColor=lightblue&radius=50" alt="User">
                 <div class="user-info">
                     <strong>${user.username}</strong>
                     <span>${user.level}</span>
