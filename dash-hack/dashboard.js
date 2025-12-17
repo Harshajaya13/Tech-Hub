@@ -133,3 +133,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboardAuth();
+});
+
+function updateDashboardAuth() {
+    // 1. Check if user is logged in
+    // We assume auth.js saved the user object as a string in 'activeSession'
+    const rawSession = sessionStorage.getItem('activeSession');
+    const userContainer = document.getElementById('user-container');
+    const heroGreeting = document.getElementById('hero-greeting');
+
+    if (!rawSession) {
+        // === GUEST MODE ===
+        // The user is NOT logged in. 
+        // We wipe the user card and inject a Login Button using innerHTML.
+        
+        console.log("No user found. Switching to Guest View.");
+
+        if (userContainer) {
+            userContainer.innerHTML = `
+                <a href="/login/login.html" class="nav-item" style="
+                    background: #0071e3; 
+                    color: white; 
+                    justify-content: center; 
+                    text-align: center;
+                    font-weight: 600;
+                    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+                ">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </a>
+            `;
+        }
+
+        if (heroGreeting) heroGreeting.innerText = "Guest";
+
+    } else {
+        // === LOGGED IN MODE ===
+        // The user IS logged in. 
+        // We keep the card, but update the text with their real data.
+        
+        const user = JSON.parse(rawSession); // Turn string back to object
+        console.log("User found:", user.username);
+
+        // 1. Update Sidebar Name
+        const sidebarName = document.getElementById('sidebar-name');
+        if (sidebarName) sidebarName.innerText = user.username;
+
+        // 2. Update Sidebar Level
+        const sidebarLevel = document.getElementById('sidebar-level');
+        if (sidebarLevel) sidebarLevel.innerText = user.level || "Level 1 Rookie";
+
+        // 3. Update Hero Text (Good Morning, Harsha)
+        if (heroGreeting) heroGreeting.innerText = user.username.split(" ")[0]; // First name only
+
+        // 4. (Optional) Re-attach the click event for the modal since the element exists
+        const userBtn = document.getElementById('sidebar-user-btn');
+        if (userBtn) {
+            userBtn.addEventListener('click', () => {
+                document.getElementById('profile-modal').classList.add('active');
+            });
+        }
+    }
+}

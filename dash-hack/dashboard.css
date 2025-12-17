@@ -511,3 +511,8 @@ body {
     display: flex; align-items: center; justify-content: center; gap: 8px;
 }
 .btn-logout:hover { background: #ffcdd2; }
+
+.link{
+    text-decoration: none;
+    color: white;
+}
