@@ -200,3 +200,55 @@
 .btn-apple:hover { background: var(--apple-blue); }
 .btn-apple.disabled { background: #e5e5e5; color: #999; cursor: not-allowed; }
 .btn-apple.success { background: var(--apple-green); pointer-events: none; }
+
+/* Status: Pending */
+.level-card.pending {
+    border: 1px solid #ffeeba;
+    background: #fffdf5;
+}
+
+.level-card.pending .dot-indicator {
+    background: #ffc107;
+    color: #fff;
+    border-color: #ffc107;
+}
+
+/* Reviewer Floating Button (Only for Seniors) */
+.reviewer-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: transform 0.2s;
+    animation: slideUp 0.5s ease-out;
+}
+
+.reviewer-fab:hover {
+    transform: translateY(-2px);
+    background: #000;
+}
+
+.reviewer-fab .badge {
+    background: #ff3b30;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
