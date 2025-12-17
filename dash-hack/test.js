@@ -112,37 +112,29 @@ function renderRoadmap(data) {
 
 // --- 4. CORE LOGIC (Submission & Verification) ---
 
+// Inside test.js
+
 function submitProject(id) {
     const input = document.getElementById(`input-${id}`);
     const link = input.value;
 
-    // Validation
     if (!link.includes('github.com')) {
         alert("Please submit a valid GitHub link.");
         return;
     }
 
-    // UPDATE STATE: Move to "Pending"
     const roadmap = getRoadmapState();
     const projectIndex = roadmap.findIndex(p => p.id === id);
     
+    // UPDATE STATE
     roadmap[projectIndex].status = 'pending';
     roadmap[projectIndex].repoLink = link;
+    roadmap[projectIndex].approvals = 0; // <--- RESET APPROVALS TO 0 ON SUBMIT
     
     saveState(roadmap);
     renderRoadmap(roadmap);
 
-    // Simulate "Community Notification"
-    // In real server, this POSTs to /api/queue
-    console.log(`Project ${id} sent to Review Queue`);
-    alert("Project submitted! It is now visible to Senior Developers for review.");
-    
-    // --- SIMULATION ONLY ---
-    // Since we don't have other users right now, let's simulate 
-    // a senior dev approving it after 5 seconds for testing purposes.
-    setTimeout(() => {
-        simulateSeniorApproval(id);
-    }, 5000);
+    alert("Project submitted! Waiting for 3 community reviews.");
 }
 
 function simulateSeniorApproval(id) {

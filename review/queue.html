@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Center | TalentHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #F5F5F7; /* Apple Light Gray */
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --accent-blue: #0071E3;
+            --accent-green: #34C759;
+            --accent-red: #FF3B30;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.08);
+            --radius: 20px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Header Section --- */
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .header-content p {
+            margin: 8px 0 0 0;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .badge-pill {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* --- Grid Layout --- */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- The "Apple" Card --- */
+        .review-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Card Header */
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .level-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-blue);
+            background: rgba(0, 113, 227, 0.1);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .timestamp {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        /* The Repository Link Box */
+        .repo-link-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #F5F5F7;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: background 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .repo-link-box:hover {
+            background: #E8E8ED;
+        }
+
+        .repo-icon {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .repo-text {
+            flex: 1;
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Action Buttons */
+        .action-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-approve {
+            background: var(--accent-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+        }
+
+        .btn-reject {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-primary);
+        }
+
+        .btn-reject:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #E5E5EA;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="header-content">
+            <h1>Review Center</h1>
+            <p>Quality control for the community.</p>
+        </div>
+        <div class="badge-pill" id="queueCount">
+            <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%; display: inline-block; margin-right: 6px;"></span>
+            Online
+        </div>
+    </div>
+
+    <div class="grid-layout" id="queueContainer">
+        <div class="review-card">
+            <div class="card-meta">
+                <span class="level-tag">Level 1</span>
+                <span class="timestamp">2m ago</span>
+            </div>
+            <h3 class="card-title">The Cine-Verse Dashboard</h3>
+            <p class="card-desc">User submitted a Netflix clone using TMDB API. Please verify the loading states and responsiveness.</p>
+            
+            <a href="#" class="repo-link-box">
+                <i class="fab fa-github repo-icon"></i>
+                <div class="repo-text">github.com/dev/cine-verse-project</div>
+                <i class="fas fa-arrow-right" style="font-size: 0.8rem; color: #999;"></i>
+            </a>
+
+            <div class="action-row">
+                <button class="btn btn-reject">Reject</button>
+                <button class="btn btn-approve">Approve</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="queue.js"></script>
+</body>
+</html>

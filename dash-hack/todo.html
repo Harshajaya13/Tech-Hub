@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects Arcade | Student Advisor</title>
     <style>
+        /* --- VARIABLES --- */
         :root {
             --apple-blue: #0071e3;
             --apple-bg: #f5f5f7;
@@ -12,6 +13,7 @@
             --text-main: #1d1d1f;
             --text-sec: #86868b;
             --star-gold: #ffc107;
+            --danger: #ff3b30;
         }
 
         body {
@@ -23,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Navbar / Top Bar --- */
+        /* --- NAVBAR --- */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -37,51 +39,28 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .brand {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .user-stars {
+        .brand { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        
+        .user-stats-pill {
             background: rgba(255, 255, 255, 0.8);
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
         }
 
-        .star-icon {
-            color: var(--star-gold);
-            font-size: 18px;
-        }
+        .stat-item { display: flex; align-items: center; gap: 4px; }
+        .star-icon { color: var(--star-gold); font-size: 16px; }
+        .level-badge { background: var(--text-main); color: white; padding: 2px 8px; border-radius: 6px; font-size: 12px; }
 
-        /* --- Main Container --- */
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+        /* --- LAYOUT --- */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
 
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-        }
-
-        .see-all {
-            font-size: 15px;
-            color: var(--apple-blue);
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        /* --- Hero Section (Challenge of the Week) --- */
+        /* --- HERO CARD --- */
         .hero-card {
             background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
             border-radius: 24px;
@@ -90,52 +69,44 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 300px;
+            min-height: 250px;
         }
+        .hero-tag { font-size: 12px; font-weight: 700; color: #aaa; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+        .hero-title { font-size: 36px; font-weight: 700; max-width: 60%; margin-bottom: 10px; line-height: 1.1; }
+        .hero-desc { font-size: 16px; color: #ddd; max-width: 50%; }
+        .hero-reward { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 15px; font-weight: 600; }
 
-        .hero-tag {
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 700;
-            color: #aaa;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .hero-title {
-            font-size: 42px;
-            font-weight: 700;
-            max-width: 60%;
-            margin-bottom: 15px;
-            line-height: 1.1;
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: #ddd;
-            max-width: 50%;
-            margin-bottom: 30px;
-        }
-
-        .hero-reward {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 15px;
-            font-weight: 600;
+        /* --- FILTER BAR --- */
+        .filter-section {
             display: flex;
-            align-items: center;
-            gap: 5px;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .filter-btn {
+            background: #e1e1e6;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--text-sec);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-size: 13px;
         }
 
-        /* --- Project Grid (The Apps) --- */
+        .filter-btn:hover { background: #d1d1d6; color: var(--text-main); }
+        .filter-btn.active { background: var(--text-main); color: white; }
+        .filter-btn.locked-cat { color: var(--danger); background: #fff0f0; }
+
+        /* --- PROJECT GRID --- */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -148,69 +119,26 @@
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.3s, opacity 0.3s;
             display: flex;
             flex-direction: column;
             position: relative;
+            animation: fadeIn 0.4s ease;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .project-header {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .project-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
-            background: #eee;
-            object-fit: cover;
-        }
-
-        .project-info h3 {
-            margin: 0 0 5px 0;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .project-info span {
-            font-size: 13px;
-            color: var(--text-sec);
-            background: #f0f0f0;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        .project-desc {
-            font-size: 14px;
-            color: var(--text-sec);
-            line-height: 1.4;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .reward-badge {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+        
+        .project-header { display: flex; gap: 15px; margin-bottom: 15px; }
+        .project-icon { width: 60px; height: 60px; border-radius: 14px; background: #eee; object-fit: cover; }
+        .project-info h3 { margin: 0 0 5px 0; font-size: 18px; font-weight: 600; }
+        .project-info span { font-size: 13px; color: var(--text-sec); background: #f0f0f0; padding: 4px 8px; border-radius: 6px; }
+        .project-desc { font-size: 14px; color: var(--text-sec); line-height: 1.4; margin-bottom: 20px; flex-grow: 1; }
+        
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .reward-badge { font-size: 14px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 4px; }
+        
         .get-button {
             background: #f2f2f7;
             color: var(--apple-blue);
@@ -223,54 +151,34 @@
             font-size: 12px;
             transition: 0.2s;
         }
+        .get-button:hover { background: var(--apple-blue); color: white; }
 
-        .get-button:hover {
-            background: var(--apple-blue);
-            color: white;
+        /* --- LOGIC: COMPLETED STATE --- */
+        .get-button.completed {
+            background: #e4f7e6;
+            color: #34c759;
+            pointer-events: none;
         }
 
-        /* --- Leaderboard (Top Builders) --- */
-        .leaderboard-container {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        /* --- LOGIC: LOCKED STATE --- */
+        .project-card.locked-card {
+            opacity: 0.6;
+            filter: grayscale(10%);
         }
-
-        .leader-row {
-            display: flex;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .leader-row:last-child {
-            border-bottom: none;
-        }
-
-        .rank {
-            width: 30px;
-            font-weight: 700;
+        .project-card.locked-card .get-button {
+            background: transparent;
             color: var(--text-sec);
+            border: 1px solid #ddd;
+            cursor: not-allowed;
         }
 
-        .leader-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #ddd;
-            margin: 0 15px;
+        /* --- STAR ANIMATION --- */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
-
-        .leader-name {
-            flex-grow: 1;
-            font-weight: 600;
-        }
-
-        .leader-points {
-            font-weight: 700;
-            color: var(--text-main);
-        }
+        .animate-pop { animation: pop 0.3s ease; }
 
     </style>
 </head>
@@ -278,9 +186,15 @@
 
     <div class="top-bar">
         <div class="brand">Projects Arcade</div>
-        <div class="user-stars">
-            <span class="star-icon">★</span> 
-            <span>120 Stars</span>
+        <div class="user-stats-pill" id="statsPill">
+            <div class="stat-item">
+                <span class="level-badge">Lvl <span id="userLevelDisplay">5</span></span>
+            </div>
+            <div style="width: 1px; height: 16px; background: #ddd;"></div>
+            <div class="stat-item">
+                <span class="star-icon">★</span> 
+                <span id="userStarsDisplay">120</span>
+            </div>
         </div>
     </div>
 
@@ -290,109 +204,142 @@
             <div class="hero-tag">FEATURED CHALLENGE</div>
             <div class="hero-title">Build a Portfolio <br> using React JS.</div>
             <div class="hero-desc">Create a personal site with Dark Mode toggle. Top 3 submissions get a free Mentor Chat.</div>
-            <div class="hero-reward">★ 500 REWARD</div>
-            </div>
-
-        <div class="section-title">
-            Start Building
-            <a class="see-all">See All</a>
+            <div class="hero-reward">★ 500</div>
         </div>
 
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <div class="project-header">
-                    <img src="https://via.placeholder.com/60/000000/FFFFFF?text=JS" class="project-icon" alt="JS">
-                    <div class="project-info">
-                        <h3>To-Do List</h3>
-                        <span>Web Dev</span>
-                    </div>
-                </div>
-                <div class="project-desc">
-                    The classic beginner project. Build a list where you can add, delete, and check off items.
-                </div>
-                <div class="card-footer">
-                    <div class="reward-badge"><span style="color:var(--star-gold)">★</span> 50</div>
-                    <button class="get-button" onclick="alert('Project Started!')">GET</button>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <img src="https://via.placeholder.com/60/3776AB/FFFFFF?text=Py" class="project-icon" alt="Py">
-                    <div class="project-info">
-                        <h3>Weather App</h3>
-                        <span>API & Python</span>
-                    </div>
-                </div>
-                <div class="project-desc">
-                    Fetch real-time data using the OpenWeatherMap API and display it in the terminal.
-                </div>
-                <div class="card-footer">
-                    <div class="reward-badge"><span style="color:var(--star-gold)">★</span> 100</div>
-                    <button class="get-button">GET</button>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <img src="https://via.placeholder.com/60/E34F26/FFFFFF?text=CV" class="project-icon" alt="HTML">
-                    <div class="project-info">
-                        <h3>Resume Page</h3>
-                        <span>HTML/CSS</span>
-                    </div>
-                </div>
-                <div class="project-desc">
-                    Code your own resume. No templates. Use pure CSS Grid or Flexbox.
-                </div>
-                <div class="card-footer">
-                    <div class="reward-badge"><span style="color:var(--star-gold)">★</span> 30</div>
-                    <button class="get-button">GET</button>
-                </div>
-            </div>
-
-             <div class="project-card">
-                <div class="project-header">
-                    <img src="https://via.placeholder.com/60/6e5494/FFFFFF?text=Git" class="project-icon" alt="Git">
-                    <div class="project-info">
-                        <h3>Fix a Typo</h3>
-                        <span>Open Source</span>
-                    </div>
-                </div>
-                <div class="project-desc">
-                    Find a readme file in a popular repo, fix a spelling mistake, and submit a PR.
-                </div>
-                <div class="card-footer">
-                    <div class="reward-badge"><span style="color:var(--star-gold)">★</span> 150</div>
-                    <button class="get-button">GET</button>
-                </div>
-            </div>
-
+        <div class="filter-section">
+            <button class="filter-btn active" onclick="renderProjects('all', this)">All Games</button>
+            <button class="filter-btn" onclick="renderProjects('frontend', this)">Frontend</button>
+            <button class="filter-btn" onclick="renderProjects('backend', this)">Backend</button>
+            <button class="filter-btn" onclick="renderProjects('fullstack', this)">MERN Stack</button>
+            <button class="filter-btn" style="color: #ff3b30;" onclick="renderProjects('locked', this)">🔥 Pro League (Lvl 10)</button>
         </div>
 
-        <div class="section-title">
-            Top Builders
-        </div>
-
-        <div class="leaderboard-container">
-            <div class="leader-row">
-                <div class="rank">1</div>
-                <div class="leader-avatar" style="background-color: #ff9f0a;"></div> <div class="leader-name">Suresh K.</div>
-                <div class="leader-points">1,250 ★</div>
+        <div class="project-grid" id="projectGrid">
             </div>
-            <div class="leader-row">
-                <div class="rank">2</div>
-                <div class="leader-avatar" style="background-color: #30d158;"></div> <div class="leader-name">Anjali R.</div>
-                <div class="leader-points">980 ★</div>
-            </div>
-            <div class="leader-row">
-                <div class="rank">3</div>
-                <div class="leader-avatar" style="background-color: #0a84ff;"></div> <div class="leader-name">David B.</div>
-                <div class="leader-points">850 ★</div>
-            </div>
-        </div>
 
     </div>
 
+    <script>
+        // --- 1. USER STATE (The "Bank") ---
+        let user = {
+            stars: 120,
+            level: 5,  // Try changing this to 10 to see items unlock!
+            completedIds: []
+        };
+
+        // --- 2. PROJECT DATABASE (The "Menu") ---
+        const projectsDB = [
+            // FRONTEND
+            { id: 101, title: "To-Do List", cat: "frontend", icon: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", desc: "Master DOM manipulation. Add, remove, and store tasks locally.", stars: 50, reqLevel: 1 },
+            { id: 102, title: "Calculator", cat: "frontend", icon: "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg", desc: "Build a functional calculator using CSS Grid and JS logic.", stars: 70, reqLevel: 2 },
+            
+            // BACKEND
+            { id: 201, title: "Weather API", cat: "backend", icon: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", desc: "Fetch real-time weather data. Handle JSON and API keys safely.", stars: 100, reqLevel: 3 },
+            { id: 202, title: "URL Shortener", cat: "backend", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg", desc: "Build a service like Bitly using Node.js and MongoDB.", stars: 150, reqLevel: 4 },
+
+            // FULLSTACK (MERN)
+            { id: 301, title: "E-Commerce", cat: "fullstack", icon: "https://upload.wikimedia.org/wikipedia/commons/9/94/MERN-logo.png", desc: "Product grid, Shopping Cart, and Stripe Checkout integration.", stars: 300, reqLevel: 5 },
+            
+            // PRO LEAGUE (LOCKED)
+            { id: 901, title: "Linux Kernel", cat: "locked", icon: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg", desc: "Contribute to the kernel. Requires deep C knowledge and verification.", stars: 1000, reqLevel: 10 },
+            { id: 902, title: "AI Model", cat: "locked", icon: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg", desc: "Train a custom LLM model using PyTorch on cloud GPUs.", stars: 1500, reqLevel: 10 }
+        ];
+
+        // --- 3. INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUserUI();
+            renderProjects('all', document.querySelector('.filter-btn'));
+        });
+
+        // --- 4. RENDER LOGIC ---
+        function renderProjects(filterType, btnElement) {
+            // Update Buttons
+            if(btnElement) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+
+            const grid = document.getElementById('projectGrid');
+            grid.innerHTML = ''; // Clear current
+
+            // Filter Data
+            const filtered = projectsDB.filter(p => {
+                if(filterType === 'all') return p.cat !== 'locked'; // Hide locked in "All" view to keep it clean
+                return p.cat === filterType;
+            });
+
+            // Generate HTML
+            filtered.forEach(p => {
+                const isLocked = user.level < p.reqLevel;
+                const isCompleted = user.completedIds.includes(p.id);
+
+                let btnHTML = '';
+                let cardClass = 'project-card';
+
+                if (isCompleted) {
+                    btnHTML = `<button class="get-button completed">DONE <span style="font-size:10px">✔</span></button>`;
+                } else if (isLocked) {
+                    cardClass += ' locked-card';
+                    btnHTML = `<button class="get-button">🔒 Lvl ${p.reqLevel}</button>`;
+                } else {
+                    btnHTML = `<button class="get-button" onclick="collectReward(${p.id}, ${p.stars})">START</button>`;
+                }
+
+                const html = `
+                    <div class="${cardClass}">
+                        <div class="project-header">
+                            <img src="${p.icon}" class="project-icon" alt="icon">
+                            <div class="project-info">
+                                <h3>${p.title}</h3>
+                                <span>${p.cat.toUpperCase()}</span>
+                            </div>
+                        </div>
+                        <div class="project-desc">${p.desc}</div>
+                        <div class="card-footer">
+                            <div class="reward-badge"><span style="color:var(--star-gold)">★</span> ${p.stars}</div>
+                            ${btnHTML}
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += html;
+            });
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#999; padding:40px;">No projects found in this category.</div>`;
+            }
+        }
+
+        // --- 5. DYNAMIC REWARD SYSTEM ---
+        function collectReward(id, amount) {
+            // 1. Update Data
+            user.stars += amount;
+            user.completedIds.push(id);
+
+            // 2. Animate UI
+            const pill = document.getElementById('statsPill');
+            pill.classList.add('animate-pop');
+            setTimeout(() => pill.classList.remove('animate-pop'), 300);
+
+            // 3. Update Text
+            updateUserUI();
+
+            // 4. Re-render the grid to show "DONE" state
+            // (We find the currently active button to keep state correct)
+            const activeBtn = document.querySelector('.filter-btn.active');
+            const currentFilter = activeBtn.innerText.toLowerCase().includes('all') ? 'all' : 
+                                  activeBtn.innerText.toLowerCase().includes('front') ? 'frontend' :
+                                  activeBtn.innerText.toLowerCase().includes('back') ? 'backend' :
+                                  activeBtn.innerText.toLowerCase().includes('mern') ? 'fullstack' : 'locked';
+            
+            renderProjects(currentFilter, null);
+        }
+
+        function updateUserUI() {
+            document.getElementById('userStarsDisplay').innerText = user.stars.toLocaleString();
+            document.getElementById('userLevelDisplay').innerText = user.level;
+        }
+
+    </script>
 </body>
 </html>
