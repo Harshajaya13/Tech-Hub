@@ -10,58 +10,77 @@
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <aside class="apple-sidebar">
-            <div class="sidebar-header">
-                <span class="brand-icon">⚡</span> TalentHub
-            </div>
+        <div class="app-container">
+            
+            <aside class="apple-sidebar">
+        <div class="sidebar-header">
+            <span class="brand-icon">⚡</span> TalentHub
+        </div>
 
-            <div class="menu-group">
-                <div class="menu-label">MENU</div>
-                <a href="#" class="nav-item active">
-                    <i class="fas fa-grid-2"></i> Dashboard
-                </a>
-                <a href="test.html" class="nav-item">
-                    <i class="fas fa-map"></i> Roadmap
-                </a>
-                <a href="todo.html" class="nav-item">
-                    <i class="fas fa-layer-group"></i> Projects
-                </a>
-                <a href="progress.html" class="nav-item">
-                    <i class="fas fa-medal"></i> Badges
-                </a>
+        <div class="menu-group">
+            <div class="menu-label">MENU</div>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-grid-2"></i> Dashboard
+            </a>
+            <a href="test.html" class="nav-item">
+                <i class="fas fa-map"></i> Roadmap
+            </a>
+            <a href="todo.html" class="nav-item">
+                <i class="fas fa-layer-group"></i> Projects
+            </a>
+            <a href="progress.html" class="nav-item">
+                <i class="fas fa-medal"></i> Badges
+            </a>
 
-                <!-- Community -->
-                <a href="/community/talent.html" class="nav-item">
-                    <i class="fas fa-users"></i> Community
-                </a>
+            <a href="/community/talent.html" class="nav-item">
+                <i class="fas fa-users"></i> Community
+            </a>
 
-                <!-- Project Chat -->
-                <a href="/chat/project.html" class="nav-item">
-                    <i class="fas fa-comments"></i> Project Chat
-                </a>
+            <a href="/review/queue.html" class="nav-item">
+                <i class="fas fa-clipboard-check"></i> Review Queue
+            </a>
+        </div>
 
-                <a href="/review/queue.html" class="nav-item">
-                    <i class="fas fa-clipboard-check"></i> Review Queue
-                </a>
-
-                
-
-            </div>
-
-            <div class="menu-group mt-auto">
-                <div class="user-card">
-                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="User">
-                    <div class="user-info">
-                        <strong>Dev Kumar</strong>
-                        <span>Level 3 Apprentice</span>
-                    </div>
-                    <i class="fas fa-chevron-right arrow"></i>
+        <div class="menu-group mt-auto">
+            <div class="user-card" id="sidebar-user-btn">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="User">
+                <div class="user-info">
+                    <strong>Dev Kumar</strong>
+                    <span>Level 3 Apprentice</span>
                 </div>
+                <i class="fas fa-chevron-right arrow"></i>
             </div>
-        </aside>
+        </div>
 
+        <div id="profile-modal" class="modal-overlay">
+            <div class="modal-content">
+                
+                <button id="close-modal-btn" class="close-icon">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <div class="modal-header">
+                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="User">
+                    <h2>Dev Kumar</h2>
+                    <p>Level 3 Apprentice</p>
+                </div>
+
+                <div class="modal-stats-row">
+                    <div class="stat">
+                        <b>1,205</b> <span>Stars</span>
+                    </div>
+                    <div class="stat">
+                        <b>12</b> <span>Projects</span>
+                    </div>
+                </div>
+
+                <button id="logout-btn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </button>
+            </div>
+        </div>
+        
+    </aside>
         <main class="main-view">
             
             <header class="top-bar">
@@ -165,5 +184,7 @@
         </main>
     </div>
 
+    
+<script src="dashboard.js"></script>
 </body>
 </html>

@@ -91,3 +91,45 @@ function showToast(message) {
     toast.style.opacity = '1';
     setTimeout(() => toast.style.opacity = '0', 3000);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Select Elements
+    const sidebarBtn = document.getElementById('sidebar-user-btn'); // The trigger
+    const modal = document.getElementById('profile-modal');       // The hidden modal
+    const closeBtn = document.getElementById('close-modal-btn');  // The X button
+    const logoutBtn = document.getElementById('logout-btn');      // The Logout button
+
+    // 2. Open Modal
+    if (sidebarBtn) {
+        sidebarBtn.addEventListener('click', () => {
+            modal.classList.add('active'); // CSS makes it visible
+        });
+    }
+
+    // 3. Close Modal (Click X)
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+    }
+
+    // 4. Close Modal (Click Outside on the dark background)
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // 5. Logout Logic
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            const confirmLogout = confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                alert("Logging out...");
+                // Here you can redirect to login page
+                // window.location.href = 'login.html';
+            }
+        });
+    }
+});

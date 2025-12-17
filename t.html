@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locallift - Find & Hire Workers</title>
+    <style>
+        /* --- General Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            padding-top: 80px; 
+            background-color: #f4f4f9; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header Styles --- */
+        .site-header {
+            background-color: rgb(56, 176, 0); 
+            color: #ffffff;
+            position: fixed; 
+            top: 5px;
+            left: 0px;
+            width: 100%; 
+            z-index: 1000; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem 2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(56, 176, 0, 0.95); 
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 30px; 
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 0.95rem;
+            position: relative; 
+            padding-bottom: 5px; 
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px; 
+            bottom: 0;
+            left: 0;
+            background-color: orange; 
+            transform: scaleX(0); 
+            transform-origin: center; 
+            transition: transform 0.4s ease-out; 
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1); 
+        }
+        
+        .nav-link:hover {
+            color: rgb(251, 133, 0); 
+        }
+
+        .login-btn {
+            text-decoration: none;
+            color: #0A2558; 
+            background-color: #ffffff; 
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px; 
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            color: rgb(251, 133, 0);
+            border: 2px solid rgb(251, 133, 0);
+            background-color: transparent; 
+            color: white; 
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 90vh; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .head {
+            color: #ffffff; 
+            font-size: 60px;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        }
+
+        .text {
+            color: #e0e0e0; 
+            font-size: 24px;
+            font-weight: 500;
+            max-width: 600px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* --- SEARCH BOXES SECTION --- */
+        .search-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px; 
+            padding: 4rem 2rem;
+            margin-top: -50px; 
+            z-index: 10;
+            flex-wrap: wrap; 
+        }
+
+        @keyframes target-blink {
+            0% { box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: #eee; }
+            50% { box-shadow: 0 0 30px 10px rgba(56, 176, 0, 0.8); border-color: rgb(56, 176, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: #eee; }
+        }
+
+        .search-box {
+            background-color: white;
+            width: 450px;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            transition: all 0.4s ease; 
+            border: 2px solid #eee; 
+            scroll-margin-top: 150px; 
+        }
+
+        .search-box:target {
+            animation: target-blink 0.6s ease-in-out 2; 
+        }
+
+        .search-box:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(56, 176, 0, 0.4); 
+            border-color: rgb(56, 176, 0);
+        }
+
+        .search-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Applying the style to both input and select tags */
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 50px; 
+            background-color: #f9f9f9;
+            outline: none;
+            transition: border 0.3s;
+            
+            /* Appearance fix for dropdowns */
+            appearance: none; 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 95%;
+            background-position-y: 50%;
+            cursor: pointer;
+        }
+
+        .form-input:focus {
+            border-color: rgb(56, 176, 0);
+            background-color: white;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 0.9rem;
+            padding-left: 5px;
+        }
+
+        .checkbox-container input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: rgb(56, 176, 0);
+        }
+
+        .search-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: rgb(56, 176, 0); 
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(26, 115, 232, 0.3);
+        }
+
+        .search-btn:hover {
+            background-color:transparent;
+            border : 2px solid rgb(56, 176, 0);
+            color: rgb(56, 176, 0);
+        }
+
+        /* --- FOOTER & PROFILES SECTION --- */
+        .site-footer {
+            background-color: #023047; 
+            color: white;
+            padding-top: 3rem;
+            margin-top: auto; 
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #8ecae6; 
+        }
+
+        .profiles-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 4rem;
+        }
+
+        .profile-card {
+            background-color: white;
+            color: #333;
+            width: 250px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px); 
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgb(33, 158, 188);
+            margin-bottom: 15px;
+        }
+
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-role {
+            color: rgb(251, 133, 0); 
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-rating {
+            color: #FFD700; 
+            font-size: 1.1rem;
+        }
+
+        .footer-bottom {
+            background-color: #001d2e; 
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">
+            <h1>Locallift</h1>
+        </div>
+
+        <nav class="main-nav">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">How it work</a>
+            <a href="#" class="nav-link">Language</a>
+            <a href="#find-work-section" class="nav-link">Find work</a>
+            <a href="#hire-worker-section" class="nav-link">Hire workers</a>
+            <a href="#" class="login-btn">Login/signup</a>
+        </nav>
+    </header>
+
+    <main class="hero-section">
+        <h2 class="head">Welcome to Locallife</h2>
+        <p class="text">Where you find the work with no middle man</p>
+    </main>
+
+    <section class="search-section">
+        
+        <div class="search-box" id="find-work-section">
+            <h3 class="search-title">Find Work</h3>
+            <form>
+                <select class="form-input">
+                    <option value="" disabled selected>Select Skill</option>
+                    <option value="plumber">Plumber</option>
+                    <option value="electrician">Electrician</option>
+                    <option value="carpenter">Carpenter</option>
+                    <option value="painter">Painter</option>
+                    <option value="mason">Mason</option>
+                    <option value="welder">Welder</option>
+                    <option value="driver">Driver</option>
+                    <option value="mechanic">Mechanic</option>
+                </select>
+
+                <select class="form-input" id="find-state" onchange="updateDistricts('find-state', 'find-district')">
+                    <option value="" disabled selected>Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Delhi">Delhi</option>
+                </select>
+
+                <select class="form-input" id="find-district">
+                    <option value="" disabled selected>Select District</option>
+                    </select>
+
+                <select class="form-input">
+                    <option value="" disabled selected>Working Hours</option>
+                    <option value="full-time">Full Time (9 AM - 5 PM)</option>
+                    <option value="part-time">Part Time (4 Hours)</option>
+                    <option value="shift-morning">Morning Shift</option>
+                    <option value="shift-night">Night Shift</option>
+                    <option value="hourly">Hourly Basis</option>
+                    <option value="contract">Contract Based</option>
+                </select>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="anywhere">
+                    <label for="anywhere">Anywhere in India</label>
+                </div>
+
+                <button type="button" class="search-btn">SEARCH WORK</button>
+            </form>
+        </div>
+
+        <div class="search-box" id="hire-worker-section">
+            <h3 class="search-title">Hire a Worker</h3>
+            <form>
+                <select class="form-input">
+                    <option value="" disabled selected>Skill Required</option>
+                    <option value="plumber">Plumber</option>
+                    <option value="electrician">Electrician</option>
+                    <option value="carpenter">Carpenter</option>
+                    <option value="painter">Painter</option>
+                    <option value="mason">Mason</option>
+                    <option value="welder">Welder</option>
+                    <option value="driver">Driver</option>
+                </select>
+
+                <select class="form-input">
+                    <option value="" disabled selected>Years of Experience</option>
+                    <option value="fresher">Fresher (0-1 Years)</option>
+                    <option value="1-3">1 - 3 Years</option>
+                    <option value="3-5">3 - 5 Years</option>
+                    <option value="5-10">5 - 10 Years</option>
+                    <option value="10plus">10+ Years (Expert)</option>
+                </select>
+
+                <select class="form-input" id="hire-state" onchange="updateDistricts('hire-state', 'hire-district')">
+                    <option value="" disabled selected>Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Delhi">Delhi</option>
+                </select>
+
+                <select class="form-input" id="hire-district">
+                    <option value="" disabled selected>Select District</option>
+                </select>
+                
+                <div style="margin-bottom: 25px;"></div> 
+
+                <button type="button" class="search-btn">SEARCH WORKER</button>
+            </form>
+        </div>
+
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <h2 class="section-title">Top Rated Workers</h2>
+            <div class="profiles-grid">
+                <div class="profile-card">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Worker" class="profile-img">
+                    <h3 class="profile-name">John Doe</h3>
+                    <p class="profile-role">Electrician</p>
+                    <div class="profile-rating">★★★★★</div>
+                </div>
+                <div class="profile-card">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Worker" class="profile-img">
+                    <h3 class="profile-name">Sarah Smith</h3>
+                    <p class="profile-role">Plumber</p>
+                    <div class="profile-rating">★★★★☆</div>
+                </div>
+                <div class="profile-card">
+                    <img src="https://i.pravatar.cc/150?img=33" alt="Worker" class="profile-img">
+                    <h3 class="profile-name">Mike Ross</h3>
+                    <p class="profile-role">Carpenter</p>
+                    <div class="profile-rating">★★★★★</div>
+                </div>
+                <div class="profile-card">
+                    <img src="https://i.pravatar.cc/150?img=9" alt="Worker" class="profile-img">
+                    <h3 class="profile-name">Anna Lee</h3>
+                    <p class="profile-role">Painter</p>
+                    <div class="profile-rating">★★★★☆</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Locallift. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Define the Data (State -> Districts Map)
+        const stateDistrictData = {
+            "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool", "Rajahmundry", "Tirupati"],
+            "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar", "Khammam", "Ramagundam"],
+            "Karnataka": ["Bangalore", "Mysore", "Hubli", "Mangalore", "Belgaum", "Gulbarga"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad", "Solapur"],
+            "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem", "Tiruchirappalli"],
+            "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam"],
+            "Delhi": ["Central Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi"]
+        };
+
+        // 2. Function to update districts based on state selection
+        function updateDistricts(stateSelectId, districtSelectId) {
+            const stateSelect = document.getElementById(stateSelectId);
+            const districtSelect = document.getElementById(districtSelectId);
+            const selectedState = stateSelect.value;
+
+            // Clear current options
+            districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
+
+            // If a valid state is selected, populate districts
+            if (selectedState && stateDistrictData[selectedState]) {
+                const districts = stateDistrictData[selectedState];
+                
+                districts.forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.text = district;
+                    districtSelect.add(option);
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>

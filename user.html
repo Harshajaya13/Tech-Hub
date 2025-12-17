@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My HQ | TalentHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           1. CORE STYLES & VARIABLES
+           ========================================= */
+        :root {
+            --bg-app: #f5f5f7;
+            --bg-panel: #ffffff;
+            --bg-sidebar: #fbfbfd;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --accent-blue: #0071e3;
+            --border-light: rgba(0,0,0,0.05);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+            --radius-app: 24px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, 'Inter', sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* =========================================
+           2. LAYOUT
+           ========================================= */
+        .app-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .apple-sidebar {
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+        }
+
+        .sidebar-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10px;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 4px; }
+        .mt-auto { margin-top: auto; }
+
+        .menu-label {
+            font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+            margin-bottom: 10px; padding-left: 12px;
+        }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 10px;
+            text-decoration: none; color: var(--text-muted);
+            font-size: 0.9rem; font-weight: 500; transition: 0.2s;
+        }
+        .nav-item:hover { background: rgba(0,0,0,0.03); color: var(--text-main); }
+        .nav-item.active { background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); font-weight: 600; }
+
+        /* USER PROFILE BUTTON */
+        .user-card {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .user-card:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
+        .user-card img { width: 36px; height: 36px; border-radius: 50%; }
+        .user-info { flex: 1; display: flex; flex-direction: column; }
+        .user-info strong { font-size: 0.85rem; }
+        .user-info span { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* MAIN AREA */
+        .main-view { display: flex; flex-direction: column; overflow-y: auto; }
+
+        .top-bar {
+            height: 70px; padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(245, 245, 247, 0.8); backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .actions { display: flex; gap: 15px; }
+        .btn-icon { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-light); background: white; cursor: pointer; }
+        .btn-primary-pill { background: var(--text-main); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; }
+
+        .content-wrapper { padding: 20px 40px 60px; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        /* WIDGETS */
+        .hero-text { margin-bottom: 30px; }
+        .widget-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .widget { background: var(--bg-panel); padding: 20px; border-radius: 20px; box-shadow: var(--shadow-sm); height: 140px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .widget:hover { transform: translateY(-3px); }
+        .widget-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .widget-icon.blue { background: #e0f2fe; color: #0284c7; }
+        .widget-icon.green { background: #dcfce7; color: #16a34a; }
+        .widget-icon.purple { background: #f3e8ff; color: #9333ea; }
+        .widget-icon.orange { background: #ffedd5; color: #ea580c; }
+        .widget-data h3 { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+
+        /* PANELS */
+        .split-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .panel { background: var(--bg-panel); border-radius: 24px; padding: 25px; box-shadow: var(--shadow-sm); }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        
+        .mission-container { display: flex; gap: 20px; background: #f9f9fb; padding: 20px; border-radius: 20px; align-items: center; }
+        .mission-icon { width: 60px; height: 60px; background: #20232a; color: #61dafb; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .mission-details { flex: 1; }
+        .progress-bar { height: 6px; background: #e0e0e0; border-radius: 10px; margin-top: 10px; width: 100%; }
+        .fill { height: 100%; background: var(--accent-blue); width: 45%; border-radius: 10px;}
+
+        /* FEED */
+        .feed-item { display: flex; gap: 12px; padding-bottom: 15px; border-bottom: 1px solid var(--border-light); margin-bottom: 15px; }
+        .avatar { width: 32px; height: 32px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+        .avatar.small { background: #ffdede; color: #ff4d4d; }
+
+        /* =========================================
+           3. THE MODAL (POPUP) STYLES
+           ========================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1; visibility: visible; pointer-events: all;
+        }
+
+        .modal-glass-card {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-glass-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .btn-close {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(0,0,0,0.05); border: none;
+            width: 32px; height: 32px; border-radius: 50%;
+            cursor: pointer; color: #555;
+        }
+
+        .modal-header img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px; }
+        .modal-stats { display: flex; justify-content: space-between; margin: 25px 0; padding: 15px; background: #f5f5f7; border-radius: 16px; }
+        .stat-box { display: flex; flex-direction: column; width: 33%; }
+        .stat-value { font-weight: 800; font-size: 1.2rem; }
+        .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        
+        .project-pill { display: flex; align-items: center; gap: 10px; background: white; padding: 10px 15px; border-radius: 12px; margin-bottom: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .btn-logout { width: 100%; padding: 12px; border: none; border-radius: 12px; background: #ffe5e5; color: #d32f2f; font-weight: 600; cursor: pointer; margin-top: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <aside class="apple-sidebar">
+            <div class="sidebar-header">
+                <span class="brand-icon">⚡</span> TalentHub
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-label">MENU</div>
+                <a href="#" class="nav-item active"><i class="fas fa-grid-2"></i> Dashboard</a>
+                <a href="test.html" class="nav-item"><i class="fas fa-map"></i> Roadmap</a>
+                <a href="todo.html" class="nav-item"><i class="fas fa-layer-group"></i> Projects</a>
+                <a href="progress.html" class="nav-item"><i class="fas fa-medal"></i> Badges</a>
+                <a href="/community/talent.html" class="nav-item"><i class="fas fa-users"></i> Community</a>
+                <a href="/review/queue.html" class="nav-item"><i class="fas fa-clipboard-check"></i> Review Queue</a>
+            </div>
+
+            <div class="menu-group mt-auto">
+                <div class="user-card" id="sidebar-user-btn"> 
+                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="User">
+                    <div class="user-info">
+                        <strong>Harsha Vardhan</strong>
+                        <span>Level 7 Apprentice</span>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-view">
+            <header class="top-bar">
+                <div class="breadcrumbs"><span>TalentHub</span> / <span class="current">Dashboard</span></div>
+                <div class="actions">
+                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
+                    <button class="btn-primary-pill">+ New Project</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="hero-text">
+                    <h1>Good Morning, Harsha.</h1>
+                    <p>You're on a 15 Day Streak. Keep the momentum.</p>
+                </div>
+
+                <div class="widget-grid">
+                    <div class="widget">
+                        <div class="widget-icon blue"><i class="fas fa-code"></i></div>
+                        <div class="widget-data"><h3>12</h3><span>Projects Shipped</span></div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-icon green"><i class="fas fa-check-circle"></i></div>
+                        <div class="widget-data"><h3>85%</h3><span>Roadmap Done</span></div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-icon purple"><i class="fas fa-trophy"></i></div>
+                        <div class="widget-data"><h3>04</h3><span>Gold Badges</span></div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-icon orange"><i class="fas fa-chart-line"></i></div>
+                        <div class="widget-data"><h3>1.2k</h3><span>Profile Views</span></div>
+                    </div>
+                </div>
+
+                <div class="split-layout">
+                    <div class="panel large">
+                        <div class="panel-header"><h2>Current Mission</h2><a href="test.html" class="link-action">Continue -></a></div>
+                        <div class="mission-container">
+                            <div class="mission-icon"><i class="fab fa-react"></i></div>
+                            <div class="mission-details">
+                                <h3>Advanced React Patterns</h3>
+                                <p>Module 4: Higher Order Components</p>
+                                <div class="progress-bar"><div class="fill"></div></div>
+                            </div>
+                            <button class="btn-play"><i class="fas fa-play"></i></button>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header"><h2>Live Activity</h2></div>
+                        <div class="feed-list" id="feed-list-container">
+                            <div class="feed-item">
+                                <div class="avatar small">R</div>
+                                <div class="feed-text"><strong>Rohan</strong> commented on <br> "Traffic AI Logic"</div>
+                                <span class="time">2m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-glass-card">
+            
+            <button class="btn-close" id="close-modal-btn">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="modal-header">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" id="modal-avatar" alt="User">
+                <h2 id="modal-name">Harsha Vardhan</h2>
+                <p class="role-text" id="modal-level">Level 7 Apprentice</p>
+            </div>
+
+            <div class="modal-stats">
+                <div class="stat-box">
+                    <span class="stat-value" id="modal-stars">1,250</span>
+                    <span class="stat-label">Stars</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">Top 5%</span>
+                    <span class="stat-label">Rank</span>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <h3 style="text-align: left; font-size: 0.9rem; margin-bottom: 10px;">Recent Ships</h3>
+                <div class="project-pill-list">
+                    <div class="project-pill">
+                        <i class="fab fa-react" style="color: #61dafb"></i> 
+                        <span>Netflix Clone</span>
+                    </div>
+                    <div class="project-pill">
+                        <i class="fas fa-robot" style="color: #FFC107"></i> 
+                        <span>AI Chatbot</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-logout" onclick="alert('Logged Out Successfully')">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </button>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. PROFILE MODAL LOGIC ---
+            const modal = document.getElementById('profile-modal');
+            const sidebarBtn = document.getElementById('sidebar-user-btn');
+            const closeBtn = document.getElementById('close-modal-btn');
+
+            if (sidebarBtn && modal) {
+                // Open Modal
+                sidebarBtn.addEventListener('click', () => {
+                    modal.classList.add('active');
+                });
+
+                // Close Modal (X button)
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                });
+
+                // Close Modal (Click Outside)
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            } else {
+                console.error("Error: Could not find Sidebar Button or Modal ID.");
+            }
+
+            // --- 2. ACTIVITY FEED LOGIC ---
+            loadLiveActivity();
+
+            function loadLiveActivity() {
+                const feedContainer = document.getElementById('feed-list-container');
+                const activities = JSON.parse(localStorage.getItem('activityFeed')) || [];
+
+                if (activities.length > 0) {
+                    // If we have data, clear the default "Rohan" comment
+                    feedContainer.innerHTML = ''; 
+
+                    activities.forEach(item => {
+                        const html = `
+                            <div class="feed-item" onclick="alert('Go to Project ID: ${item.id}')" style="cursor: pointer;">
+                                <div class="avatar icon" style="background: #e1f5fe; color: #0288d1;">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="feed-text">
+                                    <strong>${item.reviewers ? item.reviewers.join(', ') : 'Team'}</strong> reviewing <br> 
+                                    "${item.title}"
+                                </div>
+                                <span class="time">${item.timestamp}</span>
+                            </div>
+                        `;
+                        feedContainer.innerHTML += html;
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
