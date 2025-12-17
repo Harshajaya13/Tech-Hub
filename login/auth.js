@@ -52,12 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const userData = JSON.parse(storedUserData);
 
+           // In auth.js - Login Logic Section
+           // --- In auth.js (Login Section) ---
+
             if (userData.password === password) {
-                // SAVE SESSION (So we know they are logged in)
-                sessionStorage.setItem('loggedInUser', userData.username);
                 
-                // REDIRECT TO HOME PAGE
-                window.location.href = 'index.html'; 
+                // 1. Create the session object (What we want to show on dashboard)
+                const sessionData = {
+                    username: userData.username,   // e.g. "Harsha"
+                    level: "Level 7 Master"        // You can customize this
+                };
+
+                // 2. SAVE IT -> Key must be 'activeSession'
+                sessionStorage.setItem('activeSession', JSON.stringify(sessionData));
+                
+                alert("Login Successful!");
+
+                // 3. Redirect to Dashboard
+                // If your login file is in a folder (login/login.html), go UP one level:
+                window.location.href = '../index.html'; 
+                
+                // OR if it's in the same folder as index.html:
+                // window.location.href = 'index.html';
             } else {
                 alert("❌ Incorrect password. Please try again.");
             }

@@ -3,23 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phase 1 | Founders Hackathon</title>
+    <title>TalentHub | Discover Hackathons</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="hackathon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* -----------------------------------------------------------------
+           1. CORE & RESET (Apple Light Theme)
+           ----------------------------------------------------------------- */
+        :root {
+            --bg-body: #f5f5f7;
+            --bg-card: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --accent-blue: #0071e3;
+            --radius-lg: 20px;
+            --radius-pill: 100px;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.04);
+            --shadow-hover: 0 12px 30px rgba(0,0,0,0.08);
+            --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-stack); }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 100px;
+        }
+
+        /* -----------------------------------------------------------------
+           2. NAVIGATION
+           ----------------------------------------------------------------- */
+        .apple-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .brand { font-weight: 700; font-size: 1.2rem; color: var(--text-main); text-decoration: none; letter-spacing: -0.02em; }
+        
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .menu { display: flex; gap: 30px; }
+        .menu a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: 0.2s; font-weight: 500; }
+        .menu a:hover { color: var(--text-main); }
+        .menu a.active { color: var(--accent-blue); }
+
+        /* New Avatar Style */
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .user-avatar:hover { transform: scale(1.05); }
+
+
+        /* -----------------------------------------------------------------
+           3. HERO SECTION
+           ----------------------------------------------------------------- */
+        .event-hero {
+            padding-top: 140px;
+            padding-bottom: 60px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-badge {
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--accent-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot { width: 8px; height: 8px; background: var(--accent-blue); border-radius: 50%; animation: pulse 2s infinite; }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #1d1d1f 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; font-weight: 400; }
+
+        @media (max-width: 768px) { .hero-title { font-size: 2.5rem; } }
+
+        /* -----------------------------------------------------------------
+           4. APPLE SEGMENTED CONTROL
+           ----------------------------------------------------------------- */
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            padding: 0 20px;
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+        }
+
+        .ios-segment-control {
+            background: #E6E6EB;
+            padding: 4px;
+            border-radius: var(--radius-pill);
+            display: inline-flex;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .segment-btn {
+            border: none;
+            background: transparent;
+            padding: 10px 24px;
+            border-radius: var(--radius-pill);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.2s ease;
+        }
+
+        .segment-btn.active {
+            color: var(--text-main);
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .segment-btn:hover:not(.active) { color: var(--text-main); }
+
+        /* -----------------------------------------------------------------
+           5. HACKATHON GRID
+           ----------------------------------------------------------------- */
+        .hackathon-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .hack-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.03);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .hack-card:hover { transform: scale(1.02); box-shadow: var(--shadow-hover); }
+
+        .card-image {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .card-content { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+        .college-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hack-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; color: var(--text-main); }
+        .hack-date { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+
+        .platform-badge {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .platform-name { font-size: 0.85rem; color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .platform-icon { color: #f26b21; }
+
+        .btn-apply {
+            background: rgba(0,0,0,0.05);
+            color: var(--text-main);
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn-apply:hover { background: var(--accent-blue); color: white; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+        
+        @media (max-width: 600px) {
+            .ios-segment-control { display: flex; overflow-x: auto; white-space: nowrap; max-width: 100%; -webkit-overflow-scrolling: touch; }
+            .filter-section { justify-content: flex-start; overflow-x: auto; }
+            .nav-right { gap: 15px; } .menu { gap: 15px; }
+        }
+
+    </style>
 </head>
 <body>
 
     <nav class="apple-nav">
         <div class="nav-content">
             <a href="index.html" class="brand">TalentHub</a>
-            <div class="menu">
-                <a href="roadmap.html">Roadmaps</a>
-                <a href="community.html">Community</a>
-                <a href="hackathon.html" class="active">Hackathon</a>
-            </div>
-            <div class="auth">
-                <a href="dashboard.html" class="btn-pill black">My Dashboard</a>
+            <div class="nav-right">
+                <div class="menu">
+                    <a href="#">Roadmaps</a>
+                    <a href="#" class="active">Hackathons</a>
+                </div>
+                <img src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=f5f5f7" alt="User Profile" class="user-avatar">
             </div>
         </div>
     </nav>
@@ -27,84 +274,122 @@
     <main>
         <section class="event-hero">
             <div class="hero-badge">
-                <span class="pulse-dot"></span> LIVE EVENT
+                <span class="pulse-dot"></span> HACKATHON SEASON
             </div>
             
-            <h1 class="hero-title">Build The Future.</h1>
-            <p class="hero-sub">The 15-Day Engineering Sprint. Ship a product, get featured, and earn your place as a Founding Member.</p>
+            <h1 class="hero-title">Code Where It Matters.</h1>
+            <p class="hero-sub">The best engineering sprints happening near you. Selected by TalentHub, hosted on Unstop.</p>
+        </section>
 
-            <div class="timer-container">
-                <div class="glass-panel">
-                    <div class="time-block">
-                        <span class="time-val">14</span>
-                        <span class="time-label">DAYS</span>
-                    </div>
-                    <div class="separator">:</div>
-                    <div class="time-block">
-                        <span class="time-val">23</span>
-                        <span class="time-label">HRS</span>
-                    </div>
-                    <div class="separator">:</div>
-                    <div class="time-block">
-                        <span class="time-val">59</span>
-                        <span class="time-label">MIN</span>
-                    </div>
-                </div>
-                <div class="glow-backdrop"></div>
-            </div>
-
-            <div class="action-area">
-                <button class="btn-primary large" onclick="alert('Registration flow init...')">
-                    Register for Phase 1
-                </button>
-                <div class="spots-left">
-                    <i class="fas fa-user-group"></i> 42 Spots Remaining
-                </div>
+        <section class="filter-section">
+            <div class="ios-segment-control">
+                <button class="segment-btn active" onclick="filterSelection('all', this)">All Colleges</button>
+                <button class="segment-btn" onclick="filterSelection('anits', this)">ANITS</button>
+                <button class="segment-btn" onclick="filterSelection('avanthi', this)">Avanthi</button>
+                <button class="segment-btn" onclick="filterSelection('gitam', this)">GITAM</button>
+                <button class="segment-btn" onclick="filterSelection('gayatri', this)">Gayatri</button>
             </div>
         </section>
 
-        <section class="prizes-section">
-            <div class="section-label">THE STAKES</div>
-            
-            <div class="prize-grid">
-                <div class="prize-card gold">
-                    <div class="card-icon"><i class="fas fa-trophy"></i></div>
-                    <h3>$5,000 Cash Pool</h3>
-                    <p>Direct grants for the top 3 shipping teams. No strings attached.</p>
+        <section class="hackathon-container">
+            <div class="grid-layout" id="hackathonGrid">
+
+                <div class="hack-card" data-location="anits">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hackathon" class="card-image">
+                    <div class="card-content">
+                        <div class="college-tag">ANITS COLLEGE</div>
+                        <h3 class="hack-title">Founders Logic Sprint</h3>
+                        <div class="hack-date">Dec 20 • 24 Hours</div>
+                        <div class="platform-badge">
+                            <span class="platform-name"><i class="fas fa-bolt platform-icon"></i> Unstop</span>
+                            <a href="#" class="btn-apply">View</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="prize-card standard">
-                    <div class="card-icon blue"><i class="fas fa-certificate"></i></div>
-                    <h3>Founding Member Status</h3>
-                    <p>Permanent "Founder" badge on your profile and resume access.</p>
+                <div class="hack-card" data-location="gitam">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hackathon" class="card-image">
+                    <div class="card-content">
+                        <div class="college-tag">GITAM UNIVERSITY</div>
+                        <h3 class="hack-title">Ocean AI Challenge</h3>
+                        <div class="hack-date">Dec 22 • 48 Hours</div>
+                        <div class="platform-badge">
+                            <span class="platform-name"><i class="fas fa-bolt platform-icon"></i> Unstop</span>
+                            <a href="#" class="btn-apply">View</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="prize-card standard">
-                    <div class="card-icon dark"><i class="fas fa-handshake"></i></div>
-                    <h3>Alumni Referrals</h3>
-                    <p>Your code reviewed and sent directly to hiring partners.</p>
+                <div class="hack-card" data-location="avanthi">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hackathon" class="card-image">
+                    <div class="card-content">
+                        <div class="college-tag">AVANTHI COLLEGE</div>
+                        <h3 class="hack-title">Web3 Builders Day</h3>
+                        <div class="hack-date">Dec 28 • 12 Hours</div>
+                        <div class="platform-badge">
+                            <span class="platform-name"><i class="fas fa-bolt platform-icon"></i> Unstop</span>
+                            <a href="#" class="btn-apply">View</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="rules-section">
-            <div class="rule-box">
-                <div class="rule-row">
-                    <div class="check"><i class="fas fa-check"></i></div>
-                    <span>Team Size: 1-4 Members</span>
+                <div class="hack-card" data-location="gayatri">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hackathon" class="card-image">
+                    <div class="card-content">
+                        <div class="college-tag">GAYATRI VIDYA PARISHAD</div>
+                        <h3 class="hack-title">System Design Hack</h3>
+                        <div class="hack-date">Jan 05 • 36 Hours</div>
+                        <div class="platform-badge">
+                            <span class="platform-name"><i class="fas fa-bolt platform-icon"></i> Unstop</span>
+                            <a href="#" class="btn-apply">View</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="rule-row">
-                    <div class="check"><i class="fas fa-check"></i></div>
-                    <span>Tech Stack: Open (Web, AI, Mobile)</span>
+
+                <div class="hack-card" data-location="gitam">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hackathon" class="card-image">
+                    <div class="card-content">
+                        <div class="college-tag">GITAM UNIVERSITY</div>
+                        <h3 class="hack-title">CyberDefense CTF</h3>
+                        <div class="hack-date">Jan 10 • 24 Hours</div>
+                        <div class="platform-badge">
+                            <span class="platform-name"><i class="fas fa-bolt platform-icon"></i> Unstop</span>
+                            <a href="#" class="btn-apply">View</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="rule-row">
-                    <div class="check"><i class="fas fa-check"></i></div>
-                    <span>Deadline: Sunday, 11:59 PM PST</span>
-                </div>
+
             </div>
         </section>
 
     </main>
+
+    <script>
+        function filterSelection(category, btnElement) {
+            var cards = document.getElementsByClassName("hack-card");
+            var btns = document.getElementsByClassName("segment-btn");
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove("active");
+            }
+            btnElement.classList.add("active");
+
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.animation = 'none';
+                cards[i].offsetHeight; /* trigger reflow */
+                cards[i].style.animation = null; 
+
+                if (category == "all") {
+                    cards[i].style.display = "flex";
+                } else {
+                    if (cards[i].getAttribute("data-location") == category) {
+                        cards[i].style.display = "flex";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>

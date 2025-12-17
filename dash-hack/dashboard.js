@@ -139,62 +139,109 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboardAuth();
 });
 
+// --- In dashboard.js ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboardAuth();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboardAuth();
+});
+
 function updateDashboardAuth() {
-    // 1. Check if user is logged in
-    // We assume auth.js saved the user object as a string in 'activeSession'
     const rawSession = sessionStorage.getItem('activeSession');
     const userContainer = document.getElementById('user-container');
     const heroGreeting = document.getElementById('hero-greeting');
 
+    // --- 1. GUEST MODE ---
     if (!rawSession) {
-        // === GUEST MODE ===
-        // The user is NOT logged in. 
-        // We wipe the user card and inject a Login Button using innerHTML.
+        if (heroGreeting) heroGreeting.innerText = "Guest";
         
-        console.log("No user found. Switching to Guest View.");
-
+        // Show Sign In Button in Sidebar
         if (userContainer) {
             userContainer.innerHTML = `
-                <a href="/login/login.html" class="nav-item" style="
-                    background: #0071e3; 
-                    color: white; 
-                    justify-content: center; 
-                    text-align: center;
-                    font-weight: 600;
-                    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
-                ">
+                <a href="/login/login.html" class="nav-item" style="background: #0071e3; color: white; justify-content: center;">
                     <i class="fas fa-sign-in-alt"></i> Sign In
                 </a>
             `;
         }
+        return; // Stop here if guest
+    }
 
-        if (heroGreeting) heroGreeting.innerText = "Guest";
+    // --- 2. LOGGED IN MODE ---
+    const user = JSON.parse(rawSession);
+    
+    // Update Hero Text
+    if (heroGreeting) heroGreeting.innerText = user.username.split(" ")[0];
 
-    } else {
-        // === LOGGED IN MODE ===
-        // The user IS logged in. 
-        // We keep the card, but update the text with their real data.
-        
-        const user = JSON.parse(rawSession); // Turn string back to object
-        console.log("User found:", user.username);
+    // Inject User Card into Sidebar
+    if (userContainer) {
+        userContainer.innerHTML = `
+            <div class="user-card" id="sidebar-user-btn" style="cursor: pointer;">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=${user.username}&backgroundColor=lightblue&radius=50" alt="User">
+                <div class="user-info">
+                    <strong>${user.username}</strong>
+                    <span>${user.level}</span>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+        `;
+    }
 
-        // 1. Update Sidebar Name
-        const sidebarName = document.getElementById('sidebar-name');
-        if (sidebarName) sidebarName.innerText = user.username;
+    // --- 3. CONNECT THE MODAL ---
+    const sidebarBtn = document.getElementById('sidebar-user-btn');
+    const modal = document.getElementById('profile-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const logoutBtn = document.getElementById('logout-btn');
 
-        // 2. Update Sidebar Level
-        const sidebarLevel = document.getElementById('sidebar-level');
-        if (sidebarLevel) sidebarLevel.innerText = user.level || "Level 1 Rookie";
+    // A. OPEN MODAL (Click Sidebar Card)
+    if (sidebarBtn && modal) {
+        sidebarBtn.addEventListener('click', () => {
+            // Update Modal Text dynamically before showing it
+            const modalName = modal.querySelector('h2');
+            const modalLevel = modal.querySelector('p');
+            const modalImg = modal.querySelector('img');
 
-        // 3. Update Hero Text (Good Morning, Harsha)
-        if (heroGreeting) heroGreeting.innerText = user.username.split(" ")[0]; // First name only
+            if(modalName) modalName.innerText = user.username;
+            if(modalLevel) modalLevel.innerText = user.level;
+            if(modalImg) modalImg.src = `https://api.dicebear.com/7.x/notionists/svg?seed=${user.username}&backgroundColor=lightblue&radius=50`;
 
-        // 4. (Optional) Re-attach the click event for the modal since the element exists
-        const userBtn = document.getElementById('sidebar-user-btn');
-        if (userBtn) {
-            userBtn.addEventListener('click', () => {
-                document.getElementById('profile-modal').classList.add('active');
-            });
+            // Show the modal (Add your CSS class for visible, e.g., 'active')
+            modal.classList.add('active'); 
+            modal.style.display = 'flex'; // Ensure it's visible if you use display:none
+        });
+    }
+
+    // B. CLOSE MODAL (Click X button)
+    if (closeModalBtn && modal) {
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+        });
+    }
+
+    // C. CLOSE MODAL (Click Outside)
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
         }
+    });
+
+    // D. LOGOUT LOGIC
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            const confirmLogout = confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                // 1. Clear Session
+                sessionStorage.removeItem('activeSession');
+                
+                // 2. Refresh Page (will load as Guest)
+                window.location.reload(); 
+                
+                // OR Redirect to Login:
+                // window.location.href = 'login/login.html';
+            }
+        });
     }
 }
