@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AI Chatbot for Rural Healthcare",
             stats: { code: "Top 15%", activity: "High" },
             links: { linkedin: "#", github: "#" }
-        },
+        }, 
         {
             user: "Sneha R.",
             college: "Gitam Univ",

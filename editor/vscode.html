@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Arena | Pro Environment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* --- ANIMATION PHYSICS --- */
+            --ease: cubic-bezier(0.16, 1, 0.3, 1); /* "Snappy" Pro feel */
+            --speed: 0.5s;
+
+            /* --- DARK MODE (Default) --- */
+            --bg-main: #050505;
+            --bg-panel: rgba(20, 20, 20, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent: #3b82f6; /* Electric Blue */
+            --accent-glow: rgba(59, 130, 246, 0.15);
+            --editor-bg: #0a0a0a;
+            
+            /* Syntax Colors (Dark) */
+            --syntax-kwd: #c678dd;
+            --syntax-func: #61afef;
+            --syntax-str: #98c379;
+        }
+
+        [data-theme="light"] {
+            /* --- LIGHT MODE --- */
+            --bg-main: #ffffff;
+            --bg-panel: rgba(245, 245, 247, 0.8);
+            --border: rgba(0, 0, 0, 0.06);
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent: #000000; /* Stark Black for high contrast */
+            --accent-glow: rgba(0, 0, 0, 0.05);
+            --editor-bg: #fbfbfb;
+
+            /* Syntax Colors (Light) */
+            --syntax-kwd: #d0006e;
+            --syntax-func: #005cc5;
+            --syntax-str: #22863a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: background var(--speed) var(--ease), color var(--speed) var(--ease);
+        }
+
+        /* --- THE HEADER (Your Brand Identity) --- */
+        .navbar {
+            height: 60px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            background: var(--bg-main); /* Solid background for header */
+            z-index: 10;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand i { color: var(--accent); }
+
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+
+        /* THE TOGGLE BUTTON (Minimalist) */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .theme-toggle:hover { color: var(--text-main); border-color: var(--text-muted); }
+
+        .btn-primary {
+            background: var(--accent);
+          /*  color: [data-theme="light"] ? #fff : #fff; /* Always white text if blue, adjust for black accent */
+            color: white; 
+            border: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--accent-glow);
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); }
+
+        /* --- MAIN LAYOUT --- */
+        .workspace {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        /* --- SIDEBAR (Frosted Glass) --- */
+        .sidebar {
+            width: 300px;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            transition: all var(--speed) var(--ease);
+        }
+
+        .quest-card {
+            background: var(--accent-glow);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .quest-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; }
+        .quest-title { font-size: 16px; font-weight: 600; margin: 8px 0; }
+        .quest-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+        /* Steps List */
+        .step-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .step-num { 
+            font-family: 'JetBrains Mono'; 
+            font-size: 12px; 
+            color: var(--accent); 
+            background: var(--accent-glow); 
+            width: 20px; height: 20px; 
+            display: flex; align-items: center; justify-content: center; 
+            border-radius: 4px;
+        }
+
+        /* --- EDITOR AREA --- */
+        .editor-container {
+            flex: 1;
+            background: var(--editor-bg);
+            display: flex;
+            flex-direction: column;
+            transition: background var(--speed) var(--ease);
+        }
+
+        .editor-header {
+            height: 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .file-tab {
+            color: var(--text-main);
+            border-bottom: 2px solid var(--accent);
+            padding: 10px 0;
+            margin-right: 20px;
+        }
+
+        .code-canvas {
+            flex: 1;
+            padding: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+            outline: none;
+            overflow: auto;
+            white-space: pre;
+            border: none;
+        }
+
+        /* Syntax Highlight Transition */
+        .kwd { color: var(--syntax-kwd); transition: color var(--speed); }
+        .func { color: var(--syntax-func); transition: color var(--speed); }
+        .str { color: var(--syntax-str); transition: color var(--speed); }
+
+
+        /* Add a subtle grid background to the body for depth */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Better Scrollbars for the "Pro" look */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand">
+            <i class="fas fa-cube"></i>
+            <span>THE ARENA</span>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="btn-primary">Submit Solution</button>
+        </div>
+    </nav>
+
+    <div class="workspace">
+        
+        <aside class="sidebar">
+            <div class="quest-card">
+                <div class="quest-label">Current Task</div>
+                <div class="quest-title">Fix the Navigation</div>
+                <div class="quest-desc">The mobile menu isn't opening when triggered. Debug the event listener logic.</div>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <div class="quest-label" style="margin-bottom: 15px;">OBJECTIVES</div>
+                
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <span>Locate the `hamburger` ID</span>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <span>Attach 'click' listener</span>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <span>Verify console output</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="editor-container">
+            <div class="editor-header">
+                <div class="file-tab">app.js</div>
+                <div>styles.css</div>
+            </div>
+
+            <div class="code-canvas" contenteditable="true" spellcheck="false">
+<span class="kwd">const</span> hamburger = document.<span class="func">getElementById</span>(<span class="str">'hamburger'</span>);
+<span class="kwd">const</span> menu = document.<span class="func">querySelector</span>(<span class="str">'.mobile-menu'</span>);
+
+<span class="kwd">function</span> <span class="func">toggleMenu</span>() {
+    <span class="comment">// TODO: Add logic here</span>
+    console.<span class="func">log</span>(<span class="str">"Menu clicked"</span>);
+    menu.classList.<span class="func">toggle</span>(<span class="str">'active'</span>);
+}
+
+<span class="comment">// Error: Event listener is missing!</span>
+</div>
+        </main>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const icon = btn.querySelector('i');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-moon';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -18,7 +18,7 @@ body {
     background-color: var(--bg-body);
     color: var(--text-primary);
     padding-top: 80px; /* Space for fixed header */
-}
+} 
 
 /* ----------------------------------
    GLASS HEADER
