@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub | Hall of Fame</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #000;
+            --glass-panel: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #86868b;
+            --accent-gold: #FFD700;
+            --accent-silver: #C0C0C0;
+            --accent-bronze: #CD7F32;
+            --blur: 40px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            /* Apple-style Mesh Gradient Background */
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+            padding: 40px 20px;
+        }
+
+        /* --- TITLE SECTION --- */
+        .header-content {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .header-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0;
+            background: linear-gradient(180deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-content p { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; }
+
+        /* --- THE GRID --- */
+        .leaderboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- THE CARD (Apple Style) --- */
+        .glass-card {
+            background: var(--glass-panel);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* RANK BADGE */
+        .rank-number {
+            font-size: 4rem;
+            font-weight: 800;
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            opacity: 0.1;
+            z-index: 0;
+            font-feature-settings: "tnum";
+            color: white;
+        }
+
+        /* USER INFO */
+        .user-head {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .avatar-ring {
+            padding: 3px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Special Borders for Top 3 */
+        .rank-1 .avatar-ring { background: linear-gradient(135deg, #FFD700, #FDB931); box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .rank-2 .avatar-ring { background: linear-gradient(135deg, #E0E0E0, #B0B0B0); }
+        .rank-3 .avatar-ring { background: linear-gradient(135deg, #CD7F32, #A0522D); }
+
+        .name-role h3 { margin: 0; font-size: 1.2rem; font-weight: 700; }
+        .name-role p { margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.85rem; }
+
+        /* XP BAR (Gamification) */
+        .xp-container {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .xp-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+        .progress-track {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #30cfd0 0%, #330867 100%);
+            border-radius: 10px;
+        }
+
+        /* PROJECTS (Proof of Work) */
+        .project-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .badge {
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #ddd;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .badge.highlight { background: rgba(10, 132, 255, 0.15); border-color: rgba(10, 132, 255, 0.3); color: #4facfe; }
+
+        /* FOOTER ACTIONS */
+        .card-actions {
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+        .btn-github:hover { opacity: 0.9; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-content">
+        <h1>The Arena</h1>
+        <p>Top Performers ranked by code shipped.</p>
+    </div>
+
+    <div class="leaderboard-grid">
+
+        <div class="glass-card rank-1">
+            <div class="rank-number">1</div>
+            <div class="user-head">
+                <div class="avatar-ring">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="avatar" alt="User">
+                </div>
+                <div class="name-role">
+                    <h3>DevWizard</h3>
+                    <p>React Architect</p>
+                </div>
+            </div>
+
+            <div class="xp-container">
+                <div class="xp-header">
+                    <span>Level 42</span>
+                    <span style="color: var(--accent-gold);">50,200 XP</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 92%; background: var(--accent-gold);"></div>
+                </div>
+            </div>
+
+            <div class="project-list">
+                <div class="badge highlight"><i class="fas fa-trophy"></i> Netflix Clone</div>
+                <div class="badge highlight"><i class="fas fa-check"></i> API System</div>
+                <div class="badge"><i class="fas fa-code"></i> 240 Commits</div>
+            </div>
+
+            <div class="card-actions">
+                <a href="#" class="btn-github"><i class="fab fa-github"></i> View Source</a>
+            </div>
+        </div>
+
+        <div class="glass-card rank-2">
+            <div class="rank-number">2</div>
+            <div class="user-head">
+                <div class="avatar-ring">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Annie" class="avatar" alt="User">
+                </div>
+                <div class="name-role">
+                    <h3>Sarah Codes</h3>
+                    <p>UI Specialist</p>
+                </div>
+            </div>
+
+            <div class="xp-container">
+                <div class="xp-header">
+                    <span>Level 38</span>
+                    <span style="color: var(--accent-silver);">41,000 XP</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 80%; background: var(--accent-silver);"></div>
+                </div>
+            </div>
+
+            <div class="project-list">
+                <div class="badge highlight"><i class="fas fa-trophy"></i> Dashboard UI</div>
+                <div class="badge"><i class="fas fa-code"></i> 180 Commits</div>
+            </div>
+
+            <div class="card-actions">
+                <a href="#" class="btn-github"><i class="fab fa-github"></i> View Source</a>
+            </div>
+        </div>
+
+        <div class="glass-card rank-3">
+            <div class="rank-number">3</div>
+            <div class="user-head">
+                <div class="avatar-ring">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jack" class="avatar" alt="User">
+                </div>
+                <div class="name-role">
+                    <h3>Python_King</h3>
+                    <p>Backend Dev</p>
+                </div>
+            </div>
+
+            <div class="xp-container">
+                <div class="xp-header">
+                    <span>Level 30</span>
+                    <span style="color: var(--accent-bronze);">32,500 XP</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 65%; background: var(--accent-bronze);"></div>
+                </div>
+            </div>
+
+            <div class="project-list">
+                <div class="badge highlight"><i class="fas fa-trophy"></i> Bot Logic</div>
+                <div class="badge"><i class="fas fa-code"></i> 120 Commits</div>
+            </div>
+
+            <div class="card-actions">
+                <a href="#" class="btn-github"><i class="fab fa-github"></i> View Source</a>
+            </div>
+        </div>
+        
+        <div class="glass-card">
+            <div class="rank-number">4</div>
+            <div class="user-head">
+                <div class="avatar-ring">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" class="avatar" alt="User">
+                </div>
+                <div class="name-role">
+                    <h3>Newbie_Dev</h3>
+                    <p>Learning JS</p>
+                </div>
+            </div>
+
+            <div class="xp-container">
+                <div class="xp-header">
+                    <span>Level 12</span>
+                    <span>12,000 XP</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 30%;"></div>
+                </div>
+            </div>
+
+            <div class="project-list">
+                <div class="badge"><i class="fas fa-spinner"></i> Building Portfolio</div>
+            </div>
+
+            <div class="card-actions">
+                <a href="#" class="btn-github"><i class="fab fa-github"></i> View Source</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
